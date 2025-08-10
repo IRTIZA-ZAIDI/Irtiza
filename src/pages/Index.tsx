@@ -22,24 +22,22 @@ const Index = () => {
       <section className="pt-20 pb-16 relative overflow-hidden">
         {/* Background Art */}
         <div className="absolute inset-0 opacity-10">
-          <img 
-            src={heroArt} 
-            alt="Abstract geometric background" 
-            className="w-full h-full object-cover"
-          />
         </div>
         <div className="content-container relative z-10">
           <ScrollAnimation direction="fade">
             <div className="max-w-2xl">
             <h1 className="font-sans text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-              Alex Chen
+              Irtiza
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-sans font-light leading-relaxed">
-              Data Scientist, Machine Learning Researcher, and Writer on AI & Society
+              Data Scientist
             </p>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              I build intelligent systems that solve real-world problems and write about the intersection of technology and human experience. Currently exploring the frontiers of machine learning at the intersection of research and production.
+              This is my space for experiments, notes, and reflections on turning data into understanding.
+              I share projects I have built, problems I have solved, and questions I am still exploring.
             </p>
+
+
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -50,7 +48,7 @@ const Index = () => {
                 </a>
               </Button>
               <Button variant="outline" asChild className="font-sans">
-                <a href="/blog">Read My Blog</a>
+                <a href="/blog">Read My Blogs</a>
               </Button>
             </div>
 
@@ -75,11 +73,6 @@ const Index = () => {
       <section className="py-16 bg-muted/30 relative">
         {/* Decorative Art */}
         <div className="absolute right-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block">
-          <img 
-            src={abstractArt1} 
-            alt="Abstract art decoration" 
-            className="w-96 h-96 object-cover"
-          />
         </div>
         <div className="content-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>
@@ -111,11 +104,6 @@ const Index = () => {
       <section className="py-16 relative">
         {/* Decorative Art */}
         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block">
-          <img 
-            src={abstractArt2} 
-            alt="Abstract art decoration" 
-            className="w-80 h-80 object-cover"
-          />
         </div>
         <div className="content-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>

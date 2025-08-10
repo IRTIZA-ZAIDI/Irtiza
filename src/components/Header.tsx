@@ -20,7 +20,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo/Name */}
           <a href="/" className="font-sans font-semibold text-lg text-foreground hover:text-accent transition-colors">
-            Alex Chen
+            Irtiza
           </a>
 
           {/* Desktop Navigation */}

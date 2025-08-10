@@ -17,8 +17,7 @@ const Blog = () => {
               Blog
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-              Thoughts on machine learning, data science, and the intersection of AI with society. 
-              Writing about technical challenges, lessons learned, and the future of intelligent systems.
+              Notes and narratives from the front lines of AI, focusing on building models, solving data challenges, and thinking about the systems that will define tomorrow.
             </p>
             </div>
           </ScrollAnimation>
