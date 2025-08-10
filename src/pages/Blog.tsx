@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import BlogCard from "@/components/BlogCard";
+import ScrollAnimation from "@/components/ScrollAnimation";
 import { blogPosts } from "@/data/blog-posts";
 
 const Blog = () => {
@@ -10,7 +11,8 @@ const Blog = () => {
       <main className="pt-20 pb-16">
         <div className="content-container">
           {/* Header */}
-          <div className="mb-16 fade-in">
+          <ScrollAnimation direction="fade">
+            <div className="mb-16">
             <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-6">
               Blog
             </h1>
@@ -18,10 +20,12 @@ const Blog = () => {
               Thoughts on machine learning, data science, and the intersection of AI with society. 
               Writing about technical challenges, lessons learned, and the future of intelligent systems.
             </p>
-          </div>
+            </div>
+          </ScrollAnimation>
 
           {/* Blog Posts */}
-          <div className="space-y-16 slide-in-up">
+          <ScrollAnimation direction="up" delay={0.3}>
+            <div className="space-y-16">
             {blogPosts.map((post) => (
               <BlogCard
                 key={post.id}
@@ -32,7 +36,8 @@ const Blog = () => {
                 slug={post.slug}
               />
             ))}
-          </div>
+            </div>
+          </ScrollAnimation>
         </div>
       </main>
     </div>

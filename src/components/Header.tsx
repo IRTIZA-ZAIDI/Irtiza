@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,6 +34,7 @@ const Header = () => {
                 {item.label}
               </a>
             ))}
+            <ThemeToggle />
           </nav>
 
           {/* Mobile Menu Toggle */}

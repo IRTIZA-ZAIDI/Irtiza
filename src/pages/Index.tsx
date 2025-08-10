@@ -1,10 +1,14 @@
 import Header from "@/components/Header";
 import BlogCard from "@/components/BlogCard";
 import ProjectCard from "@/components/ProjectCard";
+import ScrollAnimation from "@/components/ScrollAnimation";
 import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/data/blog-posts";
 import { projects } from "@/data/projects";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import heroArt from "@/assets/hero-art.jpg";
+import abstractArt1 from "@/assets/abstract-art-1.jpg";
+import abstractArt2 from "@/assets/abstract-art-2.jpg";
 
 const Index = () => {
   const featuredPosts = blogPosts.filter(post => post.featured).slice(0, 2);
@@ -15,9 +19,18 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-20 pb-16">
-        <div className="content-container">
-          <div className="max-w-2xl fade-in">
+      <section className="pt-20 pb-16 relative overflow-hidden">
+        {/* Background Art */}
+        <div className="absolute inset-0 opacity-10">
+          <img 
+            src={heroArt} 
+            alt="Abstract geometric background" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="content-container relative z-10">
+          <ScrollAnimation direction="fade">
+            <div className="max-w-2xl">
             <h1 className="font-sans text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
               Alex Chen
             </h1>
@@ -54,13 +67,22 @@ const Index = () => {
               </a>
             </div>
           </div>
+          </ScrollAnimation>
         </div>
       </section>
 
       {/* Featured Blog Posts */}
-      <section className="py-16 bg-muted/30">
-        <div className="content-container">
-          <div className="slide-in-up">
+      <section className="py-16 bg-muted/30 relative">
+        {/* Decorative Art */}
+        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block">
+          <img 
+            src={abstractArt1} 
+            alt="Abstract art decoration" 
+            className="w-96 h-96 object-cover"
+          />
+        </div>
+        <div className="content-container relative z-10">
+          <ScrollAnimation direction="up" delay={0.2}>
             <div className="flex items-center justify-between mb-12">
               <h2 className="font-sans text-3xl font-semibold text-foreground">Recent Thoughts</h2>
               <a href="/blog" className="btn-minimal font-sans">
@@ -81,14 +103,22 @@ const Index = () => {
                 />
               ))}
             </div>
-          </div>
+          </ScrollAnimation>
         </div>
       </section>
 
       {/* Featured Projects */}
-      <section className="py-16">
-        <div className="content-container">
-          <div className="slide-in-up">
+      <section className="py-16 relative">
+        {/* Decorative Art */}
+        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block">
+          <img 
+            src={abstractArt2} 
+            alt="Abstract art decoration" 
+            className="w-80 h-80 object-cover"
+          />
+        </div>
+        <div className="content-container relative z-10">
+          <ScrollAnimation direction="up" delay={0.2}>
             <div className="flex items-center justify-between mb-12">
               <h2 className="font-sans text-3xl font-semibold text-foreground">Featured Work</h2>
               <a href="/portfolio" className="btn-minimal font-sans">
@@ -110,14 +140,14 @@ const Index = () => {
                 />
               ))}
             </div>
-          </div>
+          </ScrollAnimation>
         </div>
       </section>
 
       {/* Latest Updates */}
       <section className="py-16 bg-muted/30">
         <div className="narrow-container text-center">
-          <div className="slide-in-up">
+          <ScrollAnimation direction="up" delay={0.3}>
             <h2 className="font-sans text-2xl font-semibold text-foreground mb-6">Currently</h2>
             <div className="space-y-4 text-muted-foreground">
               <p className="leading-relaxed">
@@ -134,7 +164,7 @@ const Index = () => {
                 <a href="/contact">Get in Touch</a>
               </Button>
             </div>
-          </div>
+          </ScrollAnimation>
         </div>
       </section>
     </div>

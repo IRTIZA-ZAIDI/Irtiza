@@ -56,8 +56,9 @@ export default {
 				}
 			},
 			fontFamily: {
-				sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-				serif: ['Merriweather', 'Georgia', 'Times New Roman', 'serif'],
+				sans: ['Instrument Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				serif: ['Playfair Display', 'Georgia', 'Times New Roman', 'serif'],
+				mono: ['JetBrains Mono', 'Fira Code', 'ui-monospace', 'monospace'],
 			},
 			maxWidth: {
 				'content': 'var(--content-width)',
