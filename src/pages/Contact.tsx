@@ -42,8 +42,7 @@ const Contact = () => {
               Contact
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Let's discuss machine learning, AI ethics, or potential collaborations. 
-              I'm always interested in meaningful conversations.
+              Always open to discussions on AI interpretability, LLM fine-tuning, and impactful ML solutions.
             </p>
           </div>
 
@@ -139,7 +138,7 @@ const Contact = () => {
                       href="mailto:hello@alexchen.dev" 
                       className="text-accent hover:text-accent-warm transition-colors"
                     >
-                      hello@alexchen.dev
+                      zirtiza110@gmail.com
                     </a>
                     <p className="text-sm text-muted-foreground mt-1">
                       Best for detailed discussions and project inquiries
@@ -155,12 +154,12 @@ const Contact = () => {
                   <div>
                     <h3 className="font-sans font-medium text-foreground mb-1">LinkedIn</h3>
                     <a 
-                      href="https://linkedin.com/in/alexchen" 
+                      href="https://www.linkedin.com/in/zirtiza/" 
                       className="text-accent hover:text-accent-warm transition-colors"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      @alexchen
+                      @zirtiza
                     </a>
                     <p className="text-sm text-muted-foreground mt-1">
                       Professional networking and career discussions
@@ -176,12 +175,12 @@ const Contact = () => {
                   <div>
                     <h3 className="font-sans font-medium text-foreground mb-1">GitHub</h3>
                     <a 
-                      href="https://github.com/alexchen" 
+                      href="https://github.com/IRTIZA-ZAIDI" 
                       className="text-accent hover:text-accent-warm transition-colors"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      @alexchen
+                      @IRTIZA-ZAIDI
                     </a>
                     <p className="text-sm text-muted-foreground mt-1">
                       Check out my open source projects and contributions
@@ -189,7 +188,7 @@ const Contact = () => {
                   </div>
                 </div>
 
-                {/* Twitter */}
+                {/* Twitter
                 <div className="flex items-start space-x-4">
                   <div className="p-2 bg-accent/10 rounded-lg">
                     <Twitter className="h-5 w-5 text-accent" />
@@ -208,7 +207,7 @@ const Contact = () => {
                       Quick thoughts on ML, AI, and tech
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               {/* Response Time */}

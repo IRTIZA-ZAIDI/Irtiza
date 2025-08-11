@@ -22,18 +22,18 @@ const About = () => {
               {/* Introduction */}
               <div className="mb-12">
                 <h2 className="font-sans text-2xl font-semibold text-foreground mb-6">
-                  Hi, I'm Alex Chen
+                  Hi, I'm Irtiza Zaidi
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  I'm a data scientist and machine learning researcher passionate about building 
-                  intelligent systems that solve real-world problems. With over 5 years of experience 
-                  in the field, I've worked on everything from recommendation engines serving millions 
-                  of users to fraud detection systems protecting financial transactions.
+                  I’m a data scientist who spends a suspicious amount of time convincing large language models to behave nicely. 
+                  My happy place lies at the intersection of fine-tuning and model interpretability, where I transform AI into intelligent, transparent systems. With hands-on experience in LLM fine-tuning, MLOps best practices, and applied ML research. 
+                  I thrive in bridging machine learning engineering with explainability to create impactful, trustworthy solutions.
                 </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Currently, I'm focused on the intersection of machine learning research and production 
-                  systems, exploring how to make AI more reliable, interpretable, and beneficial for society.
-                </p>
+                {/* <p className="text-lg text-muted-foreground leading-relaxed">
+                  My recent work involves fine-tuning large language models for schema-aware
+                  tabular classification, optimizing models for efficiency, and applying
+                  explainable AI techniques to enhance model trustworthiness and performance.
+                </p> */}
               </div>
 
               {/* Background */}
@@ -44,29 +44,39 @@ const About = () => {
                 <div className="space-y-6">
                   <div>
                     <h4 className="font-sans font-medium text-foreground mb-2">
-                      Senior Data Scientist @ TechFlow Inc. (2022-Present)
+                      Data Scientist @ Securiti.ai (Jun 2025 – Present)
                     </h4>
                     <p className="text-muted-foreground leading-relaxed">
-                      Leading ML initiatives for personalization and recommendation systems. 
-                      Built and deployed models serving 2M+ users, improving engagement by 35%.
+                      Engineered synthetic data pipelines, fine-tuned LLaMA 1B Instruct for column classification
+                      with 96% F1, and implemented schema-constrained generation using Outlines and Formatron fallbacks.
+                      Applied MLflow for experiment tracking and reproducibility.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-sans font-medium text-foreground mb-2">
-                      ML Engineer @ FinSecure (2020-2022)
+                      Data Science Intern @ Securiti.ai (Jun 2024 – Aug 2024)
                     </h4>
                     <p className="text-muted-foreground leading-relaxed">
-                      Developed real-time fraud detection systems processing $100M+ monthly transactions.
-                      Reduced false positives by 60% while maintaining 99.5% detection accuracy.
+                      Fine-tuned open-source models (Mistral, LoRA/QLoRA), optimized detection models to achieve 90% precision 
+                      with reduced compute, and applied SHAP to improve interpretability.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-sans font-medium text-foreground mb-2">
-                      Data Scientist @ StartupLab (2019-2020)
+                      Data Science Intern @ 10Pearls (Sep 2024 – Nov 2024)
                     </h4>
                     <p className="text-muted-foreground leading-relaxed">
-                      Built NLP systems for sentiment analysis and content moderation across 12 languages.
-                      Created data pipelines processing 500K+ social media posts daily.
+                      Built a classifier with 96% accuracy. Developed a PostgreSQL-integrated NLP tool using Ollama, 
+                      and enabled natural language querying and summarization (functional tooling).
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-sans font-medium text-foreground mb-2">
+                      Business Intelligence Intern @ Bank Al Habib (Jun 2023 – Jul 2023)
+                    </h4>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Applied clustering algorithms to customer data, automated ETL processes, and implemented RFM analysis
+                      to support targeted engagement.
                     </p>
                   </div>
                 </div>
@@ -80,19 +90,10 @@ const About = () => {
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-sans font-medium text-foreground mb-2">
-                      M.S. Computer Science, Stanford University (2019)
+                      B.S. Computer Science, Institute of Business Administration (2021–2025)
                     </h4>
                     <p className="text-muted-foreground">
-                      Specialization in Machine Learning and AI. Thesis on "Interpretable Deep Learning 
-                      for High-Stakes Decision Making."
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-sans font-medium text-foreground mb-2">
-                      B.S. Mathematics & Computer Science, UC Berkeley (2017)
-                    </h4>
-                    <p className="text-muted-foreground">
-                      Summa Cum Laude. Research in statistical machine learning and optimization.
+                      CGPA: 3.63 (Dean’s List). Coursework in ML, NLP, data science, and software engineering.
                     </p>
                   </div>
                 </div>
@@ -107,19 +108,19 @@ const About = () => {
                   <div>
                     <h4 className="font-sans font-medium text-foreground mb-3">Languages</h4>
                     <p className="text-muted-foreground text-sm">
-                      Python, SQL, R, Scala, JavaScript
+                      Python, Java, JavaScript
                     </p>
                   </div>
                   <div>
                     <h4 className="font-sans font-medium text-foreground mb-3">ML/AI</h4>
                     <p className="text-muted-foreground text-sm">
-                      TensorFlow, PyTorch, scikit-learn, XGBoost, Transformers
+                      PyTorch, TensorFlow, Scikit-Learn, Transformers, LangChain
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-sans font-medium text-foreground mb-3">Infrastructure</h4>
+                    <h4 className="font-sans font-medium text-foreground mb-3">MLOps & Tools</h4>
                     <p className="text-muted-foreground text-sm">
-                      Docker, Kubernetes, AWS, Apache Spark, Kafka
+                      MLflow, Weights & Biases, Hugging Face, TensorBoard
                     </p>
                   </div>
                 </div>
@@ -132,16 +133,13 @@ const About = () => {
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p className="leading-relaxed">
-                    <strong className="text-foreground">Reading:</strong> "Weapons of Math Destruction" by Cathy O'Neil, 
-                    "The Alignment Problem" by Brian Christian
+                    <strong className="text-foreground">Reading:</strong> Research papers on AI alignment and book Reinforcement Learning from Human Feedback by Nathan Lambert.
                   </p>
                   <p className="leading-relaxed">
-                    <strong className="text-foreground">Learning:</strong> Reinforcement learning for recommendation systems, 
-                    federated learning techniques, AI safety and alignment
+                    <strong className="text-foreground">Learning:</strong> Reinforcement learning, interpretability techniques, and performance optimization techniques.
                   </p>
                   <p className="leading-relaxed">
-                    <strong className="text-foreground">Building:</strong> Open source tools for ML model interpretability, 
-                    writing about AI ethics and society
+                    <strong className="text-foreground">Building:</strong> Nothing yet :(
                   </p>
                 </div>
               </div>
@@ -152,8 +150,7 @@ const About = () => {
                   Let's Connect
                 </h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  I'm always interested in discussing machine learning, AI ethics, and building 
-                  systems that make a positive impact. Feel free to reach out!
+                  Always open to discussions on AI interpretability, LLM fine-tuning, and impactful ML solutions.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
@@ -169,13 +166,13 @@ const About = () => {
                 </div>
 
                 <div className="flex items-center justify-center space-x-6">
-                  <a href="mailto:hello@alexchen.dev" className="text-muted-foreground hover:text-accent transition-colors">
+                  <a href="mailto:zirtiza110@gmail.com" className="text-muted-foreground hover:text-accent transition-colors">
                     <Mail className="h-5 w-5" />
                   </a>
-                  <a href="https://linkedin.com/in/alexchen" className="text-muted-foreground hover:text-accent transition-colors">
+                  <a href="https://www.linkedin.com/in/zirtiza/" className="text-muted-foreground hover:text-accent transition-colors">
                     <Linkedin className="h-5 w-5" />
                   </a>
-                  <a href="https://github.com/alexchen" className="text-muted-foreground hover:text-accent transition-colors">
+                  <a href="https://github.com/IRTIZA-ZAIDI" className="text-muted-foreground hover:text-accent transition-colors">
                     <Github className="h-5 w-5" />
                   </a>
                 </div>
@@ -187,5 +184,6 @@ const About = () => {
     </div>
   );
 };
+
 
 export default About;
