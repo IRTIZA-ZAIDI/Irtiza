@@ -139,11 +139,10 @@ const Index = () => {
             <h2 className="font-sans text-2xl font-semibold text-foreground mb-6">Currently</h2>
             <div className="space-y-4 text-muted-foreground">
               <p className="leading-relaxed">
-                Building recommendation systems at scale • Writing about ML in production • 
-                Reading "Weapons of Math Destruction" by Cathy O'Neil
+                Convincing LLMs to behave in production and making models spill their secrets with interpretability tools
               </p>
               <p className="leading-relaxed">
-                Always open to interesting conversations about AI, ethics, and the future of work.
+                Always open to discussions on AI interpretability, LLM fine-tuning, and impactful ML solutions.
               </p>
             </div>
             
