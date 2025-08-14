@@ -78,7 +78,7 @@ const TableOfContents = ({ content }: TableOfContentsProps) => {
             key={id}
             onClick={() => scrollToHeading(id)}
             className={`
-              block w-full text-left text-sm transition-colors duration-200 hover:text-accent
+              font-sans block w-full text-left text-sm transition-colors duration-200 hover:text-accent
               ${level === 1 ? "font-medium" : level === 2 ? "ml-4 font-normal" : "ml-8 text-muted-foreground"}
               ${activeId === id ? "text-accent font-medium" : "text-muted-foreground"}
             `}

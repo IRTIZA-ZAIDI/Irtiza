@@ -93,17 +93,17 @@ const BlogPost = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main className="pt-20 pl-0 pb-16 flex gap-8">
-    {/* TOC column - always visible & sticky */}
-    <div className="hidden lg:flex w-64 flex-shrink-0 relative h-screen border-r border-border">
-      <div className="sticky w-full pt-8 px-4">
-        <TableOfContents content={post.content} />
-      </div>
-    </div>
+      <main className="pt-10 pb-16 flex gap-8">
+        {/* TOC column - always visible & sticky */}
+        <div className="hidden lg:flex w-64 flex-shrink-0 relative h-screen">
+          <div className="sticky max-h-[calc(100vh-5rem)] px-4 pt-8 bg-card rounded-2xl border border-grey">
+            <TableOfContents content={post.content} />
+          </div>
+        </div>
 
-    {/* Blog content - centered */}
-    <div className="flex-1 items-start justify-center">
-      <div className="max-w-4xl w-full px-4">
+        {/* Blog content - centered */}
+        <div className="flex-1 items-start justify-center overflow-y-auto h-screen px-4">
+          <div className="max-w-4xl w-full px-4">
             {/* TOC toggle button - only shows when closed */}
             {!tocOpen && (
               <button
@@ -113,70 +113,72 @@ const BlogPost = () => {
                 Open TOC
               </button>
             )}
-            {/* Header */}
-            <ScrollAnimation direction="fade">
-              <div className="wide-container">
-                <div className="max-w-4xl">
-                  <Link
-                    to="/blog"
-                    className="inline-flex items-center text-muted-foreground hover:text-accent transition-colors mb-8"
-                  >
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Blog
-                  </Link>
+            <div className="bg-card rounded-2xl border border-grey p-8">
+              {/* Header */}
+              <ScrollAnimation direction="fade">
+                <div className="wide-container">
+                  <div className="max-w-4xl">
+                    <Link
+                      to="/blog"
+                      className="inline-flex items-center text-muted-foreground hover:text-accent transition-colors mb-8"
+                    >
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      Back to Blog
+                    </Link>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="mb-12"
-                  >
-                    <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-6">
-                      {post.title}
-                    </h1>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6 }}
+                      className="mb-12"
+                    >
+                      <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-6">
+                        {post.title}
+                      </h1>
 
-                    <div className="flex items-center gap-6 text-muted-foreground mb-6">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        <span>
-                          {new Date(post.date).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
-                        </span>
+                      <div className="flex items-center gap-6 text-muted-foreground mb-6">
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4" />
+                          <span>
+                            {new Date(post.date).toLocaleDateString("en-US", {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            })}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Clock className="w-4 h-4" />
+                          <span>{post.readTime}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        <span>{post.readTime}</span>
-                      </div>
-                    </div>
 
-                    <p className="text-xl text-muted-foreground leading-relaxed">
-                      {post.excerpt}
-                    </p>
-                  </motion.div>
+                      <p className="text-xl text-muted-foreground leading-relaxed">
+                        {post.excerpt}
+                      </p>
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
-            </ScrollAnimation>
+              </ScrollAnimation>
 
-            <div className="wide-container">
-              <div className="max-w-7xl grid grid-cols-1 lg:grid-cols-4 gap-12">
-                {/* Article Content */}
-                <ScrollAnimation
-                  direction="up"
-                  delay={0.3}
-                  className="lg:col-span-4"
-                >
-                  <article className="max-w-none">
-                    <div
-                      className="prose prose-lg max-w-none"
-                      dangerouslySetInnerHTML={{
-                        __html: processContent(post.content),
-                      }}
-                    />
-                  </article>
-                </ScrollAnimation>
+              <div className="wide-container">
+                <div className="max-w-7xl grid grid-cols-1 lg:grid-cols-4 gap-12">
+                  {/* Article Content */}
+                  <ScrollAnimation
+                    direction="up"
+                    delay={0.3}
+                    className="lg:col-span-4"
+                  >
+                    <article className="max-w-none">
+                      <div
+                        className="prose prose-lg max-w-none"
+                        dangerouslySetInnerHTML={{
+                          __html: processContent(post.content),
+                        }}
+                      />
+                    </article>
+                  </ScrollAnimation>
+                </div>
               </div>
             </div>
 
