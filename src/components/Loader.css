@@ -1,11 +1,9 @@
 .loader {
   display: block;
   position: relative;
-  height: 12px;
-  width: 45%;
-  border: 1px solid #fff;
-  background-color: #fff;
-  border-radius: 10px;
+  height: 25px;
+  width: 200px;
+  background: #fff;
   overflow: hidden;
 }
 
@@ -17,11 +15,10 @@
   height: 100%;
   width: 0;
   background: green;
-  animation: prog 6s ease-in infinite;
+  animation: prog 2.5s linear forwards;
 }
 
 @keyframes prog {
-  to {
-    width: 100%;
-  }
+  from { width: 0%; }
+  to   { width: 100%; }
 }
