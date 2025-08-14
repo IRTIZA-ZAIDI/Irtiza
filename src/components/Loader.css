@@ -1,0 +1,27 @@
+.loader {
+  display: block;
+  position: relative;
+  height: 12px;
+  width: 45%;
+  border: 1px solid #fff;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.loader:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: green;
+  animation: prog 6s ease-in infinite;
+}
+
+@keyframes prog {
+  to {
+    width: 100%;
+  }
+}

@@ -19,7 +19,7 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-20 pb-16 relative overflow-hidden">
+      <section className="relative overflow-hidden min-h-screen flex items-center">
         {/* Background Art */}
         <div className="absolute inset-0 opacity-10">
         </div>
@@ -70,7 +70,7 @@ const Index = () => {
       </section>
 
       {/* Featured Blog Posts */}
-      <section className="py-16 bg-muted/30 relative">
+      <section className="bg-muted/30 relative min-h-screen flex items-center">
         {/* Decorative Art */}
         <div className="absolute right-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block">
         </div>
@@ -101,7 +101,7 @@ const Index = () => {
       </section>
 
       {/* Featured Projects */}
-      <section className="py-16 relative">
+      <section className="relative min-h-screen flex items-center">
         {/* Decorative Art */}
         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block">
         </div>
@@ -133,7 +133,7 @@ const Index = () => {
       </section>
 
       {/* Latest Updates */}
-      <section className="py-16 bg-muted/30">
+      <section className="bg-muted/30 min-h-screen flex items-center">
         <div className="narrow-container text-center">
           <ScrollAnimation direction="up" delay={0.3}>
             <h2 className="font-sans text-2xl font-semibold text-foreground mb-6">Currently</h2>
