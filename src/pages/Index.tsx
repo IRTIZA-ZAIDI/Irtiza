@@ -10,9 +10,22 @@ import heroArt from "@/assets/hero-art.jpg";
 import abstractArt1 from "@/assets/abstract-art-1.jpg";
 import abstractArt2 from "@/assets/abstract-art-2.jpg";
 
+import { useState, useEffect } from "react";
+import { Loader } from "@/components/Loader.tsx";
+
 const Index = () => {
+  const [loading, setLoading] = useState(true);
+
   const featuredPosts = blogPosts.filter(post => post.featured).slice(0, 2);
   const featuredProjects = projects.filter(project => project.featured).slice(0, 2);
+
+  useEffect(() => {
+    // Simulate initial load (could also wait for API or assets)
+    const timer = setTimeout(() => setLoading(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <Loader />; // Show loader until ready
 
   return (
     <div className="min-h-screen bg-background">

@@ -67,7 +67,7 @@ const TableOfContents = ({ content }: TableOfContentsProps) => {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="sticky top-24 bg-card/80 backdrop-blur-sm border border-border rounded-lg p-6 shadow-soft"
+      className="sticky top-24"
     >
       <h3 className="font-sans text-lg font-semibold text-foreground mb-4">
         Table of Contents
