@@ -1,9 +1,9 @@
+/* Portfolio & Blog Design System - Minimalist, elegant, content-focused */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Instrument+Sans:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Portfolio & Blog Design System - Minimalist, elegant, content-focused */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Instrument+Sans:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -75,7 +75,7 @@
   --popover: 222 14% 14%;
   --popover-foreground: 50 100% 97%;
 
-  --primary: 190 90% 60%;
+  --primary: 0 0% 100%;
   --primary-foreground: 222 15% 10%;
 
   --secondary: 280 65% 60%;
