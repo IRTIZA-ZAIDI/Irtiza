@@ -75,8 +75,119 @@ In summary, when a CNN recognizes a cheetah, it may also be recognizing the sava
     readTime: "10 min read",
     featured: true
   },
+ {
+  id: "2",
+  slug: "industry-llm-finetuning-lessons",
+  title: "Practical Techniques for LLM Fine-Tuning",
+  excerpt: "Fine-tuning LLMs involves subtle technical choices that greatly affect cost, reliability, and developer time. Here are practical lessons from production experience.",
+  content: `# Practical Techniques for LLM Fine-Tuning
+
+From my experience building and fine-tuning LLMs in production settings, the technical choices that look small on paper (how you format outputs, how you batch inference, whether you add a classifier head) are the ones that end up dominating cost, reliability, and developer time. This post collects those lessons into a single, pragmatic narrative: what works, why it works, and the tradeoffs to expect.
+
+## Start with a clear input/output contract: chat vs completion formats
+
+When designing a fine-tuning dataset, the first decision is the format of the examples. Broadly, there are two families: chat/completion format (a sequence of turns with roles) and single-turn completion formats (single prompt → output)
+
+**Chat/completion style** is ideal for conversational products or when context across turns matters. It models role structure explicitly but adds engineering overhead
+
+**Single-turn completion formats** are compact, easier to evaluate, and faster to fine-tune for atomic tasks like classification
+
+**Example:**
+Completion:
+\`Input: "I loved the battery life but hate the screen glare."\`
+\`Output: "Positive"\`
+
+Chat:
+\`System: You are a sentiment classifier.\`
+\`User: Review: "I loved the battery life but hate the screen glare."\`
+\`Assistant: Sentiment: Positive\`
+
+**Pointers**
+- Use chat format for multi-turn interactions, completion format for isolated classification tasks
+- Consider hybrid pipelines: classify short inputs with completion examples, then wrap for chat UI
+- Maintain small validation sets in both formats to test real-world behavior
+
+## Batched decoding for inference: throughput vs latency
+
+Batching multiple requests improves GPU utilization but may increase latency
+
+Low batch sizes (5–10) often balance throughput and responsiveness on A100 GPUs  
+Large batches are suitable for offline bulk scoring  
+Consider speculative decoding for many short sequences
+
+**Pointers**
+- Benchmark batch sizes (1, 4, 8, 16) and choose based on SLA
+- Offline jobs: maximize batch size for GPU efficiency
+- Interactive workloads: use smaller batches and short queuing windows
+
+## Structured outputs: reliability versus overhead
+
+Structured outputs (JSON, CSV) reduce post-processing but increase inference complexity
+
+Training the model to emit JSON is simple but error-prone  
+Constrained decoding ensures correctness but adds latency  
+Pragmatic approach: use tolerant structured outputs with post-validation for most tasks, strict constraints for mission-critical endpoints
+
+**Pointers**
+- Use post-validation for experiments
+- Use constrained decoding when deterministic output is required
+- Measure latency before adopting strict decoding
+
+## Multi-instance outputs (the “many reviews” problem)
+
+Models often skip, reorder, or merge items when generating multiple labels in one shot. Use ordered, natural-language anchors to reduce errors
+
+**Pointers**
+- Use repeated anchors like “X classification is: Y”
+- Chunk long lists into groups of 5–10
+- For single-shot structured mapping, add explicit separators and re-check outputs
+
+## Classification by text generation vs classifier head
+
+**Classifier head:** sample efficient, fast inference, best for stable label sets  
+**Text-generation classification:** flexible, adapts to evolving labels, may require canonicalization layer
+
+**Pointers**
+- Stable, high-volume labels → classifier head
+- Flexible or exploratory tasks → text-generation with canonicalization
+
+## Prompt engineering: invest early and iterate
+
+High-quality prompts reduce fine-tuning needs. Include task description, output format, and few-shot examples. Iterate using probe examples
+
+**Pointers**
+- Create baseline prompts with edge cases
+- Run 20–50 probe examples
+- Fine-tune on working prompt/format and validate on messy data
+
+## End-to-end workflow
+
+1. Problem framing → chat vs completion → validation set
+2. Prompt/probe phase → iterate prompts
+3. Fine-tune on stabilized prompt/format → re-validation
+4. Benchmark batching and latency → select batch strategy
+5. Deploy with thin validator → monitor for drift
+
+## Common pitfalls
+
+Optimizing offline metrics only → fails in production  
+Over-engineering structure → increases latency/complexity  
+Ignoring prompt + fine-tuning synergy → inefficient
+
+**Pointers**
+- Validate with production-like decoder and real-world examples
+- Avoid mandatory structured outputs unless required
+- Automate monitoring for skipped items or malformed outputs
+
+## Closing: balance is the operational win
+
+Fine-tuning LLMs is an engineering tradeoff across prompts, formats, inference, and post-processing. Focus on early prompt design and pragmatic engineering patterns for cost, reliability, and flexibility`,
+  date: "2025-08-15",
+  readTime: "15 min read",
+  featured: true
+},
   {
-    id: "2",
+    id: "5",
     slug: "machine-learning-production-lessons",
     title: "Lessons from Building ML Systems in Production",
     excerpt: "Three years of building machine learning systems taught me that the real challenges aren't in the algorithms—they're in everything else. Here's what I wish I'd known when I started.",

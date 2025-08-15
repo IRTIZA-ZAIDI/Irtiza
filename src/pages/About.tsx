@@ -43,7 +43,7 @@ const About = () => {
                 </h3>
                 <div className="space-y-6">
                   <div>
-                    <h4 className="font-sans font-medium text-foreground mb-2">
+                    <h4 className="font-sans font-medium text-accent mb-2">
                       Data Scientist @ Securiti.ai (Jun 2025 – Present)
                     </h4>
                     <p className="text-muted-foreground leading-relaxed">
@@ -53,7 +53,7 @@ const About = () => {
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-sans font-medium text-foreground mb-2">
+                    <h4 className="font-sans font-medium text-accent mb-2">
                       Data Science Intern @ Securiti.ai (Jun 2024 – Aug 2024)
                     </h4>
                     <p className="text-muted-foreground leading-relaxed">
@@ -62,7 +62,7 @@ const About = () => {
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-sans font-medium text-foreground mb-2">
+                    <h4 className="font-sans font-medium text-accent mb-2">
                       Data Science Intern @ 10Pearls (Sep 2024 – Nov 2024)
                     </h4>
                     <p className="text-muted-foreground leading-relaxed">
@@ -71,7 +71,7 @@ const About = () => {
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-sans font-medium text-foreground mb-2">
+                    <h4 className="font-sans font-medium text-accent mb-2">
                       Business Intelligence Intern @ Bank Al Habib (Jun 2023 – Jul 2023)
                     </h4>
                     <p className="text-muted-foreground leading-relaxed">
@@ -89,7 +89,7 @@ const About = () => {
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-sans font-medium text-foreground mb-2">
+                    <h4 className="font-sans font-medium text-accent mb-2">
                       B.S. Computer Science, Institute of Business Administration (2021–2025)
                     </h4>
                     <p className="text-muted-foreground">
@@ -106,19 +106,19 @@ const About = () => {
                 </h3>
                 <div className="grid md:grid-cols-3 gap-6">
                   <div>
-                    <h4 className="font-sans font-medium text-foreground mb-3">Languages</h4>
+                    <h4 className="font-sans font-medium text-accent mb-3">Languages</h4>
                     <p className="text-muted-foreground text-sm">
                       Python, Java, JavaScript
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-sans font-medium text-foreground mb-3">ML/AI</h4>
+                    <h4 className="font-sans font-medium text-accent mb-3">ML/AI</h4>
                     <p className="text-muted-foreground text-sm">
                       PyTorch, TensorFlow, Scikit-Learn, Transformers, LangChain
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-sans font-medium text-foreground mb-3">MLOps & Tools</h4>
+                    <h4 className="font-sans font-medium text-accent mb-3">MLOps & Tools</h4>
                     <p className="text-muted-foreground text-sm">
                       MLflow, Weights & Biases, Hugging Face, TensorBoard
                     </p>
@@ -133,13 +133,13 @@ const About = () => {
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p className="leading-relaxed">
-                    <strong className="text-foreground">Reading:</strong> Research papers on AI alignment and book Reinforcement Learning from Human Feedback by Nathan Lambert.
+                    <strong className="text-accent">Reading:</strong> Research papers on AI alignment and book Reinforcement Learning from Human Feedback by Nathan Lambert.
                   </p>
                   <p className="leading-relaxed">
-                    <strong className="text-foreground">Learning:</strong> Reinforcement learning, interpretability techniques, and performance optimization techniques.
+                    <strong className="text-accent">Learning:</strong> Reinforcement learning, interpretability techniques, and performance optimization techniques.
                   </p>
                   <p className="leading-relaxed">
-                    <strong className="text-foreground">Building:</strong> Nothing yet :(
+                    <strong className="text-accent">Building:</strong> Nothing yet :(
                   </p>
                 </div>
               </div>

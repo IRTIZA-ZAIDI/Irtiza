@@ -37,57 +37,82 @@ const BlogPost = () => {
 
   // Convert markdown-style content to HTML with proper IDs for headings
   const processContent = (content: string) => {
-    return content
-      .split("\n")
-      .map((line) => {
-        if (line.startsWith("# ")) {
-          const text = line.slice(2);
-          const id = text
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-|-$/g, "");
-          return `<h1 id="${id}" class="scroll-mt-24 text-4xl font-bold text-foreground mb-6 mt-12 first:mt-0">${text}</h1>`;
+    const parseInlineMarkdown = (text: string) => {
+      // Inline code
+      text = text.replace(/`([^`]+)`/g, '<code class="inline-code bg-gray-200 dark:bg-gray-700 px-1 rounded">$1</code>');
+      // Bold
+      text = text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-accent">$1</strong>');
+      // Italic
+      text = text.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
+      return text;
+    };
+
+    const lines = content.split("\n");
+    const html: string[] = [];
+    let codeBlockBuffer: string[] = [];
+    let insideCodeBlock = false;
+
+    const flushCodeBlock = () => {
+      if (codeBlockBuffer.length > 0) {
+        const codeContent = codeBlockBuffer.join("\n");
+        html.push(
+          `<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md p-3 mb-4 overflow-x-auto max-h-60"><code class="whitespace-pre-line">${codeContent}</code></div>`
+        );
+        codeBlockBuffer = [];
+        insideCodeBlock = false;
+      }
+    };
+
+    for (const line of lines) {
+      if (line.trim().startsWith("```")) {
+        if (insideCodeBlock) {
+          flushCodeBlock();
+        } else {
+          insideCodeBlock = true;
         }
-        if (line.startsWith("## ")) {
-          const text = line.slice(3);
-          const id = text
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-|-$/g, "");
-          return `<h2 id="${id}" class="scroll-mt-24 text-2xl font-semibold text-foreground mb-4 mt-10">${text}</h2>`;
-        }
-        if (line.startsWith("### ")) {
-          const text = line.slice(4);
-          const id = text
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-|-$/g, "");
-          return `<h3 id="${id}" class="scroll-mt-24 text-xl font-medium text-foreground mb-3 mt-8">${text}</h3>`;
-        }
-        if (line.startsWith("- ")) {
-          return `<li class="mb-1">${line.slice(2)}</li>`;
-        }
-        if (line.match(/^\d+\. /)) {
-          return `<li class="mb-1">${line.replace(/^\d+\. /, "")}</li>`;
-        }
-        if (line.startsWith("**") && line.endsWith("**")) {
-          return `<p class="font-semibold text-foreground mb-4">${line.slice(
-            2,
-            -2
-          )}</p>`;
-        }
-        if (line.trim() === "") {
-          return "<br>";
-        }
-        return `<p class="mb-4 text-foreground leading-relaxed">${line}</p>`;
-      })
+        continue;
+      }
+
+      if (insideCodeBlock) {
+        codeBlockBuffer.push(line);
+        continue;
+      }
+
+      // Headings
+      if (line.startsWith("# ")) {
+        const text = line.slice(2);
+        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        html.push(`<h1 id="${id}">${parseInlineMarkdown(text)}</h1>`);
+      } else if (line.startsWith("## ")) {
+        const text = line.slice(3);
+        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        html.push(`<h2 id="${id}">${parseInlineMarkdown(text)}</h2>`);
+      } else if (line.startsWith("### ")) {
+        const text = line.slice(4);
+        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        html.push(`<h3 id="${id}">${parseInlineMarkdown(text)}</h3>`);
+      } else if (line.startsWith("- ")) {
+        html.push(`<li>${parseInlineMarkdown(line.slice(2))}</li>`);
+      } else if (line.match(/^\d+\. /)) {
+        html.push(`<li>${parseInlineMarkdown(line.replace(/^\d+\. /, ""))}</li>`);
+      } else if (line.trim() === "") {
+        html.push("<br>");
+      } else {
+        html.push(`<p>${parseInlineMarkdown(line)}</p>`);
+      }
+    }
+
+    flushCodeBlock();
+
+    const htmlString = html
       .join("\n")
-      .replace(
-        /(<li[^>]*>.*?<\/li>\n?)+/g,
-        '<ul class="list-disc list-inside mb-6 space-y-1 ml-4">$&</ul>'
-      )
+      .replace(/(<li[^>]*>.*?<\/li>\n?)+/g, '<ul class="list-disc list-inside mb-6 space-y-1 ml-4">$&</ul>')
       .replace(/<br>\n<br>/g, '<div class="mb-8"></div>');
+
+    return `<div class="prose">${htmlString}</div>`;
   };
+
+
 
   return (
     <div className="min-h-screen bg-background">

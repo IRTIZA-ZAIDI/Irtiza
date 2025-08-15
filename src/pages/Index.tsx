@@ -42,7 +42,7 @@ const Index = () => {
             <h1 className="font-sans text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
               Irtiza
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-sans font-light leading-relaxed">
+            <p className="text-xl md:text-2xl text-accent mb-8 font-sans font-light leading-relaxed">
               Data Scientist
             </p>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
