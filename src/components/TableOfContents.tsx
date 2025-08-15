@@ -70,7 +70,7 @@ const TableOfContents = ({ content }: TableOfContentsProps) => {
       className="sticky top-24"
     >
       <h3 className="font-sans text-lg font-semibold text-foreground mb-4">
-        Table of Contents
+        On This Page
       </h3>
       <nav className="space-y-2">
         {toc.map(({ id, text, level }) => (
@@ -79,7 +79,7 @@ const TableOfContents = ({ content }: TableOfContentsProps) => {
             onClick={() => scrollToHeading(id)}
             className={`
               font-sans block w-full text-left text-sm transition-colors duration-200 hover:text-accent
-              ${level === 1 ? "font-medium" : level === 2 ? "ml-4 font-normal" : "ml-8 text-muted-foreground"}
+              ${level === 1 ? "font-medium" : level === 2 ? "ml-0 font-normal" : "ml-0 text-muted-foreground"}
               ${activeId === id ? "text-accent font-medium" : "text-muted-foreground"}
             `}
           >

@@ -15,9 +15,7 @@ export const blogPosts: BlogPost[] = [
     slug: "cnn-object-vs-background-bias",
     title: "Do CNNs Truly Recognize Objects or Just Their Backgrounds?",
     excerpt: "CNNs might not be recognizing the object you think they are. My experiments with VGG16 revealed that background context plays a surprisingly large role in classification decisions.",
-    content: `# Do CNNs Truly Recognize Objects or Just Their Backgrounds?
-
-When I started working with convolutional neural networks for image classification, I approached them as experimental observers, aiming to understand what features they actually use to recognize objects. If the model saw a zebra, I expected it to focus on the stripes. For an eagle, I anticipated attention to the beak and wingspan.
+    content: `When I started working with convolutional neural networks for image classification, I approached them as experimental observers, aiming to understand what features they actually use to recognize objects. If the model saw a zebra, I expected it to focus on the stripes. For an eagle, I anticipated attention to the beak and wingspan.
 
 A central question emerged: Do CNNs recognize the object itself or the background context in which it appears? This question has practical implications. If the model learns associations such as penguins with snow or tigers with jungle, what happens when these objects appear in unfamiliar environments? To investigate, I conducted a series of experiments using a pre-trained VGG16 model.
 

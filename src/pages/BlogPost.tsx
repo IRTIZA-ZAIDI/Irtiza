@@ -39,9 +39,15 @@ const BlogPost = () => {
   const processContent = (content: string) => {
     const parseInlineMarkdown = (text: string) => {
       // Inline code
-      text = text.replace(/`([^`]+)`/g, '<code class="inline-code bg-gray-200 dark:bg-gray-700 px-1 rounded">$1</code>');
+      text = text.replace(
+        /`([^`]+)`/g,
+        '<code class="inline-code bg-gray-200 dark:bg-gray-700 px-1 rounded">$1</code>'
+      );
       // Bold
-      text = text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-accent">$1</strong>');
+      text = text.replace(
+        /\*\*(.*?)\*\*/g,
+        '<strong class="text-accent">$1</strong>'
+      );
       // Italic
       text = text.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
       return text;
@@ -81,24 +87,39 @@ const BlogPost = () => {
       // Headings
       if (line.startsWith("# ")) {
         const text = line.slice(2);
-        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        const id = text
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, "");
         html.push(`<h1 id="${id}">${parseInlineMarkdown(text)}</h1>`);
       } else if (line.startsWith("## ")) {
         const text = line.slice(3);
-        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        const id = text
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, "");
         html.push(`<h2 id="${id}">${parseInlineMarkdown(text)}</h2>`);
       } else if (line.startsWith("### ")) {
         const text = line.slice(4);
-        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        const id = text
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, "");
         html.push(`<h3 id="${id}">${parseInlineMarkdown(text)}</h3>`);
       } else if (line.startsWith("- ")) {
         html.push(`<li>${parseInlineMarkdown(line.slice(2))}</li>`);
       } else if (line.match(/^\d+\. /)) {
-        html.push(`<li>${parseInlineMarkdown(line.replace(/^\d+\. /, ""))}</li>`);
+        html.push(
+          `<li>${parseInlineMarkdown(line.replace(/^\d+\. /, ""))}</li>`
+        );
       } else if (line.trim() === "") {
         html.push("<br>");
       } else {
-        html.push(`<p class="text-lg text-foreground leading-loose mb-8 max-w-prose">${parseInlineMarkdown(line)}</p>`);
+        html.push(
+          `<p class="font-sans text-lg text-foreground leading-loose mb-0 max-w-prose">${parseInlineMarkdown(
+            line
+          )}</p>`
+        );
       }
     }
 
@@ -106,13 +127,14 @@ const BlogPost = () => {
 
     const htmlString = html
       .join("\n")
-      .replace(/(<li[^>]*>.*?<\/li>\n?)+/g, '<ul class="list-disc list-inside mb-6 space-y-1 ml-4">$&</ul>')
+      .replace(
+        /(<li[^>]*>.*?<\/li>\n?)+/g,
+        '<ul class="font-sans list-disc list-inside ml-4">$&</ul>'
+      )
       .replace(/<br>\n<br>/g, '<div class="mb-8"></div>');
 
     return `<div class="prose">${htmlString}</div>`;
   };
-
-
 
   return (
     <div className="min-h-screen bg-background">
@@ -121,7 +143,7 @@ const BlogPost = () => {
       <main className="pt-10 pb-16 flex gap-8">
         {/* TOC column - always visible & sticky */}
         <div className="hidden lg:flex w-64 flex-shrink-0 relative h-screen">
-          <div className="sticky max-h-[calc(100vh-5rem)] px-4 pt-8 bg-card rounded-2xl border border-grey">
+          <div className="sticky max-h-[calc(100vh-5rem)] px-8 pt-8 bg-card rounded-2xl border border-grey">
             <TableOfContents content={post.content} />
           </div>
         </div>
@@ -145,7 +167,7 @@ const BlogPost = () => {
                   <div className="max-w-4xl">
                     <Link
                       to="/blog"
-                      className="inline-flex items-center text-muted-foreground hover:text-accent transition-colors mb-8"
+                      className="font-sans inline-flex items-center text-muted-foreground hover:text-accent transition-colors mb-8"
                     >
                       <ArrowLeft className="w-4 h-4 mr-2" />
                       Back to Blog
@@ -155,13 +177,12 @@ const BlogPost = () => {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6 }}
-                      className="mb-12"
                     >
-                      <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-6">
+                      <h1 className="font-sans text-4xl md:text-4xl text-foreground mb-6">
                         {post.title}
                       </h1>
 
-                      <div className="flex items-center gap-6 text-muted-foreground mb-6">
+                      <div className="flex items-center gap-6 text-muted-foreground mb-6 font-sans">
                         <div className="flex items-center gap-2">
                           <Calendar className="w-4 h-4" />
                           <span>
@@ -178,9 +199,11 @@ const BlogPost = () => {
                         </div>
                       </div>
 
-                      <p className="text-xl text-muted-foreground leading-relaxed">
+                      <p className="font-sans text-l text-muted-foreground leading-relaxed">
                         {post.excerpt}
                       </p>
+                      {/* Divider between excerpt and content */}
+                      <hr className="my-8 border-t border-border" />
                     </motion.div>
                   </div>
                 </div>
@@ -196,7 +219,7 @@ const BlogPost = () => {
                   >
                     <article className="max-w-none">
                       <div
-                        className="prose prose-lg max-w-none"
+                        className="prose prose-lg prose-p:mb-2 max-w-none"
                         dangerouslySetInnerHTML={{
                           __html: processContent(post.content),
                         }}
