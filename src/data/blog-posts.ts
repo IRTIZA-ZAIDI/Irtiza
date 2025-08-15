@@ -15,55 +15,62 @@ export const blogPosts: BlogPost[] = [
     slug: "cnn-object-vs-background-bias",
     title: "Do CNNs Truly Recognize Objects or Just Their Backgrounds?",
     excerpt: "CNNs might not be recognizing the object you think they are. My experiments with VGG16 revealed that background context plays a surprisingly large role in classification decisions.",
-    content: `# Do CNNs Truly Recognize Objects—or Just Their Backgrounds?
+    content: `# Do CNNs Truly Recognize Objects or Just Their Backgrounds?
 
-When I first started training convolutional neural networks (CNNs) for image classification, I liked to imagine them as attentive observers, carefully analyzing the defining features of an object before deciding what it was.  
-If I showed the model a zebra, I assumed it was focusing on its stripes. If it saw an eagle, I figured it was noticing the beak and wingspan.
-But one question kept bothering me:  
-Do CNNs actually recognize the object… or are they just picking up on the background it appears in?
-This isn’t just a philosophical musing—it has real implications. If a model learns “penguins = snow” or “tigers = jungle,” what happens when I show it a penguin on a beach or a tiger in a city park? I decided to dig deeper and see just how much background context influences CNN decisions.
+When I started working with convolutional neural networks for image classification, I approached them as experimental observers, aiming to understand what features they actually use to recognize objects. If the model saw a zebra, I expected it to focus on the stripes. For an eagle, I anticipated attention to the beak and wingspan.
+
+A central question emerged: Do CNNs recognize the object itself or the background context in which it appears? This question has practical implications. If the model learns associations such as penguins with snow or tigers with jungle, what happens when these objects appear in unfamiliar environments? To investigate, I conducted a series of experiments using a pre-trained VGG16 model.
+
 ## Setting the Stage
-I went with the VGG16 architecture, a widely used and well-understood CNN because its layer structure makes it easier to interpret. I selected 20 diverse animal classes from ImageNet to give the model plenty of variety.  
-My goal wasn’t to train from scratch, but to understand how the model *already trained on ImageNet* processes and uses visual information.
-## Step 1: Peeking Inside the Network
-I started by visualizing the filters and feature maps from different convolutional layers.
-- **Early layers** (closer to the input) picked up on low-level features: simple edges, gradients, and textures.  
-- **Deeper layers** captured more abstract representations—shapes, patterns, and object parts.
-This progression matched the classic CNN behavior I expected. The interesting part would come when I started analyzing these features more closely.
-## Step 2: Similarity Search on Features
-To understand what these filters were really “looking for,” I ran **cosine and hard similarity searches** on the extracted features from various layers.
-- Early filters looked remarkably similar to traditional image-processing edge detectors like Sobel and Gabor.  
-- By contrast, deeper layers lost this resemblance and shifted toward abstract, task-specific features.
-So far, nothing surprising—just a confirmation that the network was learning progressively more specialized representations.
-## Step 3: Habitat Matters
-Next, I performed **feature clustering** using PCA and UMAP to reduce the high-dimensional features into a 2D space for visualization.
-That’s when I noticed something unusual:  
-Animals from similar habitats tended to cluster together, even when they were from completely different species.  
-For example, a polar bear and a penguin might appear in the same region of the feature space—not because they look alike, but because they both tend to be surrounded by ice and snow.
-It seemed like the model was encoding habitat information along with the object features, suggesting that background cues were influencing classification.
-## Step 4: The Background Swap Experiment
-To test this theory directly, I designed a background manipulation experiment:
-1. **Cropping:** I cut out the animal from its original photo, removing most of the surrounding environment.  
-2. **Pasting:** I placed the cropped animal onto a new, mismatched background—like putting a zebra in a desert or a polar bear in a rainforest.  
-3. **Testing:** I ran these modified images through the same VGG16 model.
-The results were striking: out of 400 altered images, **325 were misclassified**.  
-Even though saliency maps and Grad-CAM still showed the model’s attention focused on the animal, the simple act of changing the background was enough to throw off the predictions.
-## What I Learned
-The key insight is that CNNs are opportunistic learners—they’ll use any visual cue they can find to improve accuracy during training.  
-If the background consistently matches the object in the dataset, the model will happily learn that association. In fact, it may lean on it more than the actual object features.
-While this can be useful when the context is stable, it becomes a liability in real-world situations where backgrounds are unpredictable or intentionally altered.
-## How I’d Fix It
-To reduce a model’s reliance on background context, I recommend:
-- **Segmentation:** Train with isolated objects so the model can’t cheat using background cues.  
-- **Background diversity:** Include multiple, varied backgrounds for each object class during training.  
-- **Stress testing:** Evaluate the model with out-of-context images to expose these hidden biases before deployment.
-## My Takeaways
-Through this experiment, I learned three important things:
-1. CNNs learn from both the object and its environment.  
-2. Background correlations can introduce subtle but dangerous biases.  
-3. Reliable AI systems require deliberate dataset design and robust evaluation methods.
 
-In short: a CNN might not just be recognizing a “cheetah”—it might also be recognizing the savannah it’s standing on. And if you swap that background, the model’s confidence might vanish just as fast as the grass under its paws.`,
+I selected 20 diverse animal classes from ImageNet to provide sufficient variability. The objective was not to train the network from scratch but to explore how an already trained model processes visual information and whether background influences classification.
+
+![VGG16 Architecture](/assets/vgg16-architecture-removebg-preview.png)
+
+## Step 1: Filters and Feature Map Visualization
+
+The first experiment involved visualizing filters and feature maps across multiple convolutional layers. Early layers captured low-level features such as edges, gradients, and textures. Deeper layers represented more abstract shapes, patterns, and object parts. These observations aligned with typical CNN behavior and set the stage for deeper analysis.
+
+![Feature Maps](/assets/FeatureMaps.png)
+
+## Step 2: Similarity Search on Feature Representations
+
+I performed cosine and hard similarity searches on features extracted from different layers to determine what the filters were emphasizing. Early layers exhibited strong similarity to traditional edge detectors like Sobel and Gabor. In contrast, deeper layers shifted toward task-specific, abstract patterns. This confirmed that feature complexity increases with depth.
+
+![Feature Maps](/assets/FeatureMaps.png)
+
+## Step 3: Feature Clustering and Habitat Correlation
+
+Next, high-dimensional features were projected into two dimensions using PCA and UMAP. Unexpectedly, animals from similar habitats clustered together even when they were from different species. For example, birds grouped together, insects formed distinct clusters, and water or land animals often appeared near each other. These clusters suggested that habitat context contributes to how the model organizes features in its internal representation.
+
+![Feature Maps](/assets/F4.png)
+
+## Step 4: Background Manipulation Experiment
+
+To directly test the influence of background, I conducted an experiment where animals were removed from their original environments and placed into mismatched backgrounds, such as a zebra in a desert or a polar bear in a rainforest. The altered images were then evaluated by the same VGG16 model.
+
+![Feature Maps](/assets/crop1.png)  
+![Feature Maps](/assets/crop2.png)
+
+The results were significant. Out of 400 manipulated images, more than 325 were misclassified. Saliency maps and Grad-CAM confirmed that the model focused on the object itself, yet changes in background consistently disrupted predictions.
+
+## Observations and Insights
+
+The experiments revealed that CNNs leverage any available visual cues to optimize classification accuracy. Consistent background-object correlations can lead the network to rely on environmental context more than object-specific features. While this strategy can improve performance on controlled datasets, it introduces vulnerabilities in real-world scenarios with variable or unexpected backgrounds.
+
+## Recommendations for Reducing Background Bias
+
+To mitigate background dependency, I suggest:
+
+- Training with segmented objects so the network cannot use background cues  
+- Incorporating diverse and unrelated backgrounds for each class during training  
+- Evaluating models with out-of-context images to identify hidden biases before deployment
+
+## Conclusions
+
+These experiments highlight several key insights. CNNs learn from both objects and their environments. Background correlations can introduce subtle but impactful biases. Developing reliable AI systems requires deliberate dataset design and robust evaluation practices.
+
+In summary, when a CNN recognizes a cheetah, it may also be recognizing the savannah it occupies. Changing the savannah to a city street can drastically reduce the model’s confidence, demonstrating the importance of understanding context in AI systems.`,
     date: "2025-08-11",
     readTime: "10 min read",
     featured: true
