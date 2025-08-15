@@ -8,6 +8,7 @@ import { projects } from "@/data/projects";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Loader } from "@/components/Loader.tsx";
+import { useLocation } from "react-router-dom"; // If using React Router
 
 // ShapeSlider
 import ShapeSlider from "@/components/ShapeSlider";
@@ -21,15 +22,28 @@ import shape6 from "@/assets/circle-quarter-alternates.svg?url";
 const shapes = [shape1, shape2, shape3, shape4, shape5, shape6];
 
 const Index = () => {
-  const [loading, setLoading] = useState(true);
-
   const featuredPosts = blogPosts.filter((post) => post.featured).slice(0, 2);
-  const featuredProjects = projects.filter((project) => project.featured).slice(0, 2);
+  const featuredProjects = projects
+    .filter((project) => project.featured)
+    .slice(0, 2);
+
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3000);
-    return () => clearTimeout(timer);
-  }, []);
+    const isDirectVisit =
+      document.referrer === "" || // No referrer → fresh tab or bookmark
+      !document.referrer.startsWith(window.location.origin); // Came from outside domain
+
+    if (isDirectVisit) {
+      // Keep loader for 3 seconds
+      const timer = setTimeout(() => setLoading(false), 3000);
+      return () => clearTimeout(timer);
+    } else {
+      // Skip loader if came from within the app
+      setLoading(false);
+    }
+  }, [location.pathname]);
 
   if (loading) return <Loader />;
 
@@ -55,9 +69,9 @@ const Index = () => {
                 Data Scientist
               </p>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                This is my space for experiments, notes, and reflections on turning data into
-                understanding. I share projects I have built, problems I have solved, and questions
-                I am still exploring.
+                This is my space for experiments, notes, and reflections on
+                turning data into understanding. I share projects I have built,
+                problems I have solved, and questions I am still exploring.
               </p>
 
               {/* CTA Buttons */}
@@ -105,7 +119,9 @@ const Index = () => {
         <div className="content-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>
             <div className="flex items-center justify-between mb-12">
-              <h2 className="font-sans text-3xl font-semibold text-foreground">Recent Thoughts</h2>
+              <h2 className="font-sans text-3xl font-semibold text-foreground">
+                Recent Thoughts
+              </h2>
               <a href="/blog" className="btn-minimal font-sans">
                 View all posts <ArrowRight className="ml-2 h-4 w-4" />
               </a>
@@ -133,7 +149,9 @@ const Index = () => {
         <div className="content-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>
             <div className="flex items-center justify-between mb-12">
-              <h2 className="font-sans text-3xl font-semibold text-foreground">Featured Work</h2>
+              <h2 className="font-sans text-3xl font-semibold text-foreground">
+                Featured Work
+              </h2>
               <a href="/portfolio" className="btn-minimal font-sans">
                 View all projects <ArrowRight className="ml-2 h-4 w-4" />
               </a>
@@ -159,15 +177,17 @@ const Index = () => {
       <section className="bg-muted/30 min-h-screen flex items-center">
         <div className="narrow-container text-center">
           <ScrollAnimation direction="up" delay={0.3}>
-            <h2 className="font-sans text-2xl font-semibold text-foreground mb-6">Currently</h2>
+            <h2 className="font-sans text-2xl font-semibold text-foreground mb-6">
+              Currently
+            </h2>
             <div className="space-y-4 text-muted-foreground">
               <p className="leading-relaxed">
-                Convincing LLMs to behave in production and making models spill their secrets with
-                interpretability tools
+                Convincing LLMs to behave in production and making models spill
+                their secrets with interpretability tools
               </p>
               <p className="leading-relaxed">
-                Always open to discussions on AI interpretability, LLM fine-tuning, and impactful ML
-                solutions.
+                Always open to discussions on AI interpretability, LLM
+                fine-tuning, and impactful ML solutions.
               </p>
             </div>
             <div className="mt-8">
@@ -183,4 +203,3 @@ const Index = () => {
 };
 
 export default Index;
-
