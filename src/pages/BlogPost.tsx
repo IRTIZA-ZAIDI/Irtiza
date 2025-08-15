@@ -98,7 +98,7 @@ const BlogPost = () => {
       } else if (line.trim() === "") {
         html.push("<br>");
       } else {
-        html.push(`<p>${parseInlineMarkdown(line)}</p>`);
+        html.push(`<p class="text-lg text-foreground leading-loose mb-8 max-w-prose">${parseInlineMarkdown(line)}</p>`);
       }
     }
 
