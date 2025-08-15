@@ -72,14 +72,14 @@ const TableOfContents = ({ content }: TableOfContentsProps) => {
       <h3 className="font-sans text-lg font-semibold text-foreground mb-4">
         On This Page
       </h3>
-      <nav className="space-y-2">
+      <nav className="space-y-4">
         {toc.map(({ id, text, level }) => (
           <button
             key={id}
             onClick={() => scrollToHeading(id)}
             className={`
               font-sans block w-full text-left text-sm transition-colors duration-200 hover:text-accent
-              ${level === 1 ? "font-medium" : level === 2 ? "ml-0 font-normal" : "ml-0 text-muted-foreground"}
+              ${level === 1 ? "font-medium my-2" : level === 2 ? "ml-0 font-normal" : "ml-0 text-muted-foreground"}
               ${activeId === id ? "text-accent font-medium" : "text-muted-foreground"}
             `}
           >

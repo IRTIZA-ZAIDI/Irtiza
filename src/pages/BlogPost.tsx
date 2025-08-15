@@ -1,16 +1,23 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock, X, List } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import TableOfContents from "@/components/TableOfContents";
 import ScrollAnimation from "@/components/ScrollAnimation";
 import { blogPosts } from "@/data/blog-posts";
 import { motion } from "framer-motion";
+import Prism from "prismjs";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-javascript";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = blogPosts.find((p) => p.slug === slug);
   const [tocOpen, setTocOpen] = useState(true);
+
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [post?.content]);
 
   if (!post) {
     return (
@@ -38,11 +45,24 @@ const BlogPost = () => {
   // Convert markdown-style content to HTML with proper IDs for headings
   const processContent = (content: string) => {
     const parseInlineMarkdown = (text: string) => {
-      // Inline code
+      // Merge multiple backtick blocks into one Prism-styled block
       text = text.replace(
         /`([^`]+)`/g,
-        '<code class="inline-code bg-gray-200 dark:bg-gray-700 px-1 rounded">$1</code>'
+        `<div class="relative max-w-2xl mx-auto my-6">
+  <div class="bg-gray-50 border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+<pre class="text-xs font-mono leading-snug bg-gray-50 text-gray-800 whitespace-pre-wrap overflow-x-hidden m-0 p-2">
+<code class="language-python">$1</code>
+      </pre>
+    </div>
+  </div>
+</div>`
       );
+      // // Inline code
+      // text = text.replace(
+      //   /`([^`]+)`/g,
+      //   '<code class="inline-code bg-gray-200 dark:bg-gray-700 px-1 rounded">$1</code>'
+      // );
       // Bold
       text = text.replace(
         /\*\*(.*?)\*\*/g,

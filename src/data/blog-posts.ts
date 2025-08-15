@@ -78,9 +78,7 @@ In summary, when a CNN recognizes a cheetah, it may also be recognizing the sava
   slug: "industry-llm-finetuning-lessons",
   title: "Practical Techniques for LLM Fine-Tuning",
   excerpt: "Fine-tuning LLMs involves subtle technical choices that greatly affect cost, reliability, and developer time. Here are practical lessons from production experience.",
-  content: `# Practical Techniques for LLM Fine-Tuning
-
-From my experience building and fine-tuning LLMs in production settings, the technical choices that look small on paper (how you format outputs, how you batch inference, whether you add a classifier head) are the ones that end up dominating cost, reliability, and developer time. This post collects those lessons into a single, pragmatic narrative: what works, why it works, and the tradeoffs to expect.
+  content: `From my experience building and fine-tuning LLMs in production settings, the technical choices that look small on paper (how you format outputs, how you batch inference, whether you add a classifier head) are the ones that end up dominating cost, reliability, and developer time. This post collects those lessons into a single, pragmatic narrative: what works, why it works, and the tradeoffs to expect.
 
 ## Start with a clear input/output contract: chat vs completion formats
 
