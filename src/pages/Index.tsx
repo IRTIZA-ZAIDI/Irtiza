@@ -9,9 +9,8 @@ import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Loader } from "@/components/Loader.tsx";
 
-// Import ShapeSlider component
+// ShapeSlider
 import ShapeSlider from "@/components/ShapeSlider";
-
 import shape1 from "@/assets/circle-4-in-square-layout.svg?url";
 import shape2 from "@/assets/circle-4-X-shape-cones.svg?url";
 import shape3 from "@/assets/circle-8-star-bloat.svg?url";
@@ -19,8 +18,7 @@ import shape4 from "@/assets/circle-half-4-pinwheel-shape.svg?url";
 import shape5 from "@/assets/circle-intersection-in-circle-layout.svg?url";
 import shape6 from "@/assets/circle-quarter-alternates.svg?url";
 
-const shapes = [shape1, shape2, shape3, shape4 , shape5, shape6];
-
+const shapes = [shape1, shape2, shape3, shape4, shape5, shape6];
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -40,9 +38,12 @@ const Index = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Shape Slider on the left */}
-        <ShapeSlider shapes={shapes} speed={70} />
+      <section className="relative overflow-hidden min-h-screen flex items-center">
+        {/* Background Art */}
+        <div className="absolute inset-0 opacity-10"></div>
+
+        {/* Shape Slider */}
+        <ShapeSlider shapes={shapes} speed={50} />
 
         <div className="content-container relative z-10">
           <ScrollAnimation direction="fade">
@@ -99,6 +100,8 @@ const Index = () => {
 
       {/* Featured Blog Posts */}
       <section className="bg-muted/30 relative min-h-screen flex items-center">
+        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block"></div>
+
         <div className="content-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>
             <div className="flex items-center justify-between mb-12">
@@ -125,6 +128,8 @@ const Index = () => {
 
       {/* Featured Projects */}
       <section className="relative min-h-screen flex items-center">
+        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block"></div>
+
         <div className="content-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>
             <div className="flex items-center justify-between mb-12">
@@ -178,3 +183,4 @@ const Index = () => {
 };
 
 export default Index;
+
