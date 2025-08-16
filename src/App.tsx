@@ -11,8 +11,6 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Life from "./pages/Life";
-import "prismjs/themes/prism.css"; // or prism-okaidia.css for dark theme
-import "prismjs";
 
 const queryClient = new QueryClient();
 

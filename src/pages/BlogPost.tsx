@@ -7,8 +7,11 @@ import ScrollAnimation from "@/components/ScrollAnimation";
 import { blogPosts } from "@/data/blog-posts";
 import { motion } from "framer-motion";
 import Prism from "prismjs";
-import "prismjs/components/prism-python";
+import "prismjs/themes/prism-tomorrow.css"; // or your choice
 import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-markup";
+import "prismjs/components/prism-json";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -45,19 +48,19 @@ const BlogPost = () => {
   // Convert markdown-style content to HTML with proper IDs for headings
   const processContent = (content: string) => {
     const parseInlineMarkdown = (text: string) => {
-      // Merge multiple backtick blocks into one Prism-styled block
-      text = text.replace(
-        /`([^`]+)`/g,
-        `<div class="relative max-w-2xl mx-auto my-6">
-  <div class="bg-gray-50 border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-    <div class="overflow-x-auto">
-<pre class="text-xs font-mono leading-snug bg-gray-50 text-gray-800 whitespace-pre-wrap overflow-x-hidden m-0 p-2">
-<code class="language-python">$1</code>
-      </pre>
-    </div>
-  </div>
-</div>`
-      );
+      /// Triple backtick code blocks with optional language
+      //       text = text.replace(
+      //         /```(?:\w+)?\n([\s\S]*?)```/g,
+      //         `<div class="relative max-w-2xl mx-auto my-6">
+      //     <div class="bg-gray-50 border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+      //       <div class="overflow-x-auto">
+      //         <pre class="text-xs font-mono leading-snug bg-gray-50 text-gray-800 whitespace-pre-wrap overflow-x-hidden m-0 p-2">
+      // <code class="language-python">$1</code>
+      //         </pre>
+      //       </div>
+      //     </div>
+      //   </div>`
+      //       );
       // // Inline code
       // text = text.replace(
       //   /`([^`]+)`/g,
@@ -80,14 +83,44 @@ const BlogPost = () => {
 
     const flushCodeBlock = () => {
       if (codeBlockBuffer.length > 0) {
-        const codeContent = codeBlockBuffer.join("\n");
-        html.push(
-          `<div class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md p-3 mb-4 overflow-x-auto max-h-60"><code class="whitespace-pre-line">${codeContent}</code></div>`
+        // // detect language if provided after ```lang
+        // let firstLine = codeBlockBuffer[0].trim();
+        // let lang = "text";
+
+        // if (firstLine.startsWith("```")) {
+        //   lang = firstLine.slice(3).trim() || "text";
+        //   codeBlockBuffer.shift(); // remove the ```lang marker from buffer
+        // }
+
+        // also remove trailing ``` if it exists
+        if (codeBlockBuffer[codeBlockBuffer.length - 1].trim() === "```") {
+          codeBlockBuffer.pop();
+        }
+
+        // Join lines and trim trailing spaces from each line
+        const codeContent = codeBlockBuffer
+          .map((line) => line.replace(/\s+$/g, "")) // remove trailing spaces per line
+          .join("\n")
+          .trim(); // remove leading/trailing empty lines
+
+        const codeHtml = Prism.highlight(
+          codeContent,
+          Prism.languages[currentLang] || Prism.languages.text,
+          currentLang
         );
+
+        html.push(
+          `<pre class="rounded-xl !bg-neutral-950 ">
+         <code class="language-${currentLang} block text-left overflow-y leading-snug">${codeHtml}</code>
+       </pre>`
+        );
+
         codeBlockBuffer = [];
         insideCodeBlock = false;
       }
     };
+
+    let currentLang = "text";
 
     for (const line of lines) {
       if (line.trim().startsWith("```")) {
@@ -95,6 +128,7 @@ const BlogPost = () => {
           flushCodeBlock();
         } else {
           insideCodeBlock = true;
+          currentLang = line.trim().slice(3).trim() || "text";
         }
         continue;
       }

@@ -90,8 +90,9 @@ When designing a fine-tuning dataset, the first decision is the format of the ex
 
 **Example:**
 Completion:
-\`Input: "I loved the battery life but hate the screen glare."\`
-\`Output: "Positive"\`
+\`\`\`python
+print("Hello, world!")
+\`\`\`
 
 Chat:
 \`System: You are a sentiment classifier.\`
