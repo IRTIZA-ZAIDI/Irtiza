@@ -48,7 +48,7 @@ const Index = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background font-sans">
       <Header />
 
       {/* Hero Section */}
@@ -77,7 +77,7 @@ const Index = () => {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button asChild className="btn-accent font-sans">
-                  <a href="/portfolio">
+                  <a href="/projects">
                     View My Work <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>
@@ -152,7 +152,7 @@ const Index = () => {
               <h2 className="font-sans text-3xl font-semibold text-foreground">
                 Featured Work
               </h2>
-              <a href="/portfolio" className="btn-minimal font-sans">
+              <a href="/Projects" className="btn-minimal font-sans">
                 View all projects <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </div>

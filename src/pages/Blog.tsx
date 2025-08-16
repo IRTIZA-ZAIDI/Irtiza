@@ -5,7 +5,7 @@ import { blogPosts } from "@/data/blog-posts";
 
 const Blog = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background font-sans">
       <Header />
       
       <main className="pt-20 pb-16">

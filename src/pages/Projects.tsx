@@ -2,9 +2,9 @@ import Header from "@/components/Header";
 import ProjectCard from "@/components/ProjectCard";
 import { projects } from "@/data/projects";
 
-const Portfolio = () => {
+const Projects = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background font-sans">
       <Header />
       
       <main className="pt-20 pb-16">
@@ -12,7 +12,7 @@ const Portfolio = () => {
           {/* Header */}
           <div className="mb-16 fade-in">
             <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Portfolio
+              Projects
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
               A selection of machine learning projects, data science solutions, and AI systems 
@@ -40,4 +40,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+export default Projects;

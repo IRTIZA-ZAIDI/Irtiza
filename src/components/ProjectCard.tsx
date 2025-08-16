@@ -19,7 +19,7 @@ const ProjectCard = ({
     <article
       className="group relative bg-card border border-border rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-1 hover:border-accent/50 transition-all duration-300 ease-out"
     >
-      <a href={`/portfolio/${slug}`} className="block h-full p-6">
+      <a href={`/Projects/${slug}`} className="block h-full p-6">
         <div className="flex flex-col h-full">
           {/* Project Image */}
           {imageUrl && (
