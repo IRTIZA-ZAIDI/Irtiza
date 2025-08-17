@@ -23,7 +23,7 @@ A central question emerged: Do CNNs recognize the object itself or the backgroun
 
 I selected 20 diverse animal classes from ImageNet to provide sufficient variability. The objective was not to train the network from scratch but to explore how an already trained model processes visual information and whether background influences classification.
 
-![VGG16 Architecture](/assets/vgg16-architecture-removebg-preview.png)
+![VGG16 Architecture](/assets/vgg16-architecture.png)
 
 ## Step 1: Filters and Feature Map Visualization
 

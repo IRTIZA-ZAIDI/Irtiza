@@ -57,7 +57,7 @@ const Index = () => {
         <div className="absolute inset-0 opacity-10"></div>
 
         {/* Shape Slider */}
-        <ShapeSlider shapes={shapes} speed={50} />
+        {/* <ShapeSlider shapes={shapes} speed={50} /> */}
 
         <div className="content-container relative z-10">
           <ScrollAnimation direction="fade">
