@@ -10,7 +10,7 @@ const BlogCard = ({ title, excerpt, date, readTime, slug }: BlogCardProps) => {
   return (
     <article className="group hover-lift">
       <a href={`/blog/${slug}`} className="block">
-        <div className="space-y-3">
+        <div className="bg-card border border-grey rounded-2xl p-6 space-y-2 hover:shadow-lg transition-shadow">
           <h3 className="font-sans font-semibold text-xl text-foreground group-hover:text-accent transition-colors duration-200">
             {title}
           </h3>

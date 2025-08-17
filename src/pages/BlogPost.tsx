@@ -194,112 +194,107 @@ const BlogPost = () => {
     <div className="min-h-screen bg-background font-sans">
       <Header />
 
-      <main className="pt-10 pb-16 flex gap-8">
-        {/* TOC column - always visible & sticky */}
-        <div className="hidden lg:flex w-64 flex-shrink-0 relative h-screen">
-          <div className="sticky max-h-[calc(100vh-5rem)] px-8 pt-8 bg-card rounded-2xl border border-grey">
-            <TableOfContents content={post.content} />
-          </div>
-        </div>
+      <main className="pt-10 pb-16 flex justify-center">
+        <div className="flex gap-8 max-w-7xl w-full">
+          {/* 1st column - empty */}
+          <div className="w-60"></div>
 
-        {/* Blog content - centered */}
-        <div className="flex-1 items-start justify-center overflow-y-auto h-screen px-4">
-          <div className="max-w-4xl w-full px-4">
-            {/* TOC toggle button - only shows when closed */}
-            {!tocOpen && (
-              <button
-                onClick={() => setTocOpen(true)}
-                className="hidden lg:block p-2 mb-4 bg-muted text-foreground rounded hover:bg-muted/80"
-              >
-                Open TOC
-              </button>
-            )}
-            <div className="bg-card rounded-2xl border border-grey p-8">
-              {/* Header */}
-              <ScrollAnimation direction="fade">
+          {/* 2nd column - Blog content */}
+          <div className="flex-1 px-4 flex justify-center">
+            <div className="max-w-4xl w-full px-4">
+              <div className="bg-card rounded-2xl border border-grey p-8">
+                {/* Header */}
+                <ScrollAnimation direction="fade">
+                  <div className="wide-container">
+                    <div className="max-w-4xl">
+                      <Link
+                        to="/blog"
+                        className="font-sans inline-flex items-center text-muted-foreground hover:text-accent transition-colors mb-8"
+                      >
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Back to Blog
+                      </Link>
+
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <h1 className="font-sans text-4xl md:text-4xl text-foreground mb-6">
+                          {post.title}
+                        </h1>
+
+                        <div className="flex items-center gap-6 text-muted-foreground mb-6 font-sans">
+                          <div className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4" />
+                            <span>
+                              {new Date(post.date).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Clock className="w-4 h-4" />
+                            <span>{post.readTime}</span>
+                          </div>
+                        </div>
+
+                        <p className="font-sans text-l text-muted-foreground leading-relaxed">
+                          {post.excerpt}
+                        </p>
+                        <hr className="my-8 border-t border-border" />
+                      </motion.div>
+                    </div>
+                  </div>
+                </ScrollAnimation>
+
+                {/* Article Content */}
                 <div className="wide-container">
-                  <div className="max-w-4xl">
+                  <div className="max-w-7xl grid grid-cols-1 lg:grid-cols-4 gap-12">
+                    <ScrollAnimation
+                      direction="up"
+                      delay={0.3}
+                      className="lg:col-span-4"
+                    >
+                      <article className="max-w-none">
+                        <div
+                          className="prose prose-lg prose-p:mb-2 max-w-none"
+                          dangerouslySetInnerHTML={{
+                            __html: processContent(post.content),
+                          }}
+                        />
+                      </article>
+                    </ScrollAnimation>
+                  </div>
+                </div>
+              </div>
+
+              {/* Navigation */}
+              <ScrollAnimation direction="up" delay={0.5}>
+                <div className="content-container mt-16 pt-8 border-t border-border">
+                  <div className="flex justify-between items-center">
                     <Link
                       to="/blog"
-                      className="font-sans inline-flex items-center text-muted-foreground hover:text-accent transition-colors mb-8"
+                      className="text-accent hover:text-accent-warm transition-colors font-medium"
                     >
-                      <ArrowLeft className="w-4 h-4 mr-2" />
-                      Back to Blog
+                      ← All Posts
                     </Link>
-
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <h1 className="font-sans text-4xl md:text-4xl text-foreground mb-6">
-                        {post.title}
-                      </h1>
-
-                      <div className="flex items-center gap-6 text-muted-foreground mb-6 font-sans">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4" />
-                          <span>
-                            {new Date(post.date).toLocaleDateString("en-US", {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            })}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4" />
-                          <span>{post.readTime}</span>
-                        </div>
-                      </div>
-
-                      <p className="font-sans text-l text-muted-foreground leading-relaxed">
-                        {post.excerpt}
-                      </p>
-                      {/* Divider between excerpt and content */}
-                      <hr className="my-8 border-t border-border" />
-                    </motion.div>
+                    <div className="text-sm text-muted-foreground">
+                      Share this post
+                    </div>
                   </div>
                 </div>
               </ScrollAnimation>
-
-              <div className="wide-container">
-                <div className="max-w-7xl grid grid-cols-1 lg:grid-cols-4 gap-12">
-                  {/* Article Content */}
-                  <ScrollAnimation
-                    direction="up"
-                    delay={0.3}
-                    className="lg:col-span-4"
-                  >
-                    <article className="max-w-none">
-                      <div
-                        className="prose prose-lg prose-p:mb-2 max-w-none"
-                        dangerouslySetInnerHTML={{
-                          __html: processContent(post.content),
-                        }}
-                      />
-                    </article>
-                  </ScrollAnimation>
-                </div>
-              </div>
             </div>
+          </div>
 
-            {/* Navigation */}
-            <ScrollAnimation direction="up" delay={0.5}>
-              <div className="content-container mt-16 pt-8 border-t border-border">
-                <div className="flex justify-between items-center">
-                  <Link
-                    to="/blog"
-                    className="text-accent hover:text-accent-warm transition-colors font-medium"
-                  >
-                    ← All Posts
-                  </Link>
-                  <div className="text-sm text-muted-foreground">
-                    Share this post
-                  </div>
-                </div>
-              </div>
-            </ScrollAnimation>
+          {/* 3rd column - TOC */}
+          <div className="w-60 hidden lg:block flex-shrink-0">
+            <div className="sticky top-20 max-h-[calc(100vh-5rem)] px-4 py-2 border-l border-[text-accent]">
+              <TableOfContents content={post.content} />
+            </div>
           </div>
         </div>
       </main>
