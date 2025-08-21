@@ -151,6 +151,22 @@
   }
 }
 
+@layer base {
+  /* Fix: reset stuck hover/active state when navigating back/forward */
+  body:focus-within {
+    /* Ensures focus resets correctly */
+    outline: none;
+  }
+
+  /* Reset group hover/focus on page restore */
+  .group:hover,
+  .group:active,
+  .group:focus {
+    color: inherit;
+  }
+}
+
+
 @layer components {
   /* Navigation styles */
   .nav-link {
@@ -166,6 +182,7 @@
     @apply scale-x-100;
   }
 
+  
   /* Content containers */
   .content-container {
     max-width: var(--content-width);
