@@ -50,7 +50,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background font-sans">
-      <section id="hero"><Header /></section>
+      <section id="hero">
+        <Header />
+      </section>
 
       {/* Hero Section */}
       <Hero />
@@ -99,8 +101,12 @@ const Index = () => {
               <h2 className="font-sans text-3xl font-semibold text-foreground">
                 Featured Work
               </h2>
-              <a href="/Projects" className="btn-minimal font-sans">
-                View all projects <ArrowRight className="ml-2 h-4 w-4" />
+              <a
+                href="/Projects"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-primary text-white font-sans font-medium hover:bg-primary/90 transition-colors"
+              >
+                View all posts
+                <ArrowRight className="ml-2 h-5 w-6" />
               </a>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
