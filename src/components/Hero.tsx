@@ -10,19 +10,19 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
   return (
     <section
       className={cn(
-        "relative min-h-screen flex items-center overflow-hidden",
+        "relative min-h-screen flex items-center overflow-hidden bg-black",
         className
       )}
     >
       <div className="absolute inset-0 z-10">
-        <video
-          src="/videos/7234993-uhd_3840_2160_30fps.mp4"
+        {/* <video
+          src="src/assets/853919-hd_1920_1080_25fps.mp4"
           autoPlay
           loop
           muted
           playsInline
           className="w-full h-full object-cover"
-        />
+        /> */}
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
 
