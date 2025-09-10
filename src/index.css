@@ -254,3 +254,31 @@
     @apply animate-in slide-in-from-bottom-4 duration-700;
   }
 }
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.typing {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #fff; /* cursor */
+  animation: typing 2s steps(20, end) forwards, blink .75s step-end infinite;
+}
+
+.typing.done {
+  border-right: none !important;  /* force remove cursor */
+  animation: none; /* stop blink animation */
+}
+

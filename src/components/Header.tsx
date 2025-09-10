@@ -1,73 +1,133 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import ThemeToggle from "./ThemeToggle";
+import { cn } from "@/lib/utils";
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+interface NavItem {
+  label: string;
+  href: string;
+  onClick?: () => void;
+}
 
-  const navItems = [
-    { label: "home", href: "/" },
-    { label: "projects", href: "/Projects" },
-    { label: "blog", href: "/blog" },
-    { label: "about", href: "/about" },
-    { label: "life", href: "/life" },
-    { label: "contact", href: "/contact" },
-  ];
+interface HeaderProps {
+  logo?: string;
+  navItems?: NavItem[];
+  className?: string;
+}
+
+const defaultNavItems: NavItem[] = [
+  { label: "home", href: "/" },
+  { label: "projects", href: "/Projects" },
+  { label: "blog", href: "/blog" },
+  { label: "about", href: "/about" },
+  { label: "life", href: "/life" },
+  { label: "contact", href: "/contact" },
+];
+
+const Header: React.FC<HeaderProps> = ({
+  logo = "Irtiza",
+  navItems = defaultNavItems,
+  className,
+}) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleNavClick = (item: NavItem) => {
+    if (item.onClick) {
+      item.onClick();
+    } else {
+      // Smooth scroll to section
+      const target = document.querySelector(item.href);
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }
+    setIsMobileMenuOpen(false);
+  };
 
   return (
-    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
-      <div className="wide-container">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo/Name */}
-          <a href="/" className="font-sans font-semibold text-lg text-foreground hover:text-accent transition-colors">
-            Irtiza
-          </a>
+    <nav
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        isScrolled
+          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-md shadow-black/5 py-3"
+          : "bg-transparent py-4",
+        className
+      )}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <div
+            className={cn(
+              "text-xl font-bold text-foreground transition-opacity duration-300",
+              isScrolled ? "opacity-100" : "opacity-0 pointer-events-none"
+            )}
+          >
+            {logo}
+          </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item, index) => (
               <a
-                key={item.label}
+                key={index}
                 href={item.href}
-                className="nav-link font-sans text-sm"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}
               </a>
             ))}
-            <ThemeToggle />
-          </nav>
+          </div>
 
-          {/* Mobile Menu Toggle */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 text-foreground"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
           >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-border animate-in slide-in-from-top-2 duration-200">
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="nav-link font-sans text-sm py-2"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </nav>
-        )}
+        <div
+          className={cn(
+            "md:hidden absolute top-full left-0 right-0 bg-background border-b border-border shadow-lg transition-all duration-300 overflow-hidden",
+            isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <div className="py-4 px-4 space-y-3">
+            {navItems.map((item, index) => (
+              <a
+                key={index}
+                href={item.href}
+                className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors duration-200"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
-    </header>
+    </nav>
   );
 };
 

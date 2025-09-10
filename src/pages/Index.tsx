@@ -18,6 +18,7 @@ import shape3 from "@/assets/circle-8-star-bloat.svg?url";
 import shape4 from "@/assets/circle-half-4-pinwheel-shape.svg?url";
 import shape5 from "@/assets/circle-intersection-in-circle-layout.svg?url";
 import shape6 from "@/assets/circle-quarter-alternates.svg?url";
+import Hero from "@/components/Hero";
 
 const shapes = [shape1, shape2, shape3, shape4, shape5, shape6];
 
@@ -49,68 +50,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background font-sans">
-      <Header />
+      <section id="hero"><Header /></section>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden min-h-screen flex items-center">
-        {/* Background Art */}
-        <div className="absolute inset-0 opacity-10"></div>
-
-        {/* Shape Slider */}
-        {/* <ShapeSlider shapes={shapes} speed={50} /> */}
-
-        <div className="content-container relative z-10">
-          <ScrollAnimation direction="fade">
-            <div className="max-w-2xl">
-              <h1 className="font-sans text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-                Irtiza
-              </h1>
-              <p className="text-xl md:text-2xl text-accent mb-8 font-sans font-light leading-relaxed">
-                Data Scientist
-              </p>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                This is my space for experiments, notes, and reflections on
-                turning data into understanding. I share projects I have built,
-                problems I have solved, and questions I am still exploring.
-              </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <Button asChild className="btn-accent font-sans">
-                  <a href="/projects">
-                    View My Work <ArrowRight className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-                <Button variant="outline" asChild className="font-sans">
-                  <a href="/blog">Read My Blogs</a>
-                </Button>
-              </div>
-
-              {/* Social Links */}
-              <div className="flex items-center space-x-6">
-                <a
-                  href="mailto:hello@alexchen.dev"
-                  className="text-muted-foreground hover:text-accent transition-colors"
-                >
-                  <Mail className="h-5 w-5" />
-                </a>
-                <a
-                  href="https://linkedin.com/in/alexchen"
-                  className="text-muted-foreground hover:text-accent transition-colors"
-                >
-                  <Linkedin className="h-5 w-5" />
-                </a>
-                <a
-                  href="https://github.com/alexchen"
-                  className="text-muted-foreground hover:text-accent transition-colors"
-                >
-                  <Github className="h-5 w-5" />
-                </a>
-              </div>
-            </div>
-          </ScrollAnimation>
-        </div>
-      </section>
+      <Hero />
 
       {/* Featured Blog Posts */}
       <section className="bg-muted/30 relative min-h-screen flex items-center">
@@ -122,8 +65,12 @@ const Index = () => {
               <h2 className="font-sans text-3xl font-semibold text-foreground">
                 Recent Thoughts
               </h2>
-              <a href="/blog" className="btn-minimal font-sans">
-                View all posts <ArrowRight className="ml-2 h-4 w-4" />
+              <a
+                href="/blog"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-primary text-white font-sans font-medium hover:bg-primary/90 transition-colors"
+              >
+                View all posts
+                <ArrowRight className="ml-2 h-5 w-6" />
               </a>
             </div>
             <div className="space-y-12">
