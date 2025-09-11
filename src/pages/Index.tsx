@@ -9,18 +9,7 @@ import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Loader } from "@/components/Loader.tsx";
 import { useLocation } from "react-router-dom"; // If using React Router
-
-// ShapeSlider
-import ShapeSlider from "@/components/ShapeSlider";
-import shape1 from "@/assets/circle-4-in-square-layout.svg?url";
-import shape2 from "@/assets/circle-4-X-shape-cones.svg?url";
-import shape3 from "@/assets/circle-8-star-bloat.svg?url";
-import shape4 from "@/assets/circle-half-4-pinwheel-shape.svg?url";
-import shape5 from "@/assets/circle-intersection-in-circle-layout.svg?url";
-import shape6 from "@/assets/circle-quarter-alternates.svg?url";
 import Hero from "@/components/Hero";
-
-const shapes = [shape1, shape2, shape3, shape4, shape5, shape6];
 
 const Index = () => {
   const featuredPosts = blogPosts.filter((post) => post.featured).slice(0, 2);
