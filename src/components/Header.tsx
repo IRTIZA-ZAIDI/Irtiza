@@ -13,7 +13,7 @@ interface HeaderProps {
   logo?: string;
   navItems?: NavItem[];
   className?: string;
-  isHeroPage?: boolean; // 👈 pass this when rendering header
+  isHeroPage?: boolean;
 }
 
 const defaultNavItems: NavItem[] = [

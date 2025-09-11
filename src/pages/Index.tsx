@@ -106,6 +106,8 @@ const Index = () => {
                   role={project.role}
                   slug={project.slug}
                   imageUrl={project.imageUrl}
+                  dataScienceLevel={project.dataScienceLevel}
+                  domain={project.domain}
                 />
               ))}
             </div>

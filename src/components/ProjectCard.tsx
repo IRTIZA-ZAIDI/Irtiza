@@ -1,67 +1,107 @@
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { useState } from "react";
+
 interface ProjectCardProps {
   title: string;
   description: string;
   technologies: string[];
-  role: string;
   slug: string;
   imageUrl?: string;
+  dataScienceLevel: string;
+  domain: string[]; // multiple domain codes like ["NLP"], ["ML", "SWE"]
 }
 
-const ProjectCard = ({
+// Map domain codes -> full names
+const domainMap: Record<string, string> = {
+  NLP: "Natural Language Processing",
+  CV: "Computer Vision",
+  SWE: "Software Engineering",
+  ML: "Machine Learning",
+  GAI: "Generative AI",
+};
+
+export default function ProjectCard({
   title,
   description,
   technologies,
-  role,
-  slug,
-  imageUrl
-}: ProjectCardProps) => {
-  return (
-    <article
-      className="group relative bg-card border border-border rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-1 hover:border-accent/50 transition-all duration-300 ease-out"
-    >
-      <a href={`/Projects/${slug}`} className="block h-full p-6">
-        <div className="flex flex-col h-full">
-          {/* Project Image */}
-          {imageUrl && (
-            <div className="aspect-[16/9] bg-muted overflow-hidden rounded-xl mb-6">
-              <img
-                src={imageUrl}
-                alt={title}
-                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"
-              />
-            </div>
-          )}
+  imageUrl,
+  dataScienceLevel,
+  domain,
+}: ProjectCardProps) {
+  const [hovered, setHovered] = useState(false);
 
-          {/* Title & Role */}
-          <div className="mb-4">
-            <h3 className="font-sans font-bold text-xl text-foreground group-hover:text-accent transition-colors duration-300">
-              {title}
-            </h3>
-            <p className="text-sm uppercase tracking-wide text-muted-foreground mt-1">
-              {role}
+  // Convert codes to full forms & join with " & "
+  const fullDomain = domain
+    .map((d) => domainMap[d] || d)
+    .join(" & ");
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.45, ease: "easeInOut" }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={(e) => e.preventDefault()}
+    >
+      <Card className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 cursor-default bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800">
+        {imageUrl && (
+          <img
+            src={imageUrl}
+            alt={title}
+            className="w-full h-40 object-cover rounded-t-2xl pointer-events-none"
+          />
+        )}
+
+        <CardContent className="p-5 select-none">
+          {/* Title */}
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            {title}
+          </h3>
+
+          {/* Domain */}
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            {fullDomain}
+          </p>
+
+          {/* Description with smooth CSS transition */}
+          <div
+            className={`overflow-hidden transition-all duration-700 ease-in-out ${
+              hovered
+                ? "max-h-96 opacity-100 translate-y-0"
+                : "max-h-16 opacity-60 translate-y-1"
+            }`}
+          >
+            <p className="text-sm text-gray-700 dark:text-gray-300">
+              {description}
             </p>
           </div>
 
-          {/* Description */}
-          <p className="text-sm text-muted-foreground leading-relaxed mb-6 line-clamp-3">
-            {description}
-          </p>
+          {/* DataScienceLevel badge */}
+          <div className="mt-3">
+            <span
+              className="inline-block text-xs font-medium px-3 py-1 rounded-full
+                bg-blue-100 text-blue-700
+                dark:bg-[hsl(340,80%,20%)]/50 dark:text-[hsl(340,80%,65%)]"
+            >
+              {dataScienceLevel}
+            </span>
+          </div>
 
           {/* Technologies */}
-          <div className="flex flex-wrap gap-2 mt-auto">
-            {technologies.map((tech) => (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {technologies.map((tech, i) => (
               <span
-                key={tech}
-                className="text-xs font-medium px-3 py-1.5 rounded-full bg-muted text-muted-foreground border border-border hover:border-accent transition-colors duration-200"
+                key={i}
+                className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700 dark:bg-neutral-800 dark:text-gray-300"
               >
                 {tech}
               </span>
             ))}
           </div>
-        </div>
-      </a>
-    </article>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
-};
+}
 
-export default ProjectCard;

@@ -7,248 +7,219 @@ export interface Project {
   technologies: string[];
   featured: boolean;
   imageUrl?: string;
-  content: string;
   year: string;
   status: "completed" | "ongoing" | "archived";
+  // New tags:
+  dataScienceLevel: "Machine Learning" | "Classical" | "Generative AI";
+  domain: string[]; // e.g. ["Natural Language Processing"], ["Computer Vision"], ["Software Engineering"], ["Machine Learning"], etc.
 }
 
 export const projects: Project[] = [
   {
     id: "1",
-    slug: "recommendation-engine",
-    title: "Personalized Content Recommendation Engine",
-    description: "Built a scalable recommendation system serving 2M+ users, improving content engagement by 35% through deep learning and collaborative filtering techniques.",
-    role: "Lead Data Scientist",
-    technologies: ["Python", "TensorFlow", "Apache Spark", "Redis", "PostgreSQL", "Kubernetes"],
+    slug: "text-analytics",
+    title: "Text Analytics [Sentiment Analysis]",
+    description:
+      "Sentiment Analysis on IMDB: lexicons + TF-IDF + classical ML baselines, upgraded features with Word2Vec/GloVe embeddings, and fine-tuned DistilBERT/RoBERTa/GPT-2 to reach a peak 94% accuracy. Delivered a hybrid pipeline and comparative analysis of methods.",
+    role: "Course Project",
+    technologies: [
+      "scikit-learn",
+      "NLTK",
+      "spaCy",
+      "TF-IDF",
+      "Word2Vec",
+      "GloVe",
+      "DistilBERT",
+      "RoBERTa",
+      "GPT-2",
+      "PyTorch",
+    ],
     featured: true,
-    year: "2023",
+    year: "2024",
     status: "completed",
-    content: `# Personalized Content Recommendation Engine
-
-## Overview
-
-Designed and implemented a recommendation system for a content platform with over 2 million active users. The system needed to provide real-time, personalized content suggestions while handling high traffic loads and diverse user preferences.
-
-## Challenge
-
-The platform faced several challenges:
-- Low user engagement with existing content discovery
-- Cold start problem for new users and content
-- Need for real-time recommendations at scale
-- Diverse content types requiring different recommendation strategies
-
-## Solution
-
-### Architecture
-
-Built a hybrid recommendation system combining multiple approaches:
-
-**Collaborative Filtering**
-- Matrix factorization using TensorFlow for implicit feedback
-- Deep neural networks for learning user and item embeddings
-- Handles the majority of recommendations for active users
-
-**Content-Based Filtering**  
-- NLP pipeline for content feature extraction
-- Similarity matching based on user interaction history
-- Provides recommendations for new content items
-
-**Knowledge-Based Filtering**
-- Rule-based recommendations for cold start users
-- Demographic and contextual filtering
-- Fallback system ensuring all users receive recommendations
-
-### Technical Implementation
-
-**Data Pipeline**
-- Real-time data ingestion using Apache Kafka
-- Batch processing with Apache Spark for model training
-- Feature engineering pipeline processing 10GB+ daily
-
-**Model Training**
-- PyTorch models for deep collaborative filtering
-- Automated retraining pipeline triggered by data drift detection
-- A/B testing framework for model evaluation
-
-**Serving Infrastructure**
-- Redis cluster for low-latency recommendation serving
-- Kubernetes deployment with auto-scaling
-- Sub-100ms p95 latency for recommendation requests
-
-## Results
-
-### Business Impact
-- **35% increase** in content engagement
-- **25% improvement** in user session duration  
-- **40% boost** in content discovery for long-tail items
-- **15% reduction** in churn rate
-
-### Technical Achievements
-- Serving 50,000+ requests per second at peak
-- 99.9% uptime over 12 months
-- Reduced infrastructure costs by 30% through optimization
-
-## Key Learnings
-
-### Data Quality Matters
-- Spent 40% of project time on data cleaning and validation
-- Implemented automated data quality checks
-- Created feedback loops for continuous data improvement
-
-### Start Simple, Iterate Fast
-- Began with basic collaborative filtering
-- Gradually added complexity based on A/B test results
-- Maintained simple baselines for comparison
-
-### Monitor Everything
-- Built comprehensive monitoring for model performance
-- Tracked business metrics alongside technical metrics
-- Implemented automated alerting for anomalies
-
-## Technologies Used
-
-- **Machine Learning**: TensorFlow, PyTorch, scikit-learn
-- **Data Processing**: Apache Spark, Apache Kafka, Pandas
-- **Infrastructure**: Kubernetes, Redis, PostgreSQL
-- **Monitoring**: Prometheus, Grafana, MLflow
-- **Languages**: Python, SQL, Scala
-
-## Future Improvements
-
-- Incorporate reinforcement learning for dynamic optimization
-- Add multi-armed bandit for exploration/exploitation
-- Implement federated learning for privacy-preserving recommendations
-- Expand to cross-platform recommendation capabilities`,
+    dataScienceLevel: "Machine Learning",
+    domain: ["Natural Language Processing"],
   },
   {
-    id: "2", 
-    slug: "fraud-detection-system",
-    title: "Real-time Fraud Detection System",
-    description: "Developed an ML-powered fraud detection system that reduced false positives by 60% while maintaining 99.5% fraud detection accuracy using ensemble methods and real-time scoring.",
-    role: "Senior ML Engineer",
-    technologies: ["Python", "XGBoost", "Apache Kafka", "Elasticsearch", "Docker", "AWS"],
+    id: "2",
+    slug: "rag-chatbot",
+    title: "RAG Chatbot",
+    description:
+      "Parsed PDFs, JSON, and tables with LlamaParse and custom cleaning. Engineered a LangChain RAG pipeline with an ensemble retriever (BM25 + VectorDB/FAISS) for lexical + semantic search, validated with 5/5 benchmark queries, and tuned chunking & ranking for consistent, relevant answers.",
+    role: "Course Project",
+    technologies: ["LangChain", "LlamaParse", "BM25", "FAISS", "VectorDB", "PyTorch", "PDF parsing"],
     featured: true,
-    year: "2023",
+    year: "2024",
     status: "completed",
-    content: `# Real-time Fraud Detection System
-
-## Project Overview
-
-Led the development of a machine learning system to detect fraudulent transactions in real-time for a fintech platform processing $100M+ in monthly transactions. The system needed to balance fraud detection accuracy with user experience, minimizing false positives that could frustrate legitimate customers.
-
-## Business Challenge
-
-The existing rule-based system suffered from:
-- High false positive rate (8-12%)
-- Manual review bottleneck
-- Inability to adapt to new fraud patterns
-- Poor performance on mobile transactions
-
-## Technical Approach
-
-### Feature Engineering
-
-**Transaction Features**
-- Amount, frequency, and timing patterns
-- Merchant category and location analysis
-- Device fingerprinting and behavioral signals
-- Network analysis for connected accounts
-
-**Real-time Features**
-- Velocity calculations (transactions per hour/day)
-- Geographic inconsistencies
-- Spending pattern deviations
-- Account age and transaction history
-
-### Model Architecture
-
-**Ensemble Approach**
-- XGBoost for structured transaction data
-- Isolation Forest for anomaly detection
-- LSTM networks for sequence modeling
-- Weighted voting for final predictions
-
-**Real-time Scoring Pipeline**
-- Apache Kafka for event streaming
-- Feature store with Redis for low-latency lookup
-- Model serving with 50ms SLA
-- Automated model updates every 24 hours
-
-## Results
-
-### Performance Improvements
-- **60% reduction** in false positive rate (from 10% to 4%)
-- **99.5% fraud detection** accuracy maintained
-- **45ms average** prediction latency
-- **$2.1M annual savings** from reduced manual reviews
-
-### Operational Benefits
-- 24/7 automated fraud detection
-- Real-time model performance monitoring
-- Automated retraining and deployment
-- Comprehensive audit trails for compliance
-
-## Key Learnings
-
-1. **Domain Expertise is Crucial**: Collaborated closely with fraud analysts to understand attack patterns
-2. **Speed vs. Accuracy Tradeoffs**: Found optimal balance through extensive experimentation
-3. **Interpretability Matters**: Built explanation features for manual review cases
-4. **Continuous Learning**: Fraudsters adapt quickly, requiring frequent model updates
-
-## Future Enhancements
-
-- Graph neural networks for relationship modeling
-- Federated learning across partner institutions
-- Advanced NLP for transaction description analysis
-- Integration with external threat intelligence feeds`,
+    dataScienceLevel: "Generative AI",
+    domain: ["Natural Language Processing"],
   },
   {
     id: "3",
-    slug: "nlp-sentiment-platform",
-    title: "Multi-Language Sentiment Analysis Platform",
-    description: "Created a sentiment analysis platform supporting 12 languages with 92% accuracy, processing 500K+ social media posts daily for brand monitoring and market research.",
-    role: "NLP Engineer",
-    technologies: ["Python", "transformers", "FastAPI", "MongoDB", "React", "Docker"],
+    slug: "kaggle-competitions",
+    title: "Kaggle Competitions",
+    description:
+      "Competed on real-world datasets using classical and ensemble models (XGBoost, Random Forests, Decision Trees, Logistic Regression, Naive Bayes) and neural networks. Iterated preprocessing pipelines and feature engineering to improve scores and leaderboard placement.",
+    role: "Kaggle Competition",
+    technologies: ["Pandas", "scikit-learn", "XGBoost", "LightGBM", "TensorFlow", "PyTorch"],
     featured: false,
-    year: "2022",
+    year: "2024",
     status: "completed",
-    content: `# Multi-Language Sentiment Analysis Platform
-
-## Project Overview
-
-Developed a comprehensive sentiment analysis platform for a social media monitoring company. The system processes social media posts, news articles, and customer reviews across 12 languages to provide real-time brand sentiment insights.
-
-## Technical Implementation
-
-### Model Development
-- Fine-tuned multilingual BERT models for each language
-- Custom preprocessing pipeline for social media text
-- Ensemble methods combining multiple model predictions
-- Active learning for continuous model improvement
-
-### Platform Architecture
-- FastAPI backend for high-performance serving
-- React frontend for data visualization
-- MongoDB for storing processed results
-- Docker containerization for easy deployment
-
-### Data Pipeline
-- Real-time ingestion from social media APIs
-- Text preprocessing and language detection
-- Batch processing for historical analysis
-- Export capabilities for business intelligence tools
-
-## Results
-- 92% average accuracy across all languages
-- Processing 500K+ posts daily
-- Sub-200ms API response times
-- Deployed for 15+ enterprise customers
-
-## Technologies
-- **NLP**: transformers, spaCy, NLTK
-- **Backend**: FastAPI, Celery, Redis
-- **Frontend**: React, Chart.js, Material-UI
-- **Database**: MongoDB, Elasticsearch
-- **Infrastructure**: Docker, AWS ECS`,
+    dataScienceLevel: "Machine Learning",
+    domain: ["Machine Learning"],
+  },
+  {
+    id: "4",
+    slug: "10pearls-data-science",
+    title: "Data Science Project [10Pearls]",
+    description:
+      "As a data science intern, built a Random Forest classifier (96% accuracy) for term-deposit prediction using feature engineering and hyperparameter tuning. Also created an Ollama + SQL-model tooling pipeline on PostgreSQL to enable NL queries, summaries, and insights over data.",
+    role: "Internship Project",
+    technologies: ["RandomForest", "scikit-learn", "Ollama", "SHAP", "PostgreSQL", "SQL", "Pandas"],
+    featured: true,
+    year: "2024",
+    status: "completed",
+    dataScienceLevel: "Classical",
+    domain: ["Machine Learning", "Software Engineering"],
+  },
+  {
+    id: "5",
+    slug: "easy21-rl",
+    title: "Easy21 [Reinforcement Learning]",
+    description:
+      "Solved the Easy21 assignment end-to-end: environment implementation, Monte Carlo Control, TD Learning (Sarsa(λ)), and Linear Function Approximation. Produced value-function plots, MSE vs λ graphs, learning curves for λ=0 and λ=1, plus a concise discussion of results.",
+    role: "Side Project",
+    technologies: ["Reinforcement Learning"],
+    featured: false,
+    year: "2024",
+    status: "completed",
+    dataScienceLevel: "Machine Learning",
+    domain: ["Machine Learning"],
+  },
+  {
+    id: "6",
+    slug: "face-detection-and-filters",
+    title: "Face Detection & Filters",
+    description:
+      "Implemented classic and modern CV techniques: Viola-Jones face detection, pose/keypoint estimation, semantic segmentation, YOLO object detection, and a playful sunglasses filter using face landmarks and keypoint estimation.",
+    role: "Course Project",
+    technologies: ["OpenCV", "mediapipe", "YOLO"],
+    featured: false,
+    year: "2024",
+    status: "completed",
+    dataScienceLevel: "Machine Learning",
+    domain: ["Computer Vision"],
+  },
+  {
+    id: "7",
+    slug: "shape-detector-tool",
+    title: "Classical Shape Detector Tool",
+    description:
+      "Built a public tool using binary image processing to detect, localize, and identify shapes. Supports natural-language queries like 'how many small green rectangles are there and where are they?', returning counts and bounding locations.",
+    role: "Course Project",
+    technologies: ["OpenCV", "NumPy"],
+    featured: false,
+    year: "2024",
+    status: "completed",
+    dataScienceLevel: "Classical",
+    domain: ["Computer Vision"],
+  },
+  {
+    id: "8",
+    slug: "template-matching",
+    title: "Classical Template Matching [Coin Detection]",
+    description:
+      "Used OpenCV template matching to find coins in a Super Mario scene: load images, `cv.matchTemplate`, normalize scores, apply non-max suppression and thresholding, and visualize robust matches across scales.",
+    role: "Course Project",
+    technologies: ["OpenCV", "NumPy"],
+    featured: false,
+    year: "2024",
+    status: "completed",
+    dataScienceLevel: "Classical",
+    domain: ["Computer Vision"],
+  },
+  {
+    id: "9",
+    slug: "nn-classification-analysis",
+    title: "Neural Network Classification Analysis",
+    description:
+      "Implemented and compared classification algorithms with rigorous evaluation: 10x10-fold cross-validation, Accuracy, F-measure, ROC curves, and statistical tests to compare model performance and stability.",
+    role: "Course Project",
+    technologies: ["scikit-learn", "Keras", "TensorFlow", "NumPy", "Matplotlib"],
+    featured: false,
+    year: "2024",
+    status: "completed",
+    dataScienceLevel: "Machine Learning",
+    domain: ["Machine Learning"],
+  },
+  {
+    id: "10",
+    slug: "voc2008-binary-classification",
+    title: "PASCAL VOC2008 [Binary Classification]",
+    description:
+      "Conducted binary classification experiments (Horse vs Bus) on PASCAL VOC 2008 using transfer learning across 8 CNN and ViT models, class-specific augmentation, and early-fusion ensembling to benchmark performance.",
+    role: "Course Project",
+    technologies: ["PyTorch", "Transfer Learning", "CNNs", "Vision Transformer (ViT)", "Data Augmentation"],
+    featured: false,
+    year: "2024",
+    status: "completed",
+    dataScienceLevel: "Machine Learning",
+    domain: ["Computer Vision"],
+  },
+  {
+    id: "11",
+    slug: "model-parallelism",
+    title: "Parallel & Distributed Computing for Model Parallelism",
+    description:
+      "Concise exploration and experiments with model-parallel libraries and distributed techniques: evaluated DeepSpeed, Horovod, MPI-based approaches, and custom sharding to understand trade-offs and scalability.",
+    role: "Course Project",
+    technologies: ["PyTorch", "DeepSpeed", "Horovod", "MPI", "Distributed Computing"],
+    featured: false,
+    year: "2024",
+    status: "completed",
+    dataScienceLevel: "Machine Learning",
+    domain: ["Machine Learning", "Software Engineering"],
+  },
+  {
+    id: "12",
+    slug: "optimizers-exploration",
+    title: "Optimizers",
+    description:
+      "Explored key optimization algorithms (SGD with Momentum, AdaGrad, RMSProp, Adam), documented strengths/weaknesses, and tested them on a real dataset to compare convergence behaviour and final metrics.",
+    role: "Side Project",
+    technologies: ["Python", "PyTorch", "SGD", "Momentum", "AdaGrad", "RMSProp", "Adam"],
+    featured: false,
+    year: "2024",
+    status: "completed",
+    dataScienceLevel: "Machine Learning",
+    domain: ["Machine Learning"],
+  },
+  {
+    id: "13",
+    slug: "sentence-similarity-comparisons",
+    title: "Sentence Similarity [Comparison]",
+    description:
+      "Compared 5 NLP techniques on the STS Benchmark (English test set): all-MiniLM, Word2Vec, BERT, spaCy, and Gemini API. Used cosine similarity and evaluated via MSE on STSB test data to quantify differences and trade-offs.",
+    role: "Internship Assignment",
+    technologies: ["SentenceTransformers", "Word2Vec", "BERT", "spaCy", "Gemini API"],
+    featured: false,
+    year: "2024",
+    status: "completed",
+    dataScienceLevel: "Machine Learning",
+    domain: ["Natural Language Processing"],
+  },
+  {
+    id: "14",
+    slug: "mspaint-replica-on-java",
+    title: "MSPaint Replica [Java]",
+    description:
+      "Built an MS Paint replica from scratch for an OOP class: custom UI, drawing tools, layers, and all underlying data structures implemented in vanilla Java (Swing/AWT). A full-from-scratch exercise in design and engineering.",
+    role: "Course Project",
+    technologies: ["Java", "Swing", "AWT", "Custom Data Structures"],
+    featured: false,
+    year: "2023",
+    status: "completed",
+    dataScienceLevel: "Classical",
+    domain: ["Software Engineering"],
   },
 ];

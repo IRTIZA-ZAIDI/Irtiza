@@ -64,39 +64,6 @@
     --shadow-soft: 0 1px 3px 0 hsl(230 15% 10% / 0.08), 0 1px 2px 0 hsl(230 15% 10% / 0.05);
     --shadow-medium: 0 4px 6px -1px hsl(230 15% 10% / 0.08), 0 2px 4px -1px hsl(230 15% 10% / 0.05);
   }
-
-/* .dark {
-  --background: 222 15% 10%;
-  --foreground: 50 100% 97%;
-
-  --card: 222 14% 14%;
-  --card-foreground: 50 100% 97%;
-
-  --popover: 222 14% 14%;
-  --popover-foreground: 50 100% 97%;
-
-  --primary: 0 0% 100%;
-  --primary-foreground: 222 15% 10%;
-
-  --secondary: 280 65% 60%;
-  --secondary-foreground: 50 100% 97%;
-
-  --muted: 222 10% 22%;
-  --muted-foreground: 222 10% 65%;
-
-  --accent: 340 80% 65%;
-  --accent-foreground: 50 100% 97%;
-
-  --accent-warm: 45 90% 60%;
-  --accent-warm-foreground: 222 15% 10%;
-
-  --destructive: 0 75% 50%;
-  --destructive-foreground: 50 100% 97%;
-
-  --border: 222 10% 26%;
-  --input: 222 10% 26%;
-  --ring: 190 90% 60%;
-} */
 .dark {
   --background: 222 15% 5%;        /* darker black */
   --foreground: 50 100% 97%;       /* keep text bright */
@@ -118,6 +85,7 @@
 
   --accent: 340 80% 65%;            /* keep accent same */
   --accent-foreground: 50 100% 97%;
+  
 
   --accent-warm: 45 90% 60%;        /* keep warm accent same */
   --accent-warm-foreground: 222 15% 5%;
