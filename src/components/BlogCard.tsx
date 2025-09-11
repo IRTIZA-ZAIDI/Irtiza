@@ -10,8 +10,8 @@ const BlogCard = ({ title, excerpt, date, readTime, slug }: BlogCardProps) => {
   return (
     <article className="group hover-lift">
       <a href={`/blog/${slug}`} className="block">
-        <div className="bg-card border border-grey rounded-2xl p-6 space-y-2 hover:shadow-lg transition-shadow">
-          <h3 className="font-sans font-semibold text-xl text-foreground group-hover:text-accent transition-colors duration-200">
+        <div className="bg-transparent border-b border-grey pt-6 pb-6 space-y-2 hover:shadow-md transition-shadow">
+          <h3 className="font-serif font-semibold text-xl text-foreground group-hover:text-accent transition-colors duration-200">
             {title}
           </h3>
           
@@ -19,7 +19,7 @@ const BlogCard = ({ title, excerpt, date, readTime, slug }: BlogCardProps) => {
             {excerpt}
           </p>
           
-          <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+          <div className="flex items-center space-x-4 text-sm text-accent">
             <time dateTime={date}>{new Date(date).toLocaleDateString('en-US', { 
               year: 'numeric', 
               month: 'long', 

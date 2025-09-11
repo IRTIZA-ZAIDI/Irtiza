@@ -172,7 +172,7 @@ const About = () => {
                 </div>
               </div>
               {/* Contact CTA */}
-              <div className="bg-muted/30 rounded-lg p-8 text-center">
+              <div className="bg-muted rounded-lg p-8 text-center">
                 <h3 className="font-sans text-xl font-semibold text-foreground mb-4">
                   Let's Connect
                 </h3>

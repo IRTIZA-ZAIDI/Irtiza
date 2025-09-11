@@ -152,7 +152,7 @@ const BlogPost = () => {
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/^-|-$/g, "");
-        html.push(`<h2 id="${id}">${parseInlineMarkdown(text)}</h2>`);
+        html.push(`<h2 class="font-serif id="${id}">${parseInlineMarkdown(text)}</h2>`);
       } else if (line.startsWith("### ")) {
         const text = line.slice(4);
         const id = text
@@ -194,15 +194,15 @@ const BlogPost = () => {
     <div className="min-h-screen bg-background font-sans">
       <Header />
 
-      <main className="pt-10 pb-16 flex justify-center">
-        <div className="flex gap-8 max-w-7xl w-full">
+      <main className="pt-16 pb-16 flex justify-center">
+        <div className="flex  max-w-7xl w-full mt-8">
           {/* 1st column - empty */}
           <div className="w-60"></div>
 
           {/* 2nd column - Blog content */}
-          <div className="flex-1 px-4 flex justify-center">
-            <div className="max-w-4xl w-full px-4">
-              <div className="bg-card rounded-2xl border border-grey p-8">
+          <div className="flex-1 px-4 pt-4 flex justify-center">
+            <div className="max-w-6xl w-full">
+              <div className="">
                 {/* Header */}
                 <ScrollAnimation direction="fade">
                   <div className="wide-container">
@@ -220,11 +220,11 @@ const BlogPost = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                       >
-                        <h1 className="font-sans text-4xl md:text-4xl text-foreground mb-6">
+                        <h1 className="font-serif text-4xl md:text-4xl text-foreground mb-6">
                           {post.title}
                         </h1>
 
-                        <div className="flex items-center gap-6 text-muted-foreground mb-6 font-sans">
+                        <div className="flex items-center gap-6 text-accent mb-6 font-sans">
                           <div className="flex items-center gap-2">
                             <Calendar className="w-4 h-4" />
                             <span>
@@ -252,7 +252,7 @@ const BlogPost = () => {
 
                 {/* Article Content */}
                 <div className="wide-container">
-                  <div className="max-w-7xl grid grid-cols-1 lg:grid-cols-4 gap-12">
+                  <div className="max-w-6xl grid grid-cols-1 lg:grid-cols-4 gap-12">
                     <ScrollAnimation
                       direction="up"
                       delay={0.3}

@@ -50,9 +50,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background font-sans">
-      <section id="hero">
-        <Header />
-      </section>
+      <Header isHeroPage />
 
       {/* Hero Section */}
       <Hero />
@@ -64,12 +62,12 @@ const Index = () => {
         <div className="content-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>
             <div className="flex items-center justify-between mb-12">
-              <h2 className="font-sans text-3xl font-semibold text-foreground">
+              <h2 className="font-serif text-3xl font-semibold text-foreground">
                 Recent Thoughts
               </h2>
               <a
                 href="/blog"
-                className="inline-flex items-center px-6 py-3 rounded-lg bg-primary text-white font-sans font-medium hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-accent text-white font-sans font-medium hover:bg-primary/90 transition-colors"
               >
                 View all posts
                 <ArrowRight className="ml-2 h-5 w-6" />
@@ -98,14 +96,14 @@ const Index = () => {
         <div className="content-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>
             <div className="flex items-center justify-between mb-12">
-              <h2 className="font-sans text-3xl font-semibold text-foreground">
+              <h2 className="font-serif text-3xl font-semibold text-foreground">
                 Featured Work
               </h2>
               <a
                 href="/Projects"
-                className="inline-flex items-center px-6 py-3 rounded-lg bg-primary text-white font-sans font-medium hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-accent text-white font-sans font-medium hover:bg-primary/90 transition-colors"
               >
-                View all posts
+                View all projects
                 <ArrowRight className="ml-2 h-5 w-6" />
               </a>
             </div>
@@ -130,7 +128,7 @@ const Index = () => {
       <section className="bg-muted/30 min-h-screen flex items-center">
         <div className="narrow-container text-center">
           <ScrollAnimation direction="up" delay={0.3}>
-            <h2 className="font-sans text-2xl font-semibold text-foreground mb-6">
+            <h2 className="font-serif text-2xl font-semibold text-foreground mb-6">
               Currently
             </h2>
             <div className="space-y-4 text-muted-foreground">
@@ -143,11 +141,51 @@ const Index = () => {
                 fine-tuning, and impactful ML solutions.
               </p>
             </div>
-            <div className="mt-8">
-              <Button asChild className="btn-accent font-sans">
-                <a href="/contact">Get in Touch</a>
-              </Button>
-            </div>
+            
+            <div className="bg-muted rounded-lg p-8 text-center mt-6">
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Always open to discussions on AI interpretability, LLM
+                  fine-tuning, and impactful ML solutions.
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+                  <Button asChild className="btn-accent font-sans">
+                    <a href="/contact">Get in Touch</a>
+                  </Button>
+                  <Button variant="outline" asChild className="font-sans">
+                    <a
+                      href="/resume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {/* <Download className="mr-2 h-4 w-4" /> */}
+                      Download Resume
+                    </a>
+                  </Button>
+                </div>
+
+                <div className="flex items-center justify-center space-x-6">
+                  <a
+                    href="mailto:zirtiza110@gmail.com"
+                    className="text-muted-foreground hover:text-accent transition-colors"
+                  >
+                    <Mail className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/zirtiza/"
+                    className="text-muted-foreground hover:text-accent transition-colors"
+                  >
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="https://github.com/IRTIZA-ZAIDI"
+                    className="text-muted-foreground hover:text-accent transition-colors"
+                  >
+                    <Github className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+
           </ScrollAnimation>
         </div>
       </section>

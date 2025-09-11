@@ -29,11 +29,11 @@ const Blog = () => {
         <Header />
 
         <main className="pt-20 pb-16">
-          <div className="content-container">
+          <div className="content-container p-0">
             {/* Header */}
             <ScrollAnimation direction="fade">
               <div className="mb-16">
-                <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-6">
+                <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6 mt-6">
                   Blog
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
@@ -44,7 +44,7 @@ const Blog = () => {
 
             {/* Blog Posts */}
             <ScrollAnimation direction="up" delay={0.3}>
-              <div className="space-y-16">
+              <div className="space-y-10">
                 {sortedPosts.map((post) => {
                   const isLatest = latestIds.has(post.id);
 

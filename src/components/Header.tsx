@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ThemeToggle from "./ThemeToggle";
 
 interface NavItem {
   label: string;
@@ -12,6 +13,7 @@ interface HeaderProps {
   logo?: string;
   navItems?: NavItem[];
   className?: string;
+  isHeroPage?: boolean; // 👈 pass this when rendering header
 }
 
 const defaultNavItems: NavItem[] = [
@@ -19,7 +21,6 @@ const defaultNavItems: NavItem[] = [
   { label: "projects", href: "/Projects" },
   { label: "blog", href: "/blog" },
   { label: "about", href: "/about" },
-  { label: "life", href: "/life" },
   { label: "contact", href: "/contact" },
 ];
 
@@ -27,42 +28,26 @@ const Header: React.FC<HeaderProps> = ({
   logo = "Irtiza",
   navItems = defaultNavItems,
   className,
+  isHeroPage = false,
 }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (item: NavItem) => {
-    if (item.onClick) {
-      item.onClick();
-    } else {
-      // Smooth scroll to section
-      const target = document.querySelector(item.href);
-      if (target) {
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }
-    setIsMobileMenuOpen(false);
-  };
+  const transparentHero = isHeroPage && !isScrolled;
 
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-md shadow-black/5 py-3"
-          : "bg-transparent py-4",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4",
+        transparentHero
+          ? "bg-transparent border-none"
+          : "bg-background border-b border-border",
         className
       )}
     >
@@ -71,8 +56,8 @@ const Header: React.FC<HeaderProps> = ({
           {/* Logo */}
           <div
             className={cn(
-              "text-xl font-bold text-foreground transition-opacity duration-300",
-              isScrolled ? "opacity-100" : "opacity-0 pointer-events-none"
+              "text-xl font-bold font-serif text-foreground transition-opacity duration-300",
+              transparentHero && "opacity-0 pointer-events-none"
             )}
           >
             {logo}
@@ -84,12 +69,18 @@ const Header: React.FC<HeaderProps> = ({
               <a
                 key={index}
                 href={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
+                className={cn(
+                  "text-sm font-medium transition-colors duration-200",
+                  transparentHero
+                    ? "text-white hover:text-accent"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+                onClick={item.onClick}
               >
                 {item.label}
               </a>
             ))}
+            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}

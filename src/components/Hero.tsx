@@ -9,6 +9,7 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ className }) => {
   return (
     <section
+      id="hero"
       className={cn(
         "relative min-h-screen flex items-center overflow-hidden",
         className
