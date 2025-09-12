@@ -8,7 +8,12 @@ interface ProjectCardProps {
   technologies: string[];
   slug: string;
   imageUrl?: string;
-  dataScienceLevel: string;
+  dataScienceLevel: (
+    | "Machine Learning"
+    | "Classical"
+    | "Generative AI"
+    | "Reinforcement Learning"
+  )[] | null;
   domain: string[]; // multiple domain codes like ["NLP"], ["ML", "SWE"]
 }
 
@@ -19,6 +24,7 @@ const domainMap: Record<string, string> = {
   SWE: "Software Engineering",
   ML: "Machine Learning",
   GAI: "Generative AI",
+  RL: "Reinforcement Learning",
 };
 
 export default function ProjectCard({
@@ -32,9 +38,7 @@ export default function ProjectCard({
   const [hovered, setHovered] = useState(false);
 
   // Convert codes to full forms & join with " & "
-  const fullDomain = domain
-    .map((d) => domainMap[d] || d)
-    .join(" & ");
+  const fullDomain = domain.map((d) => domainMap[d] || d).join(" & ");
 
   return (
     <motion.div
@@ -77,16 +81,21 @@ export default function ProjectCard({
             </p>
           </div>
 
-          {/* DataScienceLevel badge */}
-          <div className="mt-3">
-            <span
-              className="inline-block text-xs font-medium px-3 py-1 rounded-full
-                bg-blue-100 text-blue-700
-                dark:bg-[hsl(340,80%,20%)]/50 dark:text-[hsl(340,80%,65%)]"
-            >
-              {dataScienceLevel}
-            </span>
-          </div>
+          {/* DataScienceLevel badges (if not null) */}
+          {dataScienceLevel && dataScienceLevel.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {dataScienceLevel.map((level, i) => (
+                <span
+                  key={i}
+                  className="inline-block text-xs font-medium px-3 py-1 rounded-full
+                    bg-blue-100 text-blue-700
+                    dark:bg-[hsl(340,80%,20%)]/50 dark:text-[hsl(340,80%,65%)]"
+                >
+                  {level}
+                </span>
+              ))}
+            </div>
+          )}
 
           {/* Technologies */}
           <div className="mt-3 flex flex-wrap gap-2">
@@ -104,4 +113,3 @@ export default function ProjectCard({
     </motion.div>
   );
 }
-

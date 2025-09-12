@@ -3,16 +3,34 @@ import Header from "@/components/Header";
 import ProjectCard from "@/components/ProjectCard";
 import { projects } from "@/data/projects";
 
+// Type alias for clarity
+type DataScienceLevel =
+  | "Machine Learning"
+  | "Classical"
+  | "Generative AI"
+  | "Reinforcement Learning";
+
 const Projects = () => {
   // Build unique filter options
   const dataScienceLevels = useMemo(() => {
-    const set = new Set(projects.map((p) => p.dataScienceLevel));
+    const set = new Set<DataScienceLevel>();
+    projects.forEach((p) => {
+      if (Array.isArray(p.dataScienceLevel)) {
+        p.dataScienceLevel.forEach((lvl) => set.add(lvl));
+      } else if (typeof p.dataScienceLevel === "string") {
+        set.add(p.dataScienceLevel as DataScienceLevel);
+      }
+    });
     return ["All", ...Array.from(set)];
   }, []);
 
   const domains = useMemo(() => {
     const s = new Set<string>();
-    projects.forEach((p) => p.domain.forEach((d) => s.add(d)));
+    projects.forEach((p) => {
+      if (Array.isArray(p.domain)) {
+        p.domain.forEach((d: string) => s.add(d));
+      }
+    });
     return ["All", ...Array.from(s)];
   }, []);
 
@@ -23,8 +41,19 @@ const Projects = () => {
   // Filtered projects
   const filteredProjects = useMemo(() => {
     return projects.filter((p) => {
-      const levelMatch = selectedLevel === "All" || p.dataScienceLevel === selectedLevel;
-      const domainMatch = selectedDomain === "All" || p.domain.includes(selectedDomain);
+      // Level check (array | string | null)
+      const levelMatch =
+        selectedLevel === "All" ||
+        (Array.isArray(p.dataScienceLevel) &&
+          p.dataScienceLevel.includes(selectedLevel as DataScienceLevel)) ||
+        (typeof p.dataScienceLevel === "string" &&
+          p.dataScienceLevel === selectedLevel);
+
+      // Domain check (array)
+      const domainMatch =
+        selectedDomain === "All" ||
+        (Array.isArray(p.domain) && p.domain.includes(selectedDomain));
+
       return levelMatch && domainMatch;
     });
   }, [selectedLevel, selectedDomain]);
@@ -41,14 +70,19 @@ const Projects = () => {
               Projects
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            Just projects. From cleaning messy data to deploying systems that actually work. My focus? Turning technical depth and curiosity into practical because the best models are the ones that get the job done.
+              Just projects. From cleaning messy data to deploying systems that
+              actually work. My focus? Turning technical depth and curiosity
+              into practical because the best models are the ones that get the
+              job done.
             </p>
           </div>
 
           {/* Filters */}
           <div className="mb-8 flex flex-col md:flex-row md:items-center md:gap-4 gap-3">
             <div className="flex items-center gap-3">
-              <label className="text-sm text-muted-foreground">DataScience Level:</label>
+              <label className="text-sm text-muted-foreground">
+                DataScience Level:
+              </label>
               <select
                 value={selectedLevel}
                 onChange={(e) => setSelectedLevel(e.target.value)}
@@ -89,8 +123,11 @@ const Projects = () => {
               </button>
 
               <div className="text-sm text-muted-foreground">
-                Showing <span className="font-semibold text-foreground">{filteredProjects.length}</span> of{" "}
-                {projects.length}
+                Showing{" "}
+                <span className="font-semibold text-foreground">
+                  {filteredProjects.length}
+                </span>{" "}
+                of {projects.length}
               </div>
             </div>
           </div>
@@ -103,7 +140,6 @@ const Projects = () => {
                 title={project.title}
                 description={project.description}
                 technologies={project.technologies}
-                // role={project.role}
                 slug={project.slug}
                 imageUrl={project.imageUrl}
                 dataScienceLevel={project.dataScienceLevel}
