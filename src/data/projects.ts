@@ -51,7 +51,7 @@ export const projects: Project[] = [
     slug: "rag-chatbot",
     title: "RAG Chatbot",
     description:
-      "Parsed PDFs, JSON, and tables with LlamaParse and custom cleaning. Engineered a LangChain RAG pipeline with an ensemble retriever (BM25 + VectorDB/FAISS) for lexical + semantic search, validated with 5/5 benchmark queries, and tuned chunking & ranking for consistent, relevant answers.",
+      "Explored different approaches to build a reliable RAG pipeline: parsed PDFs, JSON, and tables with LlamaParse + custom cleaning, then engineered a LangChain ensemble retriever (BM25 + FAISS) to combine lexical and semantic search. Validated performance on benchmark queries and tuned chunking/ranking for stable, accurate answers.",
     role: "Course Project",
     technologies: [
       "LangChain",
@@ -97,7 +97,7 @@ export const projects: Project[] = [
     slug: "10pearls-data-science",
     title: "Data Science Project [10Pearls]",
     description:
-      "As a data science intern, built a Random Forest classifier (96% accuracy) for term-deposit prediction using feature engineering and hyperparameter tuning. Also created an Ollama + SQL-model tooling pipeline on PostgreSQL to enable NL queries, summaries, and insights over data.",
+      "As a data science intern, built a Random Forest classifier (96% accuracy) for customer churn prediction using feature engineering and hyperparameter tuning. Also created an Ollama + SQL-model tooling pipeline on PostgreSQL to enable NL queries, summaries, and insights over data.",
     role: "Internship Project",
     technologies: [
       "RandomForest",
@@ -109,7 +109,7 @@ export const projects: Project[] = [
       "Model Interpretability",
       "Functional tooling"
     ],
-    featured: true,
+    featured: false,
     year: "2024",
     status: "completed",
     dataScienceLevel: ["Classical"],
@@ -120,7 +120,7 @@ export const projects: Project[] = [
     slug: "easy21-rl",
     title: "Easy21",
     description:
-      "Solved the Easy21 assignment end-to-end: environment implementation, Monte Carlo Control, TD Learning (Sarsa(λ)), and Linear Function Approximation. Produced value-function plots, MSE vs λ graphs, learning curves for λ=0 and λ=1, plus a concise discussion of results.",
+      "Worked through the Easy21 assignment step by step: building the environment, implementing Monte Carlo Control, exploring TD Learning with Sarsa(λ), and experimenting with Linear Function Approximation. Documented results with value-function plots, MSE vs. λ graphs, and learning curves, and wrapped up with a discussion of insights.",
     role: "Side Project",
     technologies: [
       "Monte Carlo Control",
@@ -130,8 +130,8 @@ export const projects: Project[] = [
     featured: false,
     year: "2024",
     status: "completed",
-    dataScienceLevel: ["Reinforcement Learning"],
-    domain: ["Machine Learning"],
+    dataScienceLevel: ["Classical"],
+    domain: ["Reinforcement Learning"],
   },
   {
     id: "6",
@@ -157,7 +157,7 @@ export const projects: Project[] = [
     slug: "shape-detector-tool",
     title: "Classical Shape Detector Tool",
     description:
-      "Built a public tool using binary image processing to detect, localize, and identify shapes. Supports natural-language queries like 'how many small green rectangles are there and where are they?', returning counts and bounding locations.",
+      "Built a tool using binary image processing to detect, localize, and identify shapes. Supports natural-language queries like 'how many small green rectangles are there and where are they?', returning counts and bounding locations.",
     role: "Course Project",
     technologies: [
       "OpenCV",
@@ -216,7 +216,7 @@ export const projects: Project[] = [
     slug: "voc2008-binary-classification",
     title: "PASCAL VOC2008 [Binary Classification]",
     description:
-      "Conducted binary classification experiments (Horse vs Bus) on PASCAL VOC 2008 using transfer learning across 8 CNN and ViT models, class-specific augmentation, and early-fusion ensembling to benchmark performance.",
+      "Conducted binary classification experiments (Horse and Bus) on PASCAL VOC 2008 using transfer learning across 8 CNN and ViT models, class-specific augmentation, and ensembling techniques to benchmark performance.",
     role: "Course Project",
     technologies: [
       "PyTorch",
@@ -237,7 +237,7 @@ export const projects: Project[] = [
     slug: "model-parallelism",
     title: "Parallel & Distributed Computing for Model Parallelism",
     description:
-      "Concise exploration and experiments with model-parallel libraries and distributed techniques: evaluated DeepSpeed, Horovod, MPI-based approaches, and custom sharding to understand trade-offs and scalability.",
+      "Concise exploration and experiments with model-parallel libraries and distributed techniques: evaluated and understood trade-offs and scalability.",
     role: "Course Project",
     technologies: [
       "PyTorch Distributed",
@@ -303,9 +303,33 @@ export const projects: Project[] = [
     technologies: [
       "Java",
       "Swing",
-      "AWT",
       "Event Driven Programming",
       "Custom Data Structures",
+      "Object Oriented Design"
+    ],
+    featured: false,
+    year: "2023",
+    status: "completed",
+    dataScienceLevel: null,
+    domain: ["Software Engineering"],
+  },
+   {
+    id: "15",
+    slug: "design-patterns",
+    title: "Design Patterns Implementation",
+    description:
+      "Implemented and practiced software design patterns including Abstract Factory, Adapter, Builder, Decorator, Factory Method, Mediator, Observer, and Singleton. Focused on understanding their intent, trade-offs, and practical use cases through examples.",
+    role: "Course Project",
+    technologies: [
+      "Abstract Factory",
+      "Adapter",
+      "Builder",
+      "Decorator",
+      "Factory Method",
+      "Mediator",
+      "Observer",
+      "Singleton",
+      "Java",
       "Object Oriented Design"
     ],
     featured: false,

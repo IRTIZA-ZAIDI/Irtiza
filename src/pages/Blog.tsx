@@ -11,7 +11,7 @@ const Blog = () => {
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  // Identify latest 2 posts
+  // Identify latest 1 post
   const latestIds = new Set(sortedPosts.slice(0, 1).map((p) => p.id));
 
   return (
@@ -29,15 +29,15 @@ const Blog = () => {
         <Header />
 
         <main className="pt-20 pb-16">
-          <div className="content-container p-0">
+          <div className="wide-container">
             {/* Header */}
             <ScrollAnimation direction="fade">
-              <div className="mb-16">
-                <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6 mt-6">
+              <div className="mb-8 fade-in">
+                <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-4">
                   Blog
                 </h1>
-                <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                  Notes and narratives from the front lines of AI, focusing on building models, solving data challenges, and thinking about the systems that will define tomorrow.
+                <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+                  I use writing the way I use projects: to learn. These notes cover interview prep, concepts I’m revising, problems I’ve solved, and questions I’m still exploring in AI and data. It’s less about polished essays, more about capturing the process.
                 </p>
               </div>
             </ScrollAnimation>
@@ -61,7 +61,7 @@ const Blog = () => {
                     );
                   }
 
-                  // For latest posts with accent line
+                  // For latest post with accent line
                   return (
                     <LatestBlogCard
                       key={post.id}

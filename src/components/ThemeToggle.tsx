@@ -9,7 +9,10 @@ const ThemeToggle = () => {
     const root = window.document.documentElement;
     const initialTheme = localStorage.getItem("theme");
     
-    if (initialTheme === "dark" || (!initialTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+    if (
+      initialTheme === "dark" || 
+      (!initialTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
       root.classList.add("dark");
       setIsDark(true);
     }
@@ -37,9 +40,9 @@ const ThemeToggle = () => {
       className="w-10 h-10 p-0 hover:bg-muted transition-colors"
     >
       {isDark ? (
-        <Sun className="h-5 w-5" />
+        <Sun className="h-5 w-5 text-gray-500 dark:text-gray-400" />
       ) : (
-        <Moon className="h-5 w-5" />
+        <Moon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

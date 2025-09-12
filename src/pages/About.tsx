@@ -1,7 +1,9 @@
+// pages/about/index.tsx
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Download, Github, Linkedin, Mail } from "lucide-react";
 import JobList from "@/components/JobList";
+import ScrollAnimation from "@/components/ScrollAnimation";
 
 const About = () => {
   return (
@@ -9,19 +11,25 @@ const About = () => {
       <Header />
 
       <main className="pt-20 pb-16">
-        <div className="content-container">
+        <div className="wide-container">
           {/* Header */}
-          <div className="mb-16 fade-in">
-            <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-6">
-              About
-            </h1>
-          </div>
+          <ScrollAnimation direction="fade">
+            <div className="mb-8 fade-in">
+              <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-4">
+                About
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+                A little about me, my background, and what I’m exploring right
+                now.
+              </p>
+            </div>
+          </ScrollAnimation>
 
           {/* Content */}
-          <div className="slide-in-up">
-            <div className="prose max-w-none">
+          <ScrollAnimation direction="up" delay={0.2}>
+            <div className="space-y-16">
               {/* Introduction */}
-              <div className="mb-12">
+              <section>
                 <h2 className="font-sans text-2xl font-semibold text-foreground mb-6">
                   Hi, I'm Irtiza Zaidi
                 </h2>
@@ -31,76 +39,17 @@ const About = () => {
                   place lies at the intersection of fine-tuning and model
                   interpretability, where I transform AI into intelligent,
                   transparent systems. With hands-on experience in LLM
-                  fine-tuning, MLOps best practices, and applied ML research. I
+                  fine-tuning, MLOps best practices, and applied ML research, I
                   thrive in bridging machine learning engineering with
                   explainability to create impactful, trustworthy solutions.
                 </p>
-                {/* <p className="text-lg text-muted-foreground leading-relaxed">
-                  My recent work involves fine-tuning large language models for schema-aware
-                  tabular classification, optimizing models for efficiency, and applying
-                  explainable AI techniques to enhance model trustworthiness and performance.
-                </p> */}
-              </div>
+              </section>
 
-          
-                <JobList />
-              
+              {/* Job Experience */}
+              <JobList />
 
-              {/* Background
-              <div className="mb-12">
-                <h3 className="font-sans text-xl font-semibold text-foreground mb-4">
-                  Professional Background
-                </h3>
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="font-sans font-medium text-accent mb-2">
-                      Data Scientist @ Securiti.ai (Jun 2025 – Present)
-                    </h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Engineered synthetic data pipelines, fine-tuned LLaMA 1B
-                      Instruct for column classification with 96% F1, and
-                      implemented schema-constrained generation using Outlines
-                      and Formatron fallbacks. Applied MLflow for experiment
-                      tracking and reproducibility.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-sans font-medium text-accent mb-2">
-                      Data Science Intern @ Securiti.ai (Jun 2024 – Aug 2024)
-                    </h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Fine-tuned open-source models (Mistral, LoRA/QLoRA),
-                      optimized detection models to achieve 90% precision with
-                      reduced compute, and applied SHAP to improve
-                      interpretability.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-sans font-medium text-accent mb-2">
-                      Data Science Intern @ 10Pearls (Sep 2024 – Nov 2024)
-                    </h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Built a classifier with 96% accuracy. Developed a
-                      PostgreSQL-integrated NLP tool using Ollama, and enabled
-                      natural language querying and summarization (functional
-                      tooling).
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-sans font-medium text-accent mb-2">
-                      Business Intelligence Intern @ Bank Al Habib (Jun 2023 –
-                      Jul 2023)
-                    </h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Applied clustering algorithms to customer data, automated
-                      ETL processes, and implemented RFM analysis to support
-                      targeted engagement.
-                    </p>
-                  </div>
-                </div>
-              </div> */}
               {/* Education */}
-              <div className="mb-12">
+              <section>
                 <h3 className="font-sans text-xl font-semibold text-foreground mb-4">
                   Education
                 </h3>
@@ -116,9 +65,10 @@ const About = () => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </section>
+
               {/* Skills */}
-              <div className="mb-12">
+              <section>
                 <h3 className="font-sans text-xl font-semibold text-foreground mb-4">
                   Technical Skills
                 </h3>
@@ -148,17 +98,19 @@ const About = () => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </section>
+
               {/* Currently */}
-              <div className="mb-12">
+              <section>
                 <h3 className="font-sans text-xl font-semibold text-foreground mb-4">
                   Currently
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p className="leading-relaxed">
                     <strong className="text-accent">Reading:</strong> Research
-                    papers on AI alignment and book Reinforcement Learning from
-                    Human Feedback by Nathan Lambert.
+                    papers on AI alignment and{" "}
+                    <em>Reinforcement Learning from Human Feedback</em> by
+                    Nathan Lambert.
                   </p>
                   <p className="leading-relaxed">
                     <strong className="text-accent">Learning:</strong>{" "}
@@ -170,9 +122,10 @@ const About = () => {
                     yet :(
                   </p>
                 </div>
-              </div>
+              </section>
+
               {/* Contact CTA */}
-              <div className="bg-muted rounded-lg p-8 text-center">
+              <section className="bg-muted rounded-2xl p-8 text-center shadow-sm">
                 <h3 className="font-sans text-xl font-semibold text-foreground mb-4">
                   Let's Connect
                 </h3>
@@ -217,9 +170,9 @@ const About = () => {
                     <Github className="h-5 w-5" />
                   </a>
                 </div>
-              </div>
+              </section>
             </div>
-          </div>
+          </ScrollAnimation>
         </div>
       </main>
     </div>
@@ -227,3 +180,4 @@ const About = () => {
 };
 
 export default About;
+

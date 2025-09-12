@@ -10,7 +10,104 @@ type DataScienceLevel =
   | "Generative AI"
   | "Reinforcement Learning";
 
-const Projects = () => {
+const FilterBar: React.FC<{
+  dataScienceLevels: string[];
+  domains: string[];
+  selectedLevel: string;
+  selectedDomain: string;
+  onLevelChange: (v: string) => void;
+  onDomainChange: (v: string) => void;
+  onClear: () => void;
+  shown: number;
+  total: number;
+}> = ({
+  dataScienceLevels,
+  domains,
+  selectedLevel,
+  selectedDomain,
+  onLevelChange,
+  onDomainChange,
+  onClear,
+  shown,
+  total,
+}) => {
+  return (
+    <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4 w-full">
+      {/* Domain first (user requested) */}
+      <div className="flex items-center gap-3">
+        <label className="text-xs md:text-sm text-muted-foreground mr-1">
+          Domain
+        </label>
+        <select
+          value={selectedDomain}
+          onChange={(e) => onDomainChange(e.target.value)}
+          className="text-sm px-3 py-1.5 rounded-full border border-border bg-card text-foreground shadow-sm focus:outline-none"
+          aria-label="Filter by domain"
+        >
+          {domains.map((d) => (
+            <option key={d} value={d}>
+              {d}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Focus (renamed from Level) */}
+      <div className="flex items-center gap-3">
+        <label className="text-xs md:text-sm text-muted-foreground mr-1">
+          Focus
+        </label>
+        <select
+          value={selectedLevel}
+          onChange={(e) => onLevelChange(e.target.value)}
+          className="text-sm px-3 py-1.5 rounded-full border border-border bg-card text-foreground shadow-sm focus:outline-none"
+          aria-label="Filter by focus"
+        >
+          {dataScienceLevels.map((lvl) => (
+            <option key={lvl} value={lvl}>
+              {lvl}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="ml-auto flex items-center gap-3">
+        <button
+          onClick={onClear}
+          className="flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-border bg-muted/10 hover:bg-muted/20 transition"
+          aria-label="Clear filters"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+          Clear
+        </button>
+
+        <div className="flex items-center text-xs md:text-sm text-muted-foreground gap-2">
+          <span className="text-muted-foreground">Showing</span>
+          <span className="px-2 py-0.5 rounded-full bg-card border border-border text-foreground text-sm font-semibold">
+            {shown}
+          </span>
+          <span className="text-muted-foreground">of {total}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Projects: React.FC = () => {
   // Build unique filter options
   const dataScienceLevels = useMemo(() => {
     const set = new Set<DataScienceLevel>();
@@ -58,6 +155,11 @@ const Projects = () => {
     });
   }, [selectedLevel, selectedDomain]);
 
+  const clearFilters = () => {
+    setSelectedLevel("All");
+    setSelectedDomain("All");
+  };
+
   return (
     <div className="min-h-screen bg-background font-sans">
       <Header />
@@ -69,67 +171,28 @@ const Projects = () => {
             <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-4">
               Projects
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-              Just projects. From cleaning messy data to deploying systems that
-              actually work. My focus? Turning technical depth and curiosity
-              into practical because the best models are the ones that get the
-              job done.
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+              My projects are less about polished results and more about the
+              process. I build to explore ideas, to make sense of concepts I’ve
+              been studying, and to follow curiosity where it takes me. Along the
+              way, I learn by doing, whether that means debugging late into the
+              night or finally seeing a system come together and work.
             </p>
           </div>
 
           {/* Filters */}
-          <div className="mb-8 flex flex-col md:flex-row md:items-center md:gap-4 gap-3">
-            <div className="flex items-center gap-3">
-              <label className="text-sm text-muted-foreground">
-                DataScience Level:
-              </label>
-              <select
-                value={selectedLevel}
-                onChange={(e) => setSelectedLevel(e.target.value)}
-                className="px-3 py-2 rounded-md border border-border bg-card text-foreground"
-              >
-                {dataScienceLevels.map((lvl) => (
-                  <option key={lvl} value={lvl}>
-                    {lvl}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <label className="text-sm text-muted-foreground">Domain:</label>
-              <select
-                value={selectedDomain}
-                onChange={(e) => setSelectedDomain(e.target.value)}
-                className="px-3 py-2 rounded-md border border-border bg-card text-foreground"
-              >
-                {domains.map((d) => (
-                  <option key={d} value={d}>
-                    {d}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="ml-auto flex items-center gap-3">
-              <button
-                onClick={() => {
-                  setSelectedLevel("All");
-                  setSelectedDomain("All");
-                }}
-                className="text-sm px-3 py-2 rounded-md border border-border bg-muted/40 hover:bg-muted transition"
-              >
-                Clear filters
-              </button>
-
-              <div className="text-sm text-muted-foreground">
-                Showing{" "}
-                <span className="font-semibold text-foreground">
-                  {filteredProjects.length}
-                </span>{" "}
-                of {projects.length}
-              </div>
-            </div>
+          <div className="mb-8">
+            <FilterBar
+              dataScienceLevels={dataScienceLevels}
+              domains={domains}
+              selectedLevel={selectedLevel}
+              selectedDomain={selectedDomain}
+              onLevelChange={setSelectedLevel}
+              onDomainChange={setSelectedDomain}
+              onClear={clearFilters}
+              shown={filteredProjects.length}
+              total={projects.length}
+            />
           </div>
 
           {/* Projects Grid */}
