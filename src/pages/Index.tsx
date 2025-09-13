@@ -50,18 +50,19 @@ const Index = () => {
 
         <div className="wide-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>
-            <div className="flex items-center justify-between mb-12">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-4 md:gap-0 text-center md:text-left">
               <h2 className="font-serif text-3xl font-semibold text-foreground">
                 Recent Thoughts
               </h2>
               <a
                 href="/blog"
-                className="inline-flex items-center px-6 py-3 rounded-lg bg-accent text-white font-sans font-medium hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-accent text-white font-sans font-medium hover:bg-primary/90 transition-colors"
               >
                 View all posts
                 <ArrowRight className="ml-2 h-5 w-6" />
               </a>
             </div>
+
             <div className="space-y-12">
               {featuredPosts.map((post) => (
                 <BlogCard
@@ -84,13 +85,13 @@ const Index = () => {
 
         <div className="wide-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>
-            <div className="flex items-center justify-between mb-12">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-4 md:gap-0 text-center md:text-left">
               <h2 className="font-serif text-3xl font-semibold text-foreground">
                 Featured Work
               </h2>
               <a
                 href="/Projects"
-                className="inline-flex items-center px-6 py-3 rounded-lg bg-accent text-white font-sans font-medium hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-accent text-white font-sans font-medium hover:bg-primary/90 transition-colors"
               >
                 View all projects
                 <ArrowRight className="ml-2 h-5 w-6" />
@@ -132,51 +133,50 @@ const Index = () => {
                 fine-tuning, and impactful ML solutions.
               </p>
             </div>
-            
+
             <div className="bg-muted rounded-lg p-8 text-center mt-6">
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Always open to discussions on AI interpretability, LLM
-                  fine-tuning, and impactful ML solutions.
-                </p>
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                Always open to discussions on AI interpretability, LLM
+                fine-tuning, and impactful ML solutions.
+              </p>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-                  <Button asChild className="btn-accent font-sans">
-                    <a href="/contact">Get in Touch</a>
-                  </Button>
-                  <Button variant="outline" asChild className="font-sans">
-                    <a
-                      href="/resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Download className="mr-2 h-4 w-4" />
-                      Download Resume
-                    </a>
-                  </Button>
-                </div>
-
-                <div className="flex items-center justify-center space-x-6">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+                <Button asChild className="btn-accent font-sans">
+                  <a href="/contact">Get in Touch</a>
+                </Button>
+                <Button variant="outline" asChild className="font-sans">
                   <a
-                    href="mailto:zirtiza110@gmail.com"
-                    className="text-muted-foreground hover:text-accent transition-colors"
+                    href="/resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <Mail className="h-5 w-5" />
+                    <Download className="mr-2 h-4 w-4" />
+                    Download Resume
                   </a>
-                  <a
-                    href="https://www.linkedin.com/in/zirtiza/"
-                    className="text-muted-foreground hover:text-accent transition-colors"
-                  >
-                    <Linkedin className="h-5 w-5" />
-                  </a>
-                  <a
-                    href="https://github.com/IRTIZA-ZAIDI"
-                    className="text-muted-foreground hover:text-accent transition-colors"
-                  >
-                    <Github className="h-5 w-5" />
-                  </a>
-                </div>
+                </Button>
               </div>
 
+              <div className="flex items-center justify-center space-x-6">
+                <a
+                  href="mailto:zirtiza110@gmail.com"
+                  className="text-muted-foreground hover:text-accent transition-colors"
+                >
+                  <Mail className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/zirtiza/"
+                  className="text-muted-foreground hover:text-accent transition-colors"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://github.com/IRTIZA-ZAIDI"
+                  className="text-muted-foreground hover:text-accent transition-colors"
+                >
+                  <Github className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
           </ScrollAnimation>
         </div>
       </section>

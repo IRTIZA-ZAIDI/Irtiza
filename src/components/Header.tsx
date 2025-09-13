@@ -83,18 +83,27 @@ const Header: React.FC<HeaderProps> = ({
             <ThemeToggle transparent={transparentHero} />
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-foreground"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          {/* Mobile ThemeToggle + Menu Button */}
+          <div className="flex items-center md:hidden gap-2">
+            <ThemeToggle transparent={transparentHero} />
+            {/* Hamburger / Close Icon */}
+            <button
+              className={cn(
+                "p-2 transition-colors duration-200",
+                transparentHero
+                  ? "text-white hover:text-accent"
+                  : "text-foreground hover:text-accent"
+              )}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

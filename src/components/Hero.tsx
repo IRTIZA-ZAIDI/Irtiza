@@ -37,11 +37,11 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
             Data Scientist
           </p>
 
-          <p className="text-lg md:text-l text-white/90">
+          <p className="text-xm md:text-lg text-white/90">
             This is my space for experiments, notes, and reflections on turning
             data into understanding.
           </p>
-          <p className="text-lg md:text-l text-white/90 mb-8">
+          <p className="text-xm md:text-lg text-white/90 mb-8">
             I share projects I have built, problems I
             have solved, and questions I am still exploring.
           </p>

@@ -135,13 +135,12 @@ ${codeContent}
   return `<div class="wide-container p-0 prose">${html.join("\n")}</div>`;
 };
 
-
   return (
     <div className="min-h-screen bg-background font-sans">
       <Header />
 
-      <main className="pt-16 pb-16 flex justify-center">
-        <div className="flex max-w-7xl w-full mt-8 gap-12">
+      <main className="pt-16 pb-16 flex justify-center px-4 sm:px-6">
+        <div className="flex flex-col lg:flex-row max-w-7xl w-full mt-8 gap-12">
           {/* Blog Content */}
           <div className="flex-1">
             <ScrollAnimation direction="fade">
@@ -163,7 +162,7 @@ ${codeContent}
                     {post.title}
                   </h1>
 
-                  <div className="flex items-center gap-6 text-accent mb-6 font-sans">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6 text-accent mb-6 font-sans">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4" />
                       <span>
@@ -203,7 +202,7 @@ ${codeContent}
 
             {/* Navigation */}
             <ScrollAnimation direction="up" delay={0.5}>
-              <div className="content-container mt-16 pt-8 border-t border-border flex justify-between items-center">
+              <div className="content-container mt-16 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
                 <Link
                   to="/blog"
                   className="text-accent hover:text-accent-warm transition-colors font-medium"
@@ -217,7 +216,7 @@ ${codeContent}
             </ScrollAnimation>
           </div>
 
-          {/* TOC */}
+          {/* TOC - hidden on mobile */}
           <aside className="w-60 hidden lg:block flex-shrink-0">
             <div className="sticky top-20 max-h-[calc(100vh-5rem)] px-4 py-2 border-l border-border">
               <TableOfContents content={post.content} />
