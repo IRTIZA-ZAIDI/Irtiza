@@ -75,56 +75,61 @@ export default function JobList() {
         Professional Background
       </h3>
 
-      <div className="w-full md:flex md:items-center min-h-[280px]">
-        {/* LEFT: Company list (company names only) */}
-        <div className="md:flex md:flex-col md:min-w-[200px] md:mr-6 mb-3 md:mb-0 md:justify-center">
-          <div role="tablist" aria-orientation="vertical" className="flex md:flex-col gap-1 p-0">
-            {companies.map((company) => {
-              const active = company === selectedCompany;
-              return (
-                <button
-                  key={company}
-                  role="tab"
-                  aria-selected={active}
-                  onClick={() => setSelectedCompany(company)}
-                  className={
-                    "text-sm font-sans px-2 py-1 rounded text-left w-full " +
-                    (active
-                      ? "text-accent bg-transparent"
-                      : "text-muted-foreground hover:text-foreground")
-                  }
-                >
-                  {company}
-                </button>
-              );
-            })}
+      <div className="w-full md:flex md:items-center min-h-[420px]">
+        <div className="w-full md:flex md:items-stretch min-h-[400px]">
+          {/* LEFT */}
+          <div className="md:w-1/4 md:pr-6 mb-3 md:mb-0 border-r border-border flex flex-col">
+            <div
+              role="tablist"
+              aria-orientation="vertical"
+              className="flex md:flex-col gap-2"
+            >
+              {companies.map((company) => {
+                const active = company === selectedCompany;
+                return (
+                  <button
+                    key={company}
+                    onClick={() => setSelectedCompany(company)}
+                    className={
+                      "text-base font-medium px-3 py-2 rounded-lg text-left transition " +
+                      (active
+                        ? "bg-accent/10 text-accent"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/5")
+                    }
+                  >
+                    {company}
+                  </button>
+                );
+              })}
+            </div>
+            {/* optional: spacer so bar always fills height */}
+            <div className="flex-1" />
           </div>
-        </div>
 
-        {/* RIGHT: show all roles for selected company (one company at a time) */}
-        <div className="flex-1 md:border-l md:border-border md:pl-4 flex items-center">
-          <div className="w-full space-y-4">
-            {companyRoles.map((role) => (
-              <article key={role.id} className="space-y-2">
-                <div>
-                  <h4 className="font-sans font-medium text-accent mb-0">
-                    {role.title} {role.company}
-                  </h4>
-                  <div className="text-xs text-muted-foreground">{role.duration}</div>
-                </div>
-
-                <ul className="list-disc pl-5 space-y-1 text-muted-foreground leading-snug">
-                  {role.desc.map((d, i) => (
-                    <li key={i}>{d}</li>
-                  ))}
-                </ul>
-
-                {/* small divider between multiple roles */}
-                {companyRoles.length > 1 && (
-                  <div className="border-t border-border mt-2 pt-2" />
-                )}
-              </article>
-            ))}
+          {/* RIGHT */}
+          <div className="flex-1 md:pl-6 flex flex-col">
+            <div className="space-y-6">
+              {companyRoles.map((role) => (
+                <article key={role.id} className="space-y-3">
+                  <div>
+                    <h4 className="text-lg text-accent">
+                      {role.title} {role.company}
+                    </h4>
+                    <div className="text-sm text-muted-foreground">
+                      {role.duration}
+                    </div>
+                  </div>
+                  <ul className="list-disc pl-5 space-y-1 text-sm text-muted-foreground leading-snug">
+                    {role.desc.map((d, i) => (
+                      <li key={i}>{d}</li>
+                    ))}
+                  </ul>
+                  {companyRoles.length > 1 && (
+                    <div className="border-t border-border pt-2" />
+                  )}
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </div>

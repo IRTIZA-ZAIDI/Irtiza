@@ -35,13 +35,13 @@ const Contact = () => {
       <Header />
       
       <main className="pt-20 pb-16">
-        <div className="narrow-container">
+        <div className="wide-container">
           {/* Header */}
           <div className="mb-16 text-center fade-in">
-            <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-6">
+            <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6 mt-6">
               Contact
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed">
               Always open to discussions on AI interpretability, LLM fine-tuning, and impactful ML solutions.
             </p>
           </div>

@@ -15,10 +15,10 @@ const About = () => {
           {/* Header */}
           <ScrollAnimation direction="fade">
             <div className="mb-8 fade-in">
-              <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-4">
+              <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4 mt-4">
                 About
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 A little about me, my background, and what I’m exploring right
                 now.
               </p>
@@ -30,7 +30,7 @@ const About = () => {
             <div className="space-y-16">
               {/* Introduction */}
               <section>
-                <h2 className="font-sans text-2xl font-semibold text-foreground mb-6">
+                <h2 className="font-sans text-xl font-semibold text-foreground mb-6">
                   Hi, I'm Irtiza Zaidi
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6">
@@ -55,11 +55,11 @@ const About = () => {
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-sans font-medium text-accent mb-2">
+                    <h4 className="font-sans text-lg font-medium text-accent mb-2">
                       B.S. Computer Science, Institute of Business
                       Administration (2021–2025)
                     </h4>
-                    <p className="text-muted-foreground">
+                    <p className="text-muted-foreground text-lg">
                       CGPA: 3.63 (Dean’s List). Coursework in ML, NLP, data
                       science, and software engineering.
                     </p>
@@ -74,26 +74,26 @@ const About = () => {
                 </h3>
                 <div className="grid md:grid-cols-3 gap-6">
                   <div>
-                    <h4 className="font-sans font-medium text-accent mb-3">
+                    <h4 className="font-sans text-lg font-medium text-accent mb-3">
                       Languages
                     </h4>
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-muted-foreground text-lg text-sm">
                       Python, Java, JavaScript
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-sans font-medium text-accent mb-3">
+                    <h4 className="font-sans text-lg font-medium text-accent mb-3">
                       ML/AI
                     </h4>
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-muted-foreground text-lg text-sm">
                       PyTorch, TensorFlow, Scikit-Learn, Transformers, LangChain
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-sans font-medium text-accent mb-3">
+                    <h4 className="font-sans font-medium text-lg text-accent mb-3">
                       MLOps & Tools
                     </h4>
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-muted-foreground text-lg text-sm">
                       MLflow, Weights & Biases, Hugging Face, TensorBoard
                     </p>
                   </div>
@@ -105,7 +105,7 @@ const About = () => {
                 <h3 className="font-sans text-xl font-semibold text-foreground mb-4">
                   Currently
                 </h3>
-                <div className="space-y-4 text-muted-foreground">
+                <div className="space-y-4 text-muted-foreground text-lg">
                   <p className="leading-relaxed">
                     <strong className="text-accent">Reading:</strong> Research
                     papers on AI alignment and{" "}
