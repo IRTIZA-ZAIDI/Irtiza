@@ -36,7 +36,7 @@ const Blog = () => {
                 <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6 mt-6">
                   Blog
                 </h1>
-                <p className="text-sm md:text-lg text-muted-foreground max-w-2xl leading-normal">
+                <p className="text-sm md:text-lg text-muted-foreground leading-normal">
                   I use writing the way I use projects: to learn. These notes cover interview prep, concepts I’m revising, problems I’ve solved, and questions I’m still exploring in AI and data. It’s less about polished essays, more about capturing the process.
                 </p>
               </div>
