@@ -29,14 +29,14 @@ const Blog = () => {
         <Header />
 
         <main className="pt-20 pb-16">
-          <div className="wide-container">
+          <div className="wide-container p-0">
             {/* Header */}
             <ScrollAnimation direction="fade">
               <div className="mb-8 fade-in">
-                <h1 className="font-sans text-4xl md:text-5xl font-bold text-foreground mb-4">
+                <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6 mt-6">
                   Blog
                 </h1>
-                <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+                <p className="text-sm md:text-lg text-muted-foreground max-w-2xl leading-normal">
                   I use writing the way I use projects: to learn. These notes cover interview prep, concepts I’m revising, problems I’ve solved, and questions I’m still exploring in AI and data. It’s less about polished essays, more about capturing the process.
                 </p>
               </div>
