@@ -2,15 +2,20 @@ import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
-const ThemeToggle = () => {
+interface ThemeToggleProps {
+  /** Is the background transparent (hero section) or not */
+  transparent?: boolean;
+}
+
+const ThemeToggle: React.FC<ThemeToggleProps> = ({ transparent = false }) => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const root = window.document.documentElement;
     const initialTheme = localStorage.getItem("theme");
-    
+
     if (
-      initialTheme === "dark" || 
+      initialTheme === "dark" ||
       (!initialTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
       root.classList.add("dark");
@@ -20,7 +25,7 @@ const ThemeToggle = () => {
 
   const toggleTheme = () => {
     const root = window.document.documentElement;
-    
+
     if (isDark) {
       root.classList.remove("dark");
       localStorage.setItem("theme", "light");
@@ -37,12 +42,14 @@ const ThemeToggle = () => {
       variant="ghost"
       size="sm"
       onClick={toggleTheme}
-      className="w-10 h-10 p-0 hover:bg-muted transition-colors"
+      className={`w-10 h-10 p-0 hover:bg-muted transition-colors ${
+        transparent ? "text-white hover:text-accent" : "text-muted-foreground hover:text-foreground"
+      }`}
     >
       {isDark ? (
-        <Sun className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+        <Sun className="h-5 w-5" />
       ) : (
-        <Moon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+        <Moon className="h-5 w-5" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

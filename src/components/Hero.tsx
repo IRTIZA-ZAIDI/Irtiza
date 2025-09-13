@@ -16,14 +16,14 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
       )}
     >
       <div className="absolute inset-0 z-10">
-        {/* <video
-          src="src/assets/853919-hd_1920_1080_25fps.mp4"
+        <video
+          src="/videos/Untitled design (1).mp4"
           autoPlay
           loop
           muted
           playsInline
           className="w-full h-full object-cover"
-        /> */}
+        />
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
 
@@ -37,9 +37,12 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
             Data Scientist
           </p>
 
-          <p className="text-lg md:text-l text-white/90 mb-8">
+          <p className="text-lg md:text-l text-white/90">
             This is my space for experiments, notes, and reflections on turning
-            data into understanding. I share projects I have built, problems I
+            data into understanding.
+          </p>
+          <p className="text-lg md:text-l text-white/90 mb-8">
+            I share projects I have built, problems I
             have solved, and questions I am still exploring.
           </p>
         </div>

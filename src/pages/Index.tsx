@@ -5,7 +5,7 @@ import ScrollAnimation from "@/components/ScrollAnimation";
 import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/data/blog-posts";
 import { projects } from "@/data/projects";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, Download } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Loader } from "@/components/Loader.tsx";
 import { useLocation } from "react-router-dom"; // If using React Router
@@ -48,7 +48,7 @@ const Index = () => {
       <section className="bg-muted/30 relative min-h-screen flex items-center">
         <div className="absolute right-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block"></div>
 
-        <div className="content-container relative z-10">
+        <div className="wide-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>
             <div className="flex items-center justify-between mb-12">
               <h2 className="font-serif text-3xl font-semibold text-foreground">
@@ -82,7 +82,7 @@ const Index = () => {
       <section className="relative min-h-screen flex items-center">
         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block"></div>
 
-        <div className="content-container relative z-10">
+        <div className="wide-container relative z-10">
           <ScrollAnimation direction="up" delay={0.2}>
             <div className="flex items-center justify-between mb-12">
               <h2 className="font-serif text-3xl font-semibold text-foreground">
@@ -117,7 +117,7 @@ const Index = () => {
 
       {/* Latest Updates */}
       <section className="bg-muted/30 min-h-screen flex items-center">
-        <div className="narrow-container text-center">
+        <div className="wide-container text-center">
           <ScrollAnimation direction="up" delay={0.3}>
             <h2 className="font-serif text-2xl font-semibold text-foreground mb-6">
               Currently
@@ -149,7 +149,7 @@ const Index = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {/* <Download className="mr-2 h-4 w-4" /> */}
+                      <Download className="mr-2 h-4 w-4" />
                       Download Resume
                     </a>
                   </Button>

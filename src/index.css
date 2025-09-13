@@ -238,15 +238,25 @@
   }
 }
 
+/* Typing text */
 .typing {
-  overflow: hidden;
+  display: inline-block;
   white-space: nowrap;
-  border-right: 2px solid #fff; /* cursor */
-  animation: typing 2s steps(20, end) forwards, blink .75s step-end infinite;
+  overflow: hidden;
+  font-family: monospace;
+  font-size: 1.125rem; /* text-lg */
+  border-right: 2px solid white; /* cursor */
+  animation: typing 5s steps(20, end) forwards, blink 0.7s step-end 5s 1;
 }
 
-.typing.done {
-  border-right: none !important;  /* force remove cursor */
-  animation: none; /* stop blink animation */
+/* Typing animation */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; border-right-color: transparent; } /* cursor disappears */
 }
 
+/* Blink during typing (optional) */
+@keyframes blink {
+  50% { border-right-color: transparent; }
+  100% { border-right-color: transparent; } /* ensure it stays hidden after animation */
+}

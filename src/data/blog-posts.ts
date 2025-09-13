@@ -95,9 +95,11 @@ print("Hello, world!")
 \`\`\`
 
 Chat:
-\`System: You are a sentiment classifier.\`
-\`User: Review: "I loved the battery life but hate the screen glare."\`
-\`Assistant: Sentiment: Positive\`
+\`\`\`
+System: You are a sentiment classifier.
+User: Review: "I loved the battery life but hate the screen glare."
+Assistant: Sentiment: Positive
+\`\`\`
 
 **Pointers**
 - Use chat format for multi-turn interactions, completion format for isolated classification tasks

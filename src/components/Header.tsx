@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({
                 {item.label}
               </a>
             ))}
-            <ThemeToggle />
+            <ThemeToggle transparent={transparentHero} />
           </div>
 
           {/* Mobile Menu Button */}
