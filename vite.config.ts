@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   const isProduction = mode === "production";
 
   return {
-    base: isProduction ? "/Irtiza/" : "/", // <-- / for dev, /Irtiza/ for GH Pages
+    base: isProduction ? "./" : "/",
     server: {
       host: "::",
       port: 8080,
