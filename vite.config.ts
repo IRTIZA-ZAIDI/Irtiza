@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   const isProduction = mode === "production";
 
   return {
-    base: isProduction ? "./" : "/",
+    base: '/', // absolute paths for assets
     server: {
       host: "::",
       port: 8080,
