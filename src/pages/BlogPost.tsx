@@ -44,39 +44,55 @@ const BlogPost = () => {
 
   // Convert markdown-style content to HTML with proper IDs for headings
   const processContent = (content: string) => {
-  const parseInlineMarkdown = (text: string) => {
-    // Bold
-    text = text.replace(
-      /\*\*(.*?)\*\*/g,
-      '<span class="text-accent font-medium">$1</span>'
-    );
-    // Inline code
-    text = text.replace(
-      /`([^`]+)`/g,
-      '<code class="inline-code bg-gray-800 text-white px-1 rounded">$1</code>'
-    );
-    // Italic
-    text = text.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
-    return text;
-  };
+    const parseInlineMarkdown = (text: string) => {
+      // Bold
+      text = text.replace(
+        /\*\*(.*?)\*\*/g,
+        '<span class="text-accent font-medium">$1</span>'
+      );
+      // Inline code
+      text = text.replace(
+        /`([^`]+)`/g,
+        '<code class="inline-code bg-gray-800 text-white px-1 rounded">$1</code>'
+      );
+      // Italic
+      text = text.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
+      return text;
+    };
 
-  const lines = content.split("\n");
-  const html: string[] = [];
-  let codeBlockBuffer: string[] = [];
-  let insideCodeBlock = false;
-  let currentLang = "text";
+    const lines = content.split("\n");
+    const html: string[] = [];
+    let codeBlockBuffer: string[] = [];
+    let insideCodeBlock = false;
+    let currentLang = "text";
 
-  const flushCodeBlock = () => {
-    if (codeBlockBuffer.length === 0) return;
+    // Track list state
+    let insideList = false;
+    let insideSubList = false;
 
-    // Remove trailing ```
-    if (codeBlockBuffer[codeBlockBuffer.length - 1].trim() === "```") {
-      codeBlockBuffer.pop();
-    }
+    const closeLists = () => {
+      if (insideSubList) {
+        html.push("</ul>");
+        insideSubList = false;
+      }
+      if (insideList) {
+        html.push("</ul>");
+        insideList = false;
+      }
+    };
 
-    const codeContent = codeBlockBuffer.join("\n");
+    const flushCodeBlock = () => {
+      if (codeBlockBuffer.length === 0) return;
 
-    html.push(`
+      if (codeBlockBuffer[0].trim().startsWith("```")) {
+        codeBlockBuffer.shift(); // remove opening ```
+      }
+      if (codeBlockBuffer[codeBlockBuffer.length - 1].trim() === "```") {
+        codeBlockBuffer.pop(); // remove closing ```
+      }
+      const codeContent = codeBlockBuffer.join("\n").trim();
+
+      html.push(`
 <div class="my-6 rounded-xl overflow-hidden border border-gray-700">
   <!-- Language label -->
   <div class="px-3 py-1 bg-gray-800 text-gray-200 text-xs font-mono">
@@ -84,56 +100,109 @@ const BlogPost = () => {
   </div>
 
   <!-- Code block -->
-  <pre class="bg-gray-800 text-white px-3 py-4 font-mono overflow-x-auto rounded-b-xl">
-<code class="font-light">
-${codeContent}
-</code>
+  <div class="max-w-full overflow-x-auto">
+  <pre class="min-w-full bg-gray-800 text-white px-3 py-4 font-mono whitespace-pre-wrap break-words rounded-b-xl text-sm sm:text-base">
+    <code class="font-light">${codeContent}</code>
   </pre>
+</div>
 </div>
     `);
 
-    codeBlockBuffer = [];
-    insideCodeBlock = false;
-  };
+      codeBlockBuffer = [];
+      insideCodeBlock = false;
+    };
 
-  for (const line of lines) {
-    if (line.trim().startsWith("```")) {
-      if (insideCodeBlock) {
-        flushCodeBlock();
-      } else {
-        insideCodeBlock = true;
-        currentLang = line.trim().slice(3).trim() || "text";
+    for (const line of lines) {
+      if (line.trim().startsWith("```")) {
+        if (insideCodeBlock) {
+          flushCodeBlock();
+        } else {
+          insideCodeBlock = true;
+          currentLang = line.trim().slice(3).trim() || "text";
+        }
+        continue;
       }
-      continue;
-    }
 
-    if (insideCodeBlock) {
-      codeBlockBuffer.push(line);
-      continue;
-    }
+      if (insideCodeBlock) {
+        codeBlockBuffer.push(line);
+        continue;
+      }
 
-    // Regular text and headings
-    if (line.startsWith("# ")) {
-      const text = line.slice(2);
-      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-      html.push(`<h1 id="${id}">${parseInlineMarkdown(text)}</h1>`);
-    } else if (line.startsWith("## ")) {
-      const text = line.slice(3);
-      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-      html.push(`<h2 class="font-serif" id="${id}">${parseInlineMarkdown(text)}</h2>`);
-    } else if (line.trim() === "") {
-      html.push("<br>");
-    } else {
-      html.push(`<p class="font-sans text-lg text-foreground leading-loose mb-0 max-w-prose">
+      // --- Bulleted lists ---
+      if (line.trim().startsWith("--")) {
+        // Sub bullet
+        if (!insideList) {
+          html.push('<ul class="list-disc list-inside ml-6">');
+          insideList = true;
+        }
+        if (!insideSubList) {
+          html.push('<ul class="list-disc list-inside ml-6">');
+          insideSubList = true;
+        }
+        const text = line.trim().slice(2).trim();
+        html.push(`<li>${parseInlineMarkdown(text)}</li>`);
+        continue;
+      } else if (line.trim().startsWith("-")) {
+        // Normal bullet
+        if (!insideList) {
+          html.push('<ul class="list-disc list-inside ml-6">');
+          insideList = true;
+        }
+        if (insideSubList) {
+          html.push("</ul>");
+          insideSubList = false;
+        }
+        const text = line.trim().slice(1).trim();
+        html.push(`<li>${parseInlineMarkdown(text)}</li>`);
+        continue;
+      } else {
+        // If a non-list line comes, close open lists
+        closeLists();
+      }
+
+      // --- Images ---
+      const imageMatch = line.match(/^!\[(.*?)\]\((.*?)\)$/);
+      if (imageMatch) {
+        const alt = imageMatch[1];
+        const src = imageMatch[2];
+        html.push(`
+      <div class="my-6 flex justify-center">
+        <img src="${src}" alt="${alt}" class="rounded-lg shadow-md max-w-full h-auto" />
+      </div>
+    `);
+        continue;
+      }
+
+      // Regular text and headings
+      if (line.startsWith("# ")) {
+        const text = line.slice(2);
+        const id = text
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, "");
+        html.push(`<h1 id="${id}">${parseInlineMarkdown(text)}</h1>`);
+      } else if (line.startsWith("## ")) {
+        const text = line.slice(3);
+        const id = text
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, "");
+        html.push(
+          `<h2 class="font-serif" id="${id}">${parseInlineMarkdown(text)}</h2>`
+        );
+      } else if (line.trim() === "") {
+        html.push("<br>");
+      } else {
+        html.push(`<p class="font-sans text-lg text-foreground leading-loose mb-0">
         ${parseInlineMarkdown(line)}
       </p>`);
+      }
     }
-  }
 
-  flushCodeBlock(); // flush any remaining code
+    flushCodeBlock(); // flush any remaining code
 
-  return `<div class="wide-container p-0 prose">${html.join("\n")}</div>`;
-};
+    return `<div class="wide-container p-1 prose">${html.join("\n")}</div>`;
+  };
 
   return (
     <div className="min-h-screen bg-background font-sans">
@@ -144,7 +213,7 @@ ${codeContent}
           {/* Blog Content */}
           <div className="flex-1">
             <ScrollAnimation direction="fade">
-              <div className="wide-container">
+              <div className="wide-container p-1">
                 <Link
                   to="/blog"
                   className="font-sans inline-flex items-center text-muted-foreground hover:text-accent transition-colors mb-8"
@@ -188,28 +257,28 @@ ${codeContent}
             </ScrollAnimation>
 
             {/* Article */}
-            <div className="wide-container">
-              <ScrollAnimation direction="up" delay={0.3}>
-                <article className="prose prose-lg max-w-none">
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: processContent(post.content),
-                    }}
-                  />
-                </article>
-              </ScrollAnimation>
-            </div>
+            <ScrollAnimation direction="up" delay={0.3}>
+              <article className="prose prose-lg max-w-none">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: processContent(post.content),
+                  }}
+                />
+              </article>
+            </ScrollAnimation>
 
             {/* Navigation */}
+            {/* Navigation */}
             <ScrollAnimation direction="up" delay={0.5}>
-              <div className="content-container mt-16 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
+              <div className="content-container mt-16 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
                 <Link
                   to="/blog"
-                  className="text-accent hover:text-accent-warm transition-colors font-medium"
+                  className="text-accent hover:text-accent-warm transition-colors font-medium text-sm sm:text-base"
                 >
                   ← All Posts
                 </Link>
-                <div className="text-sm text-muted-foreground">
+
+                <div className="text-sm sm:text-base text-muted-foreground text-center sm:text-right w-full sm:w-auto">
                   Share this post
                 </div>
               </div>

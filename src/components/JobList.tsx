@@ -108,7 +108,14 @@ export default function JobList() {
 
           {/* RIGHT */}
           <div className="flex-1 md:pl-6 flex flex-col">
-            <div className="space-y-6">
+            <div
+              className="
+      space-y-6
+      transition-all duration-500 ease-in-out
+      min-h-[600px] md:min-h-[300px]  /* mobile first → overrides on md+ */
+      pt-1
+    "
+            >
               {companyRoles.map((role) => (
                 <article key={role.id} className="space-y-3">
                   <div>

@@ -11,8 +11,16 @@ const FilterBar: React.FC<{
   onClear: () => void;
   shown: number;
   total: number;
-}> = ({ categories, selectedCategory, onCategoryChange, onClear, shown, total }) => (
+}> = ({
+  categories,
+  selectedCategory,
+  onCategoryChange,
+  onClear,
+  shown,
+  total,
+}) => (
   <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4 w-full">
+    {/* Category Dropdown */}
     <div className="flex items-center gap-3">
       <label className="text-xs md:text-sm text-muted-foreground mr-1">
         Category
@@ -23,12 +31,15 @@ const FilterBar: React.FC<{
         className="text-sm px-3 py-1.5 rounded-full border border-border bg-card text-foreground shadow-sm focus:outline-none"
       >
         {categories.map((c) => (
-          <option key={c} value={c}>{c}</option>
+          <option key={c} value={c}>
+            {c}
+          </option>
         ))}
       </select>
     </div>
 
-    <div className="ml-auto flex items-center gap-3">
+    {/* Clear + Count */}
+    <div className="flex items-center justify-between sm:justify-end gap-3 w-full">
       <button
         onClick={onClear}
         className="flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-border bg-muted/10 hover:bg-muted/20 transition"
@@ -83,9 +94,10 @@ const Notes: React.FC = () => {
               <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4 mt-6">
                 Notes
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                A personal library of resources, guides, and quick references that helped me 
-                understand concepts. Some are PDFs, mini-guides, or notes I’ve written along the way.
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mx-auto md:mx-0">
+                A personal library of resources, guides, and quick references
+                that helped me understand concepts. Some are PDFs, mini-guides,
+                or notes I’ve written along the way.
               </p>
             </div>
           </ScrollAnimation>

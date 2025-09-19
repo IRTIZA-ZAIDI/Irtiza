@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
+import { Link } from "react-router-dom";
 
 interface NavItem {
   label: string;
@@ -20,7 +21,7 @@ const defaultNavItems: NavItem[] = [
   { label: "home", href: "/" },
   { label: "projects", href: "/Projects" },
   { label: "blog", href: "/blog" },
-  { label: "notes", href: "/notes"},
+  { label: "notes", href: "/notes" },
   { label: "about", href: "/about" },
   { label: "contact", href: "/contact" },
 ];
@@ -55,14 +56,15 @@ const Header: React.FC<HeaderProps> = ({
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div
+          <Link
+            to="/"
             className={cn(
               "text-xl font-bold font-serif text-foreground transition-opacity duration-300",
               transparentHero && "opacity-0 pointer-events-none"
             )}
           >
             {logo}
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
