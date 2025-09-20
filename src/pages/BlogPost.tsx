@@ -257,7 +257,6 @@ const BlogPost = () => {
             </ScrollAnimation>
 
             {/* Article */}
-            <ScrollAnimation direction="up" delay={0.3}>
               <article className="prose prose-lg max-w-none">
                 <div
                   dangerouslySetInnerHTML={{
@@ -265,7 +264,6 @@ const BlogPost = () => {
                   }}
                 />
               </article>
-            </ScrollAnimation>
 
             {/* Navigation */}
             {/* Navigation */}
