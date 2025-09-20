@@ -14,10 +14,10 @@ interface ProjectCardProps {
     | "Generative AI"
     | "Reinforcement Learning"
   )[] | null;
-  domain: string[]; // multiple domain codes like ["NLP"], ["ML", "SWE"]
+  domain: string[];
+  githubUrl?: string;
 }
 
-// Map domain codes -> full names
 const domainMap: Record<string, string> = {
   NLP: "Natural Language Processing",
   CV: "Computer Vision",
@@ -34,11 +34,15 @@ export default function ProjectCard({
   imageUrl,
   dataScienceLevel,
   domain,
+  slug,
+  githubUrl,
 }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false);
-
-  // Convert codes to full forms & join with " & "
   const fullDomain = domain.map((d) => domainMap[d] || d).join(" & ");
+
+  // Decide link → GitHub if exists, else internal page
+  const projectLink = githubUrl || `/projects/${slug}`;
+  console.log(projectLink)
 
   return (
     <motion.div
@@ -46,9 +50,8 @@ export default function ProjectCard({
       transition={{ duration: 0.45, ease: "easeInOut" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={(e) => e.preventDefault()}
     >
-      <Card className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 cursor-default bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800">
+      <Card className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 cursor-default bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 h-full flex flex-col">
         {imageUrl && (
           <img
             src={imageUrl}
@@ -57,18 +60,15 @@ export default function ProjectCard({
           />
         )}
 
-        <CardContent className="p-5 select-none">
-          {/* Title */}
+        <CardContent className="p-5 flex flex-col flex-1">
           <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
             {title}
           </h3>
 
-          {/* Domain */}
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
             {fullDomain}
           </p>
 
-          {/* Description with smooth CSS transition */}
           <div
             className={`overflow-hidden transition-all duration-700 ease-in-out ${
               hovered
@@ -81,7 +81,6 @@ export default function ProjectCard({
             </p>
           </div>
 
-          {/* DataScienceLevel badges (if not null) */}
           {dataScienceLevel && dataScienceLevel.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-2">
               {dataScienceLevel.map((level, i) => (
@@ -97,7 +96,6 @@ export default function ProjectCard({
             </div>
           )}
 
-          {/* Technologies */}
           <div className="mt-3 flex flex-wrap gap-2">
             {technologies.map((tech, i) => (
               <span
@@ -108,6 +106,14 @@ export default function ProjectCard({
               </span>
             ))}
           </div>
+          <a
+            href={projectLink}
+            target={githubUrl ? "_blank" : "_self"} // GitHub opens in new tab
+            rel="noopener noreferrer"
+            className="mt-4 inline-block text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            Open Project →
+          </a>
         </CardContent>
       </Card>
     </motion.div>

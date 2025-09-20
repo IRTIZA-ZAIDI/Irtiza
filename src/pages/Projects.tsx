@@ -208,6 +208,7 @@ const Projects: React.FC = () => {
                 imageUrl={project.imageUrl}
                 dataScienceLevel={project.dataScienceLevel}
                 domain={project.domain}
+                githubUrl={project.githubUrl} 
               />
             ))}
           </div>

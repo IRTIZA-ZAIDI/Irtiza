@@ -17,6 +17,7 @@ export interface Project {
     | "Reinforcement Learning"
   )[] | null;
   domain: string[];
+  githubUrl?: string; 
 }
 
 export const projects: Project[] = [
@@ -45,6 +46,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Machine Learning"],
     domain: ["Natural Language Processing"],
+    githubUrl : "https://github.com/IRTIZA-ZAIDI/SentimentAnalysis"
   },
   {
     id: "2",
@@ -68,6 +70,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Generative AI"],
     domain: ["Natural Language Processing"],
+    githubUrl : "https://github.com/IRTIZA-ZAIDI/IBA-university-chatbot"
   },
   {
     id: "3",
@@ -91,6 +94,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Machine Learning"],
     domain: ["Machine Learning"],
+    githubUrl : "https://github.com/IRTIZA-ZAIDI/Patient-Survival-Classification"
   },
   {
     id: "4",
@@ -132,6 +136,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Classical"],
     domain: ["Reinforcement Learning"],
+     githubUrl : "https://github.com/IRTIZA-ZAIDI/Easy21-RL"
   },
   {
     id: "6",
@@ -151,6 +156,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Machine Learning"],
     domain: ["Computer Vision"],
+     githubUrl : "https://github.com/IRTIZA-ZAIDI/Face-Detection"
   },
   {
     id: "7",
@@ -170,6 +176,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Classical"],
     domain: ["Computer Vision"],
+    githubUrl : "https://github.com/IRTIZA-ZAIDI/Shape-Detector-Tool"
   },
   {
     id: "8",
@@ -190,6 +197,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Classical"],
     domain: ["Computer Vision"],
+    githubUrl : "https://github.com/IRTIZA-ZAIDI/Template-Matching-OpenCV"
   },
   {
     id: "9",
@@ -210,6 +218,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Machine Learning"],
     domain: ["Machine Learning"],
+    githubUrl : "https://github.com/IRTIZA-ZAIDI/Neural-Network-Classification-Analysis"
   },
   {
     id: "10",
@@ -231,6 +240,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Machine Learning"],
     domain: ["Computer Vision"],
+    githubUrl : "https://github.com/IRTIZA-ZAIDI/voc2008-binary-classification"
   },
   {
     id: "11",
@@ -248,6 +258,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Machine Learning"],
     domain: ["Machine Learning", "Software Engineering"],
+    githubUrl : "https://github.com/IRTIZA-ZAIDI/Parallel-and-Distributed-Computing-for-Model-Parallelism"
   },
   {
     id: "12",
@@ -270,6 +281,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Machine Learning"],
     domain: ["Machine Learning"],
+    githubUrl : "https://github.com/IRTIZA-ZAIDI/Optimizers"
   },
   {
     id: "13",
@@ -292,6 +304,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: ["Machine Learning"],
     domain: ["Natural Language Processing"],
+    githubUrl : "https://github.com/IRTIZA-ZAIDI/Sentence-similarity-comparisons"
   },
   {
     id: "14",
@@ -312,6 +325,7 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: null,
     domain: ["Software Engineering"],
+    githubUrl : "https://github.com/IRTIZA-ZAIDI/mspaint-replica-on-JAVA"
   },
    {
     id: "15",
@@ -337,5 +351,6 @@ export const projects: Project[] = [
     status: "completed",
     dataScienceLevel: null,
     domain: ["Software Engineering"],
+    githubUrl:"https://github.com/IRTIZA-ZAIDI/DesignPatterns"
   },
 ];
