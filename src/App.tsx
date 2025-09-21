@@ -11,6 +11,9 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Notes from "./pages/Notes";
 import NotFound from "./pages/NotFound";
+import 'react-notion-x/src/styles.css';
+import 'prismjs/themes/prism-tomorrow.css'; // For code blocks
+
 
 const queryClient = new QueryClient();
 

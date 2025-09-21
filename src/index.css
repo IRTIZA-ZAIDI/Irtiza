@@ -260,3 +260,29 @@
   50% { border-right-color: transparent; }
   100% { border-right-color: transparent; } /* ensure it stays hidden after animation */
 }
+
+/* Ensure Notion content aligns with container */
+.notion-content .notion {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Optionally, control paragraph line width */
+.notion-content .notion-page-content {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.wide-container .notion {
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+article.notion-content main {
+  width: 100%;
+  max-width: 100%;
+}
+
+

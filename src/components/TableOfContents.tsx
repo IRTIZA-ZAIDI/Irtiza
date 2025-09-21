@@ -8,56 +8,74 @@ interface TOCItem {
 }
 
 interface TableOfContentsProps {
-  content: string;
+  containerSelector: string; // e.g. "#notion-container"
+  recordMap?: any;           // 👈 added so we can re-run when NotionRenderer updates
 }
 
-const TableOfContents = ({ content }: TableOfContentsProps) => {
+const TableOfContents = ({ containerSelector, recordMap }: TableOfContentsProps) => {
   const [toc, setToc] = useState<TOCItem[]>([]);
   const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
-    // Extract headings from content
-    const headingRegex = /^(#{1,3})\s+(.+)$/gm;
-    const headings: TOCItem[] = [];
-    let match;
+    const timeout = setTimeout(() => {
+      const container = document.querySelector(containerSelector);
+      if (!container) return;
 
-    while ((match = headingRegex.exec(content)) !== null) {
-      const level = match[1].length;
-      const text = match[2];
-      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      
-      headings.push({ id, text, level });
-    }
+      const headings: TOCItem[] = [];
+      container
+        .querySelectorAll(".notion-h1, .notion-h2, .notion-h3")
+        .forEach((parent) => {
+          const textEl = parent.querySelector(".notion-h-title");
+          if (!textEl) return;
 
-    setToc(headings);
-  }, [content]);
+          const text = textEl.textContent || "";
+          const level = parent.classList.contains("notion-h1")
+            ? 1
+            : parent.classList.contains("notion-h2")
+            ? 2
+            : 3;
 
+          const id =
+            text
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-|-$/g, "") || crypto.randomUUID();
+
+          (parent as HTMLElement).id = id;
+          headings.push({ id, text, level });
+        });
+
+      console.log("TOC headings:", headings);
+      setToc(headings);
+    }, 500); // wait a bit for NotionRenderer to finish rendering
+
+    return () => clearTimeout(timeout);
+  }, [containerSelector, recordMap]); // 👈 re-run when recordMap changes
+
+  // Track which heading is active in viewport
   useEffect(() => {
+    if (toc.length === 0) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
+          if (entry.isIntersecting) setActiveId(entry.target.id);
         });
       },
       { rootMargin: "-20% 0% -35% 0%" }
     );
 
-    // Observe all headings
     toc.forEach(({ id }) => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
     });
 
     return () => observer.disconnect();
   }, [toc]);
 
   const scrollToHeading = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   if (toc.length === 0) return null;
@@ -72,15 +90,15 @@ const TableOfContents = ({ content }: TableOfContentsProps) => {
       <h3 className="font-sans text-lg font-semibold text-foreground mb-4">
         On This Page
       </h3>
-      <nav className="space-y-4">
+      <nav className="space-y-2">
         {toc.map(({ id, text, level }) => (
           <button
             key={id}
             onClick={() => scrollToHeading(id)}
             className={`
-              font-sans block w-full text-left text-sm transition-colors duration-200 hover:text-accent
-              ${level === 1 ? "font-medium my-2" : level === 2 ? "ml-0 font-normal" : "ml-0 text-muted-foreground"}
-              ${activeId === id ? "text-accent font-medium" : "text-muted-foreground"}
+              block w-full text-left text-sm transition-colors duration-200
+              ${activeId === id ? "text-accent font-semibold" : "text-muted-foreground"}
+              ${level === 1 ? "ml-0" : level === 2 ? "ml-4" : "ml-8"}
             `}
           >
             {text}
