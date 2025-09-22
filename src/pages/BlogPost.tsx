@@ -1,23 +1,23 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
 import Header from "@/components/Header";
 import TableOfContents from "@/components/TableOfContents";
 import ScrollAnimation from "@/components/ScrollAnimation";
-import { motion } from "framer-motion";
 
 import { NotionRenderer } from "react-notion-x";
-import { Client } from "@notionhq/client";
-
+import { Code } from "react-notion-x/build/third-party/code";
 import "react-notion-x/src/styles.css";
-import "prismjs/themes/prism.css"; // syntax highlighting
-import "katex/dist/katex.min.css"; // if you use math blocks
+import "prismjs/themes/prism.css";
+import "katex/dist/katex.min.css";
 
 interface Post {
   id: string;
   title: string;
   excerpt: string;
-  recordMap: any; // Notion recordMap for react-notion-x
+  recordMap: any; // Notion recordMap
   date: string;
   readTime?: string;
   slug: string;
@@ -35,6 +35,7 @@ const BlogPost = () => {
         const res = await fetch(`http://localhost:3000/api/blog/${slug}`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
+
         setPost({
           id: data.id,
           title: data.title,
@@ -42,11 +43,11 @@ const BlogPost = () => {
           slug: data.slug,
           date: data.date,
           readTime: data.readTime,
-          recordMap: data.recordMap, // proper recordMap
+          recordMap: data.recordMap, // fetched Notion recordMap
         });
       } catch (err) {
         console.error(err);
-        setError(err.message || "Failed to fetch post");
+        setError(err instanceof Error ? err.message : "Failed to fetch post");
       } finally {
         setLoading(false);
       }
@@ -65,6 +66,7 @@ const BlogPost = () => {
 
       <main className="pt-16 pb-16 flex justify-center px-4 sm:px-6">
         <div className="flex flex-col lg:flex-row max-w-7xl w-full mt-8 gap-12">
+          {/* Main Content */}
           <div className="flex-1">
             <ScrollAnimation direction="fade">
               <div className="wide-container p-1">
@@ -110,7 +112,7 @@ const BlogPost = () => {
                   <hr className="my-8 border-t border-border" />
                 </motion.div>
 
-                {/* Article */}
+                {/* Notion Content */}
                 <article id="notion-container" className="notion-content">
                   {post.recordMap && (
                     <NotionRenderer
@@ -140,6 +142,7 @@ const BlogPost = () => {
             </ScrollAnimation>
           </div>
 
+          {/* Table of Contents */}
           <aside className="w-60 hidden lg:block flex-shrink-0">
             <div className="sticky top-20 max-h-[calc(100vh-5rem)] px-4 py-2 border-l border-border">
               <TableOfContents

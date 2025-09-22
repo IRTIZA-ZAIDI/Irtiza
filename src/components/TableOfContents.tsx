@@ -45,7 +45,6 @@ const TableOfContents = ({ containerSelector, recordMap }: TableOfContentsProps)
           headings.push({ id, text, level });
         });
 
-      console.log("TOC headings:", headings);
       setToc(headings);
     }, 500); // wait a bit for NotionRenderer to finish rendering
 

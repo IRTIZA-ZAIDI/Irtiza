@@ -42,7 +42,6 @@ export default function ProjectCard({
 
   // Decide link → GitHub if exists, else internal page
   const projectLink = githubUrl || `/projects/${slug}`;
-  console.log(projectLink)
 
   return (
     <motion.div

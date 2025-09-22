@@ -17,7 +17,6 @@ const notionClient = new Client({
 
 const databaseId = process.env.NOTION_DATABASE_ID;
 
-// Fetch all blog posts
 app.get("/api/blog", async (req, res) => {
   try {
     const response = await notionClient.databases.query({
@@ -25,24 +24,25 @@ app.get("/api/blog", async (req, res) => {
       page_size: 50,
       sorts: [{ property: "Publish Date", direction: "descending" }],
       filter: {
-        property: "Published", // ✅ your Status column name
+        property: "Status",   
         status: {
-          equals: "Published", // ✅ only published
+          equals: "Published",
         },
       },
     });
 
     const posts = response.results.map((page) => {
       const props = page.properties;
+      const publishDate = props["Publish Date"]?.date?.start || null;
+      const readTimeNumber = props["Read Time"]?.number || null;
+
       return {
         id: page.id,
         title: props.Title?.title?.[0]?.plain_text || "Untitled",
         slug: props.Slug?.rich_text?.[0]?.plain_text || "",
-        date: props["Publish Date"]?.date?.start || "",
+        date: publishDate,
         excerpt: props.Excerpt?.rich_text?.[0]?.plain_text || "",
-        readTime: props["Read Time"]?.number
-          ? `${props["Read Time"].number} min read`
-          : null, // ✅ fix
+        readTime: readTimeNumber ? `${readTimeNumber} min read` : "—",
         isNew: props.New?.checkbox || false,
         pageUrl: `https://www.notion.so/${page.id.replace(/-/g, "")}`,
       };
@@ -51,11 +51,10 @@ app.get("/api/blog", async (req, res) => {
     res.json(posts);
   } catch (error) {
     console.error("Notion fetch error:", error);
-    res
-      .status(500)
-      .json({ error: "Failed to fetch posts", details: error.body || error });
+    res.status(500).json({ error: "Failed to fetch posts", details: error.body || error });
   }
 });
+
 
 // Fetch single blog post by slug
 app.get("/api/blog/:slug", async (req, res) => {
@@ -78,7 +77,7 @@ app.get("/api/blog/:slug", async (req, res) => {
     const page = response.results[0];
     const props = page.properties;
 
-    // ✅ use notion-client for recordMap
+    // Use unofficial Notion client to get recordMap
     const unofficialNotion = new NotionAPI();
     const recordMap = await unofficialNotion.getPage(page.id);
 
@@ -92,14 +91,12 @@ app.get("/api/blog/:slug", async (req, res) => {
         ? `${props["Read Time"].number} min read`
         : "",
       isNew: props.New?.checkbox || false,
-      status: props.Published?.status?.name || "Draft", // ✅ add this
+      status: props.Published?.select?.name || "Draft", // fixed property access
       recordMap,
     });
   } catch (error) {
     console.error("Post fetch error:", error);
-    res
-      .status(500)
-      .json({ error: "Failed to fetch post", details: error.body || error });
+    res.status(500).json({ error: "Failed to fetch post", details: error.body || error.message });
   }
 });
 

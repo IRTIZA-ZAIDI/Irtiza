@@ -80,7 +80,6 @@ const Blog = () => {
             {/* Blog Posts */}
             <ScrollAnimation direction="up" delay={0.3}>
               <div className="space-y-8 md:space-y-10">
-                {loading && <p>Loading posts...</p>}
                 {error && <p className="text-red-500">Error: {error}</p>}
                 {!loading &&
                   !error &&
