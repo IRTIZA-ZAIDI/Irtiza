@@ -22,7 +22,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/blog"); // Full backend URL
+        const res = await fetch("/api/blog");
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }

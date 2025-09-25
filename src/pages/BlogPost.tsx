@@ -32,7 +32,7 @@ const BlogPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/blog/${slug}`);
+        const res = await fetch(`/api/blog/${slug}`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
 
