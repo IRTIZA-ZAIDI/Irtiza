@@ -6,14 +6,18 @@ const databaseId = process.env.NOTION_DATABASE_ID;
 const unofficialNotion = new NotionAPI();
 
 export default async function handler(req, res) {
-  const { slug } = req.query; // Vercel makes dynamic segments available here
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
   }
-  if (!slug) return res.status(400).json({ error: "Missing slug" });
+
+  const { slug } = req.query;
+  if (!slug) {
+    return res.status(400).json({ error: "Missing slug" });
+  }
 
   try {
-    const response = await notion.databases.query({
+    // 1. Query the database for the post metadata
+    const dbResponse = await notion.databases.query({
       database_id: databaseId,
       filter: {
         property: "Slug",
@@ -22,29 +26,35 @@ export default async function handler(req, res) {
       page_size: 1,
     });
 
-    if (!response.results.length) {
+    if (!dbResponse.results.length) {
       return res.status(404).json({ error: "Post not found" });
     }
 
-    const page = response.results[0];
+    const page = dbResponse.results[0];
     const props = page.properties || {};
 
-    // get full recordMap (server-side)
+    // 2. Get the full recordMap (blocks, code, paragraphs, etc.)
     const recordMap = await unofficialNotion.getPage(page.id);
 
-    return res.json({
+    // 3. Return structured metadata + block content
+    return res.status(200).json({
       id: page.id,
       title: props.Title?.title?.[0]?.plain_text || "Untitled",
       slug: props.Slug?.rich_text?.[0]?.plain_text || "",
       date: props["Publish Date"]?.date?.start || "",
       excerpt: props.Excerpt?.rich_text?.[0]?.plain_text || "",
-      readTime: props["Read Time"]?.number ? `${props["Read Time"].number} min read` : "",
+      readTime: props["Read Time"]?.number
+        ? `${props["Read Time"].number} min read`
+        : "",
       isNew: props.New?.checkbox || false,
       status: props.Status?.select?.name || "Draft",
-      recordMap,
+      recordMap, // full block content (this includes your "hello world" code block)
     });
   } catch (error) {
     console.error("Post fetch error:", error);
-    return res.status(500).json({ error: "Failed to fetch post", details: error?.message || error });
+    return res.status(500).json({
+      error: "Failed to fetch post",
+      details: error?.message || error,
+    });
   }
 }

@@ -9,15 +9,19 @@ import ScrollAnimation from "@/components/ScrollAnimation";
 
 import { NotionRenderer } from "react-notion-x";
 import { Code } from "react-notion-x/build/third-party/code";
+// Optional: add more renderers if needed
+// import { Collection } from "react-notion-x/build/third-party/collection";
+// import { Equation } from "react-notion-x/build/third-party/equation";
+
 import "react-notion-x/src/styles.css";
-import "prismjs/themes/prism.css";
-import "katex/dist/katex.min.css";
+// import "prismjs/themes/prism.css";
+// import "katex/dist/katex.min.css";
 
 interface Post {
   id: string;
   title: string;
   excerpt: string;
-  recordMap: any; // Notion recordMap
+  recordMap: any;
   date: string;
   readTime?: string;
   slug: string;
@@ -43,7 +47,7 @@ const BlogPost = () => {
           slug: data.slug,
           date: data.date,
           readTime: data.readTime,
-          recordMap: data.recordMap, // fetched Notion recordMap
+          recordMap: data.recordMap,
         });
       } catch (err) {
         console.error(err);
@@ -118,6 +122,11 @@ const BlogPost = () => {
                     <NotionRenderer
                       recordMap={post.recordMap}
                       fullPage={false}
+                      components={{
+                        Code, // enable code block rendering
+                        // Equation,
+                        // Collection,
+                      }}
                       className="text-foreground"
                     />
                   )}
