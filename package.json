@@ -1,18 +1,13 @@
 {
   "name": "vite_react_shadcn_ts",
   "private": true,
-  "homepage": "https://irtiza-zaidi.github.io/Irtiza/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "build:dev": "vite build --mode development",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
-  },
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview"
+},
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@notionhq/client": "^2.3.0",
@@ -59,7 +54,6 @@
     "next-themes": "^0.3.0",
     "notion-client": "^7.6.0",
     "notion-utils": "^7.6.0",
-    "prism-react-renderer": "^2.4.1",
     "prismjs": "^1.30.0",
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
