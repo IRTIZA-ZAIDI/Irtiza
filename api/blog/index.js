@@ -32,6 +32,7 @@ export default async function handler(req, res) {
         excerpt: props.Excerpt?.rich_text?.[0]?.plain_text || "",
         readTime: readTimeNumber ? `${readTimeNumber} min read` : "—",
         isNew: props.New?.checkbox || false,
+        featured: props["Featured Work"]?.checkbox || false,
         pageUrl: `https://www.notion.so/${page.id.replace(/-/g, "")}`,
       };
     });
@@ -39,6 +40,11 @@ export default async function handler(req, res) {
     return res.status(200).json(posts);
   } catch (error) {
     console.error("Notion fetch error:", error);
-    return res.status(500).json({ error: "Failed to fetch posts", details: error?.message || error });
+    return res
+      .status(500)
+      .json({
+        error: "Failed to fetch posts",
+        details: error?.message || error,
+      });
   }
 }

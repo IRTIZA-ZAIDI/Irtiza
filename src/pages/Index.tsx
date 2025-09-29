@@ -3,7 +3,6 @@ import BlogCard from "@/components/BlogCard";
 import ProjectCard from "@/components/ProjectCard";
 import ScrollAnimation from "@/components/ScrollAnimation";
 import { Button } from "@/components/ui/button";
-import { blogPosts } from "@/data/blog-posts";
 import { projects } from "@/data/projects";
 import { ArrowRight, Github, Linkedin, Mail, Download } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -12,25 +11,40 @@ import { useLocation } from "react-router-dom"; // If using React Router
 import Hero from "@/components/Hero";
 
 const Index = () => {
-  const featuredPosts = blogPosts.filter((post) => post.featured).slice(0, 2);
   const featuredProjects = projects
     .filter((project) => project.featured)
     .slice(0, 2);
 
+  const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
+  // fetch blog posts from Notion API
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch("/api/blog");
+        const data = await res.json();
+        setPosts(data);
+      } catch (err) {
+        console.error("Failed to fetch posts", err);
+      }
+    };
+    fetchPosts();
+  }, []);
+
+  const featuredPosts = posts.filter((post) => post.featured).slice(0, 2);
+
+  // loader logic
   useEffect(() => {
     const isDirectVisit =
       document.referrer === "" || // No referrer → fresh tab or bookmark
       !document.referrer.startsWith(window.location.origin); // Came from outside domain
 
     if (isDirectVisit) {
-      // Keep loader for 3 seconds
       const timer = setTimeout(() => setLoading(false), 3000);
       return () => clearTimeout(timer);
     } else {
-      // Skip loader if came from within the app
       setLoading(false);
     }
   }, [location.pathname]);

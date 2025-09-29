@@ -47,7 +47,6 @@ export default async function handler(req, res) {
         ? `${props["Read Time"].number} min read`
         : "",
       isNew: props.New?.checkbox || false,
-      status: props.Status?.select?.name || "Draft",
       recordMap, // full block content (this includes your "hello world" code block)
     });
   } catch (error) {
